@@ -10,5 +10,53 @@
     <link rel="stylesheet" href="./css/calendar.css" />
     <link rel="stylesheet" href="./css/footer.css" />
   </head>
-  <body></body>
+  <style>
+    .wrap {
+      height: 1524px;
+      margin: 0 auto;
+    }
+    .calendar-page {
+      width: calc(100% - 20px);
+      max-width: 1165px;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+    }
+    .br12 {
+      width: 280px;
+      height: 250px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 15px 0px;
+      background-color: rgb(255, 255, 255);
+      padding: 24px 30px 32px;
+      position: relative;
+    }
+
+    .cal-left {
+      margin-right: 30px;
+    }
+
+    .calendar {
+      width: 810px;
+      height: 690px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <main class="calendar-page">
+          <div class="cal-left">
+            <div class="calendar-img br12"></div>
+            <div class="calendar-add br12"></div>
+          </div>
+          <div class="cal-right">
+            <div class="calendar br12"></div>
+          </div>
+    </main>
+  </div>
+</body>
 </html>
+
+
