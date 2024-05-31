@@ -41,7 +41,7 @@ body {
   position: relative;
 }
 .inner {
-  width: calc(100% - 30px);
+  width: 100%;
   max-width: 940px;
   display: flex;
   align-items: center;
