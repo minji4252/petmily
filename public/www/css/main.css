@@ -1,2 +1,77 @@
+/* 클릭시 사진이 변경되는 사진 부분 */
 .main-sec-1 {
+  padding-left: 214px;
+}
+.m-top-random {
+  width: 100%;
+  /* max-width: 1719px; */
+
+  height: 487px;
+
+  border-radius: 40px 999em 999em 40px;
+  background-color: hotpink;
+
+  background: dodgerblue;
+  border-radius: 999em 40px 40px 999em;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding-right: 202px;
+}
+
+.m-tr-text {
+  text-align: right;
+  color: white;
+  font-size: 53px;
+  font-family: "Pretendard-Regular", sans-serif;
+  font-weight: 600;
+  letter-spacing: 10.6px;
+  word-wrap: break-word;
+
+  text-align: right;
+  line-height: 1.2;
+}
+
+.m-tr-text-2 {
+  color: white;
+  font-size: 25px;
+  font-family: "Pretendard-Regular", sans-serif;
+  font-weight: 500;
+  line-height: 35px;
+  word-wrap: break-word;
+  text-align: right;
+}
+
+.m-tr-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+/* main-sec-1 부분 - 캘린더 */
+.main-sec-2 {
+  display: grid;
+}
+
+.main-calendar-sync {
+  width: 100%;
+  max-width: 432px;
+  height: 388px;
+
+  background-color: hotpink;
+}
+
+.m-r-calendar {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* main-sec-1 부분 - 투두 */
+.main-todo-sync {
+  width: 100%;
+  max-width: 678px;
+  height: 388px;
+  background-color: blueviolet;
 }
