@@ -121,8 +121,7 @@
 }
 
 .todo-left-detail-delete {
-  width: 15px;
-  height: 15px;
+  cursor: pointer;
   display: flex;
   align-items: center;
 }
@@ -241,7 +240,8 @@
 }
 
 .realdelete {
-  display: flex;
+  top: 0;
+  display: none;
   position: fixed;
   flex-direction: column;
   gap: 30px;
@@ -252,8 +252,35 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
+.realdelete.open {
+  display: flex;
+}
+
 .realdelete p {
   color: #000;
   text-align: center;
   font-size: 50px;
+}
+
+.delete-button {
+  cursor: pointer;
+  display: flex;
+  width: 200px;
+  height: 80px;
+  padding: 20px 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 500px;
+  border: 2px solid #a47e6d;
+  background: #fff;
+}
+
+.delete-button p {
+  color: #a47e6d;
+  text-align: center;
+  font-size: 30px;
+}
+.todo-right-detail-left-icon {
+  cursor: pointer;
+  display: none;
 }
