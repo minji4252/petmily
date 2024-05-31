@@ -1,4 +1,5 @@
 .todo-main {
+  font: "Pretendard-Regular";
   width: 100%;
   display: flex;
   gap: 10px 60px;
@@ -65,10 +66,17 @@
   width: 100%;
   height: auto;
 }
+.todo-left-top {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
 
 .todo-left-clear {
+  width: 100%;
   height: 23px;
-  align-self: stretch;
   font-size: 20px;
   font-weight: 600;
   color: #e13838;
@@ -180,4 +188,72 @@
   color: #694e42;
   font-size: 25px;
   font-weight: 600;
+}
+
+.todo-right-create-box {
+  display: flex;
+  padding: 10px 12.5px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 30px;
+  background-color: #fff;
+}
+
+.todo-right-create-input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  box-sizing: border-box;
+  background-color: transparent;
+  align-items: center;
+  outline: none;
+}
+
+.todo-right-box {
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding: 10px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #795a4b;
+}
+
+.todo-right-detail-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.todo-right-detail-left a {
+  display: flex;
+  align-items: center;
+}
+
+.todo-right-detail-text {
+  color: rgba(135, 110, 99, 0.5);
+  font-size: 20px;
+  text-decoration: line-through;
+}
+.todo-right-detail-right-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.realdelete {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.realdelete p {
+  color: #000;
+  text-align: center;
+  font-size: 50px;
 }
