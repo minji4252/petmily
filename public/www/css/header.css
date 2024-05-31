@@ -48,9 +48,7 @@
   align-items: center;
 }
 .header-logo-img {
-  width: 160px;
-  height: 80px;
-  /* margin-right: 5px; */
+  width: 130px;
 }
 
 .navi-list {
@@ -62,8 +60,9 @@
 .navi-list a {
   color: #896555;
   font-size: 20px;
-  font-family: "Pretendard-Regular", sans-serif;
   font-weight: 500;
+  font-family: "Pretendard-Bold", sans-serif;
+  font-weight: 700;
   letter-spacing: 2px;
   word-wrap: break-word;
 }

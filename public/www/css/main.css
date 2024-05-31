@@ -52,7 +52,14 @@
 
 /* main-sec-1 부분 - 캘린더 */
 .main-sec-2 {
+  width: 100%;
+  margin-top: 320px;
+}
+
+.main-sec-2-inner {
   display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 36px;
 }
 
 .main-calendar-sync {
@@ -61,11 +68,23 @@
   height: 388px;
 
   background-color: hotpink;
+  border: 21px solid #896555;
+  border-radius: 30px;
 }
 
 .m-r-calendar {
   display: flex;
   justify-content: space-between;
+
+  margin-bottom: 25px;
+}
+
+.m-r-calendar a {
+  color: #694e42;
+
+  text-shadow:
+    2px 8px 6px rgba(0, 0, 0, 0.2),
+    0px -3px 20px rgba(255, 255, 255, 0.4);
 }
 
 /* main-sec-1 부분 - 투두 */
@@ -74,4 +93,13 @@
   max-width: 678px;
   height: 388px;
   background-color: blueviolet;
+
+  background-color: hotpink;
+  border: 21px solid #f3ccb6;
+  border-radius: 30px;
+}
+.m-r-todo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
 }
