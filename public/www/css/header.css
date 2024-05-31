@@ -25,6 +25,21 @@
   margin: 0px auto;
 }
 
+.nav-inner a:hover {
+  border: none;
+  color: white;
+
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
+  transition-duration: 0.4s;
+  cursor: pointer;
+
+  background-color: #c1a89c;
+  color: white;
+}
+
 .header .inner {
   height: 100px;
 }
@@ -50,7 +65,7 @@
   color: #896555;
   font-size: 20px;
   font-family: "Pretendard-Regular", sans-serif;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 2px;
   word-wrap: break-word;
 }

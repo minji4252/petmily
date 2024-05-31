@@ -1,9 +1,19 @@
 /* 폰트 */
+@charset "utf-8";
 @font-face {
   font-family: "Pretendard-Regular";
   src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
     format("woff");
   font-weight: 400;
+  font-style: normal;
+}
+
+/* 폰트 굵게 할려니 안돼서 추가했습니다(박민경) */
+@font-face {
+  font-family: "Pretendard-Medium";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff")
+    format("woff");
+  font-weight: 500;
   font-style: normal;
 }
 * {
