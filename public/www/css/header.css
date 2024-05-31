@@ -1,7 +1,7 @@
 /* 박민경 */
 
 .header {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   /* z-index -> 맨 위로 오게하기 */
@@ -52,7 +52,6 @@
   width: 160px;
   height: 80px;
   /* margin-right: 5px; */
-  background-color: hotpink;
 }
 
 .navi-list {
