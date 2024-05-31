@@ -4,12 +4,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* 임시 */
   height: 100vh;
 }
 
 .container {
-  width: 575px;
-  height: 514px;
+  width: 460px;
   padding: 20px;
   border-radius: 5px;
 }
@@ -19,6 +19,16 @@
   text-align: center;
   font-size: 16px;
   color: #a47e6d;
+  font-weight: 600;
+}
+
+.mily-img-group {
+  text-align: center;
+}
+
+.mily-img {
+  width: 40px;
+  height: 40px;
 }
 
 .login-line {
@@ -27,33 +37,48 @@
   margin-bottom: 50px;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .login-form input[type="email"],
 .login-form input[type="password"] {
   width: 100%;
+  height: 50px;
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #cbb1a2;
-  /* border-radius: 3px; */
   box-sizing: border-box;
   background-color: transparent;
 }
 
+.login-form input::placeholder {
+  color: #d5c3bc;
+}
+
 .login-form button {
   width: 100%;
-  height: 75px;
+  height: 55px;
   padding: 10px;
   border: none;
-  border-radius: 3px;
+  border-radius: 5px;
   color: #fff;
   cursor: pointer;
   margin-top: 55px;
   background-color: #a47e6d;
+  font-size: 16px;
 }
 
 /* .login-form input[type="submit"]:hover {
     background-color: 
   } */
 
-.join {
+.join-btn {
   float: right;
+  background-color: transparent;
+  border: none;
+  color: #a47e6d;
+  margin-top: 10px;
 }
