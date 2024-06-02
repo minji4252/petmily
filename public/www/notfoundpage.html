@@ -3,12 +3,101 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Not found page</title>
+    <title>404 Not Found</title>
+    <link
+      rel="stylesheet"
+      href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
+    />
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/common.css" />
     <link rel="stylesheet" href="./css/header.css" />
     <link rel="stylesheet" href="./css/notfoundpage.css" />
     <link rel="stylesheet" href="./css/footer.css" />
   </head>
-  <body></body>
+  <body>
+    <div class="wrap error-wrap">
+      <header class="header">
+        <div class="nav-inner">
+          <div class="header-logo">
+            <a href="index.html" class="header-logo-link">
+              <img
+                src="./image/petmily-header.png"
+                alt="팻밀리 로고"
+                class="header-logo-img"
+              />
+            </a>
+          </div>
+          <ul class="navi-list">
+            <li><a href="#">일정</a></li>
+            <li><a href="#">캘린더</a></li>
+            <li><a href="#">게시판</a></li>
+          </ul>
+          <ul class="navi-list-2">
+            <li><a href="#">로그인</a></li>
+            <li><a href="#">회원가입</a></li>
+          </ul>
+        </div>
+      </header>
+
+      <main class="error-inner">
+        <section class="notf-sec-1">
+          <p class="error-title">Page Not Found</p>
+          <div class="error-cat-box">
+            <img
+              src="./image/error-cat.png"
+              alt="에러 일러스트"
+              class="error-cat-i"
+            />
+            <p class="error-cat-m">
+              찾으려는 페이지의 주소가 잘못 입력되었거나<br />
+              요청하신 주소의 변경 혹은 삭제로 인해 사용할 수 없습니다.<br />
+              정확한 주소를 다시 한번 확인해주세요.
+            </p>
+          </div>
+          <button class="error-btn">메인으로</button>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="inner">
+          <div class="footer-left">
+            <a href="index.html" class="footer-logo">
+              <img
+                src="./image/petmily-footer.png"
+                alt="팻밀리 로고"
+                class="footer-logo-link"
+              />
+            </a>
+            <ul class="footer-l-info">
+              <li>
+                <a href="#" class="footer-map"
+                  >고객센터 · 문의하기 · 이용약관 · 사이트 ·
+                  <span class="footer-p-info">개인정보처리방침</span></a
+                >
+              </li>
+              <li>
+                <a href="#" class="footer-cr"
+                  >Copyright © PETMILY All Right Reserved.</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="footer-right">
+            <ul class="sns-list">
+              <li>
+                <a href="#"><i class="xi-instagram"></i></a>
+              </li>
+              <li>
+                <a href="#"><i class="xi-naver"></i></a>
+              </li>
+
+              <li>
+                <a href="#"><i class="xi-youtube-play"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
 </html>

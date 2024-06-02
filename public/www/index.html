@@ -14,9 +14,10 @@
     <link rel="stylesheet" href="./css/header.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/footer.css" />
+    <script src="../www/js/main/randompics.js"></script>
   </head>
   <body>
-    <div class="wrap">
+    <div class="wrap main-wrap">
       <header class="header">
         <div class="nav-inner">
           <div class="header-logo">
@@ -42,7 +43,7 @@
 
       <main class="main">
         <section class="main-sec-1">
-          <div class="m-top-random">
+          <div class="m-top-random" id="random-image">
             <div class="m-tr-texts">
               <p class="m-tr-text">
                 반려동물의<br />
@@ -56,29 +57,65 @@
             </div>
           </div>
         </section>
-        <div class="inner">
+        <div class="inner main-space">
           <section class="main-sec-2">
             <div class="main-sec-2-inner">
               <div class="main-calendar-box">
                 <div class="m-r-calendar">
-                  <a href="#">이번달 스케줄</a>
-                  <span><a href="#">자세히 보기</a></span>
+                  <a href="#" class="mrc-side-l">이번달 스케줄</a>
+                  <span><a href="#" class="mrc-side">자세히 보기</a></span>
                 </div>
                 <div class="main-calendar-sync"></div>
               </div>
 
               <div class="main-todo-box">
                 <div class="m-r-todo">
-                  <a href="#">다가오는 일정</a>
-                  <span><a href="#">더보기</a></span>
+                  <a href="#" class="mrc-side-l">다가오는 일정</a>
+                  <span><a href="#" class="mrc-side">더보기</a></span>
                 </div>
                 <div class="main-todo-sync"></div>
               </div>
             </div>
           </section>
 
-          <section class="main-sec-3"></section>
-          <section class="main-sec-4"></section>
+          <section class="main-sec-3">
+            <div class="main-sec-3-inner">
+              <div class="main-animal-box">
+                <div class="m-r-animal mra-extra">
+                  <a href="#" class="animal-txt">나의 반려동물 관리</a>
+                  <span
+                    ><a href="#" class="main-plus-i"
+                      ><i class="xi-plus-square"></i></a
+                  ></span>
+                </div>
+
+                <div class="main-animal-sync">
+                  <div class="mas-icon-lists-1">
+                    <a href="#" class="mas-icon-1"></a>
+                    <a href="#" class="mas-icon-2"></a>
+                    <a href="#" class="mas-icon-3"></a>
+                  </div>
+                  <div class="mas-icon-lists-2">
+                    <a href="#" class="mas-icon-4"></a>
+                    <a href="#" class="mas-icon-5"></a>
+                    <a href="#" class="mas-icon-6"></a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="animal-pics-box">
+                <div class="m-r-animal">
+                  <a href="#" class="animal-txt">동물 친구들</a>
+                </div>
+                <div class="main-animal-pics-sync"></div>
+              </div>
+            </div>
+          </section>
+          <section class="main-sec-4">
+            <div class="main-bottom-slide">
+              <a href="#" class="mb-slide"></a>
+            </div>
+          </section>
         </div>
       </main>
 
