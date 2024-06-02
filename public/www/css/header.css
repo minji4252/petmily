@@ -1,6 +1,8 @@
 /* 박민경 */
 
 .header {
+  position: fixed;
+
   top: 0;
   left: 0;
   /* z-index -> 맨 위로 오게하기 */
@@ -10,9 +12,10 @@
   display: block;
   border-bottom: 1px solid #896555;
   z-index: 999999;
-  /* background-color: #fefbf8; */
+  background-color: #fefbf8;
 
   display: flex;
+  padding: 0 15px;
 }
 
 .nav-inner {
@@ -24,7 +27,8 @@
   margin: 0px auto;
 }
 
-.nav-inner a:hover {
+.navi-list a:hover,
+.navi-list-2 a:hover {
   border: none;
   color: white;
 
@@ -84,4 +88,36 @@
 .header-navi {
   display: flex;
   gap: 373px;
+}
+
+@media all and (max-width: 1380px) {
+  .header-logo-img {
+    width: 101px;
+  }
+  .navi-list {
+    gap: 90px;
+  }
+
+  .navi-list-2 {
+    gap: 18px;
+  }
+}
+
+@media all and (max-width: 940px) {
+  .navi-list a {
+    font-size: 26px;
+  }
+
+  .navi-list-2 a {
+    font-size: 22px;
+  }
+}
+
+@media all and (max-width: 830px) {
+  .navi-list {
+    gap: 53px;
+  }
+}
+
+@media all and (max-width: 768px) {
 }
