@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/popup.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
+  </head>
+  <style>
+    /* 임시 */
+    button {
+      width: 80px;
+      font-size: 11px;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 30px;
+      background-color: #a47e6d;
+      color: #fff;
+      border: none;
+    }
+
+    /* 공통 */
+    .b12 {
+      border-radius: 13px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
+      background-color: rgb(255, 255, 255);
+    }
+
+    .wrap {
+      max-width: 490px;
+      width: 100%;
+      height: 720px;
+      padding: 80px 100px 0px 100px;
+    }
+
+    form p {
+      font-size: 12px;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+
+    /* 닫기버튼 */
+    .close-btn {
+      position: absolute;
+      top: 32px;
+      right: 37px;
+      cursor: pointer;
+    }
+    /* 제목 */
+    .pet-regist-title {
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #694e42;
+    }
+
+    /* 반려동물 이름 & 종류 공통 */
+    .input {
+      background-color: fff;
+      width: 200px;
+      height: 27px;
+      border-radius: 50px;
+      border: 1px solid #cbd5e1;
+      padding: 8px;
+    }
+
+    .input::placeholder {
+      font-size: 10px;
+      color: #888;
+    }
+    /* 반려동물 이름 */
+
+    /* 반려동물 종류 */
+
+    /* 사진 등록 */
+    .pet-img-regist {
+      height: 130px;
+      border-radius: 7px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 아이콘 & 배경색 공통 */
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    input[type="radio"]:checked + img {
+      border: 2px solid #d1baaf;
+      border-radius: 50%;
+    }
+
+    /* 아이콘 선택 */
+
+    .pet-icons {
+      height: 60px;
+    }
+
+    .pet-icons img {
+      width: 30px;
+    }
+
+    /* 배경색 선택 */
+    .back-colors {
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .back-colors img {
+      width: 30px;
+    }
+
+    /* 버튼 */
+    .form-btn {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+  </style>
+  <body>
+    <div class="wrap b12">
+      <svg
+        class="close-btn"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M19.5459 17.954C19.7572 18.1653 19.876 18.452 19.876 18.7509C19.876 19.0497 19.7572 19.3364 19.5459 19.5477C19.3346 19.7591 19.0479 19.8778 18.749 19.8778C18.4501 19.8778 18.1635 19.7591 17.9521 19.5477L12 13.5937L6.0459 19.5459C5.83455 19.7572 5.54791 19.8759 5.24902 19.8759C4.95014 19.8759 4.66349 19.7572 4.45215 19.5459C4.2408 19.3345 4.12207 19.0479 4.12207 18.749C4.12207 18.4501 4.2408 18.1635 4.45215 17.9521L10.4062 11.9999L4.45402 6.04586C4.24268 5.83451 4.12395 5.54787 4.12395 5.24898C4.12395 4.9501 4.24268 4.66345 4.45402 4.45211C4.66537 4.24076 4.95201 4.12203 5.2509 4.12203C5.54978 4.12203 5.83643 4.24076 6.04777 4.45211L12 10.4062L17.954 4.45117C18.1654 4.23983 18.452 4.12109 18.7509 4.12109C19.0498 4.12109 19.3364 4.23983 19.5478 4.45117C19.7591 4.66251 19.8778 4.94916 19.8778 5.24804C19.8778 5.54693 19.7591 5.83358 19.5478 6.04492L13.5937 11.9999L19.5459 17.954Z"
+          fill="#475569"
+        />
+      </svg>
+      <h1 class="pet-regist-title">반려동물 등록</h1>
+      <form class="pet-regist-form" action="#" method="post">
+        <label for="pet-name">
+          <p>반려동물 이름</p>
+          <input
+            id="pet-name"
+            class="input"
+            type="text"
+            name="petname"
+            placeholder="이름을 입력하세요."
+            required
+            autocomplete="off"
+          />
+        </label>
+        <label for="pet-kind">
+          <p>반려동물 종류</p>
+          <input
+            id="pet-kind"
+            class="input"
+            type="text"
+            name="petkind"
+            placeholder="반려동물 종류를 입력하세요."
+            required
+            autocomplete="off"
+          />
+        </label>
+        <p>사진 등록</p>
+        <div class="pet-img-regist b12">
+          <button type="button">사진 첨부</button>
+        </div>
+        <p>아이콘 선택</p>
+        <div class="pet-icons b12">
+          <label>
+            <input type="radio" name="icon" value="icon-1" required />
+            <img src="./image/icon1.png" alt="Icon" />
+          </label>
+          <label>
+            <input type="radio" name="icon" value="icon-2" />
+            <img src="./image/icon1.png" alt="Icon" />
+          </label>
+          <label>
+            <input type="radio" name="icon" value="icon-3" />
+            <img src="./image/icon1.png" alt="Icon" />
+          </label>
+        </div>
+        <p>배경색 선택</p>
+        <div class="back-colors b12">
+          <label>
+            <input type="radio" name="color" value="color-1" required />
+            <img src="./image/c-1.png" alt="color" />
+          </label>
+          <label>
+            <input type="radio" name="color" value="color-2" />
+            <img src="./image/c-2.png" alt="color" />
+          </label>
+          <label>
+            <input type="radio" name="color" value="color-3" />
+            <img src="./image/c-3.png" alt="color" />
+          </label>
+          <label>
+            <input type="radio" name="color" value="color-4" />
+            <img src="./image/c-4.png" alt="color" />
+          </label>
+          <label>
+            <input type="radio" name="color" value="color-5" />
+            <img src="./image/c-5.png" alt="color" />
+          </label>
+          <label>
+            <input type="radio" name="color" value="color-6" />
+            <img src="./image/c-6.png" alt="color" />
+          </label>
+        </div>
+        <div class="form-btn">
+          <button type="button">취소하기</button>
+          <button type="submit">등록하기</button>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    window.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // 반려동물 이름
+      const petName = document.getElementById("pet-name");
+      alert(`반려동물 이름: ${petName.value}`);
+
+      // 반려동물 종류
+      const petKind = document.getElementById("pet-kind");
+      alert(`반려동물 종류: ${petKind.value}`);
+
+      // 아이콘 선택
+      const selectedIcon = document.querySelector('input[name="icon"]:checked');
+      if (selectedIcon) {
+        alert(`선택된 아이콘: ${selectedIcon.value}`);
+      } else {
+        alert("아이콘을 선택해주세요.");
+      }
+
+      // 배경색 선택
+      const selectedColor = document.querySelector(
+        'input[name="color"]:checked',
+      );
+      if (selectedColor) {
+        alert(`선택된 배경색: ${selectedColor.value}`);
+      } else {
+        alert("배경색을 선택해주세요.");
+      }
+    });
+  </script>
+</html>
