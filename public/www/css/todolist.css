@@ -1,5 +1,4 @@
 .todo-main {
-  font: "Pretendard-Regular";
   width: 100%;
   display: flex;
   gap: 10px 60px;
@@ -7,6 +6,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 30px 0;
+  font: "Pretendard-Regular";
 }
 
 .todo-search-box {
@@ -69,9 +69,9 @@
 .todo-left-top {
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 20px;
+  align-items: center;
+  flex-direction: column;
 }
 
 .todo-left-clear {
@@ -121,13 +121,15 @@
 }
 
 .todo-left-detail-delete {
-  cursor: pointer;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .todo-right {
   width: 100%;
+  max-width: 440px;
+  min-width: 440px;
   min-height: 800px;
   display: flex;
   gap: 20px;
@@ -184,44 +186,44 @@
 }
 
 .todo-right-title {
-  color: #694e42;
   font-size: 25px;
   font-weight: 600;
+  color: #694e42;
 }
 
 .todo-right-create-box {
   display: flex;
-  padding: 10px 12.5px;
-  justify-content: space-between;
   align-items: center;
-  border-radius: 30px;
+  justify-content: space-between;
+  padding: 10px 12.5px;
   background-color: #fff;
+  border-radius: 30px;
 }
 
 .todo-right-create-input {
   width: 100%;
+  align-items: center;
   padding: 10px;
   border: none;
-  box-sizing: border-box;
-  background-color: transparent;
-  align-items: center;
   outline: none;
+  background-color: transparent;
+  box-sizing: border-box;
 }
 
 .todo-right-box {
-  display: flex;
   width: 100%;
   height: auto;
-  padding: 10px 20px;
-  justify-content: space-between;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
   border-bottom: 1px solid #795a4b;
 }
 
 .todo-right-detail-left {
   display: flex;
-  align-items: center;
   gap: 20px;
+  align-items: center;
 }
 .todo-right-detail-left a {
   display: flex;
@@ -229,26 +231,35 @@
 }
 
 .todo-right-detail-text {
-  color: rgba(135, 110, 99, 0.5);
   font-size: 20px;
-  text-decoration: line-through;
+  color: rgba(135, 110, 99, 0.5);
+  text-decoration: none;
+  word-break: break-all;
 }
-.todo-right-detail-right-icons {
+
+.todo-right-detail-right {
   display: flex;
-  align-items: center;
   gap: 5px;
+  align-items: center;
+}
+
+.todo-right-detail-right-modify {
+  cursor: pointer;
+}
+.todo-right-detail-right-delete {
+  cursor: pointer;
 }
 
 .realdelete {
-  top: 0;
-  display: none;
   position: fixed;
-  flex-direction: column;
-  gap: 30px;
+  top: 0;
   width: 100%;
   height: 100%;
-  justify-content: center;
+  display: none;
+  gap: 30px;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -257,30 +268,59 @@
 }
 
 .realdelete p {
+  font-size: 50px;
   color: #000;
   text-align: center;
-  font-size: 50px;
 }
 
 .delete-button {
-  cursor: pointer;
-  display: flex;
   width: 200px;
   height: 80px;
-  padding: 20px 0;
-  justify-content: center;
+  display: flex;
   align-items: center;
-  border-radius: 500px;
+  justify-content: center;
+  padding: 20px 0;
   border: 2px solid #a47e6d;
   background: #fff;
+  cursor: pointer;
+  border-radius: 500px;
 }
 
 .delete-button p {
+  font-size: 30px;
   color: #a47e6d;
   text-align: center;
-  font-size: 30px;
 }
-.todo-right-detail-left-icon {
+
+.todo-right-detail-left-icon-empty {
+  min-width: 24px;
+  min-height: 24px;
   cursor: pointer;
+}
+
+.todo-right-detail-left-icon {
+  min-width: 24px;
+  min-height: 24px;
   display: none;
+  cursor: pointer;
+}
+
+.todo-right-create-icon {
+  cursor: pointer;
+}
+.checkbox {
+  cursor: pointer;
+}
+
+@media all and (max-width: 768px) {
+  .todo-main {
+    justify-content: center;
+  }
+  .todo-left {
+    margin: 0 50px;
+    display: none;
+  }
+  .todo-right {
+    margin: 0 50px;
+  }
 }
