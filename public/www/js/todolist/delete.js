@@ -3,7 +3,6 @@ window.addEventListener("load", function () {
   const deleteIcon = document.querySelector(".todo-left-detail-delete");
 
   deleteIcon.addEventListener("click", () => {
-    completeList.innerHTML = "";
-    completeList.style.borderBottom = "none";
+    completeList.remove();
   });
 });
