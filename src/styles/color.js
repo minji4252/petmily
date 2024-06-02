@@ -23,6 +23,14 @@ export const colorSystem = {
   g700: "#5c5c5c",
   g800: "#424242",
   g900: "#292929",
+
+  // 기타
+  title: "#694E42",
+  itemtitle: "#475569",
+  placeholder: "#BCB6B2",
+  error: "#E13838",
+  white: "#fff",
+  black: "#000",
 };
 
 export const fontSystem = {
