@@ -1,43 +1,31 @@
-import styled from "@emotion/styled";
-import React from "react";
-
-const HeaderStyle = styled.header`
-  width: 100%;
-  height: 100px;
-  display: block;
-  border-bottom: 1px solid #896555;
-  z-index: 999999;
-  /* background-color: #fefbf8; */
-  display: flex;
-`;
-
-const NavInnerStyle = styled.div`
-  width: calc(100% - 30px);
-  max-width: 1465px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0px auto;
-`;
+import "../../styles/header.css";
+import "../../styles/global.css";
+import "../../styles/reset.css";
+import { Link } from "react-router-dom";
+import petmilyLogo from "../../images/petmily-header.png";
 
 const Header = () => {
   return (
-    <HeaderStyle className="header">
-      {/* <div className="nav-inner">
+    <header className="header">
+      <div className="nav-inner">
         <div className="header-logo">
-          <a href="index.html" className="header-logo-link">
-            <img src="#" alt="팻밀리" className="header-logo-img" />
-          </a>
+          <Link to="/" className="header-logo-link">
+            <img
+              src={petmilyLogo}
+              alt="팻밀리 로고"
+              className="header-logo-img"
+            />
+          </Link>
         </div>
         <ul className="navi-list">
           <li>
-            <a href="#">일정</a>
+            <Link to="/todolist">일정</Link>
           </li>
           <li>
-            <a href="#">캘린더</a>
+            <Link to="/calendar">캘린더</Link>
           </li>
           <li>
-            <a href="#">게시판</a>
+            <Link to="/">게시판</Link>
           </li>
         </ul>
         <ul className="navi-list-2">
@@ -48,8 +36,8 @@ const Header = () => {
             <a href="#">회원가입</a>
           </li>
         </ul>
-      </div> */}
-    </HeaderStyle>
+      </div>
+    </header>
   );
 };
 

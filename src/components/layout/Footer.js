@@ -1,19 +1,21 @@
-import React from "react";
-import styled from "@emotion/styled";
-
-const FooterStyle = styled.footer`
-  height: 215px;
-  background-color: #a47e6d;
-`;
+import "../../styles/footer.css";
+import "../../styles/global.css";
+import "../../styles/reset.css";
+import petmilyFooter from "../../images/petmily-footer.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <FooterStyle className="footer">
-      {/* <div className="inner">
+    <footer className="footer">
+      <div className="inner">
         <div className="footer-left">
-          <a href="index.html" className="footer-logo">
-            <img src="#" alt="팻밀리" />
-          </a>
+          <Link to="/" className="footer-logo">
+            <img
+              src={petmilyFooter}
+              alt="팻밀리 로고"
+              className="footer-logo-link"
+            />
+          </Link>
           <ul className="footer-l-info">
             <li>
               <a href="#" className="footer-map">
@@ -48,8 +50,8 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-      </div> */}
-    </FooterStyle>
+      </div>
+    </footer>
   );
 };
 

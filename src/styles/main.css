@@ -25,7 +25,7 @@
 
   padding-right: 202px;
 
-  background: url("../image/ranpic1.jpg") no-repeat center;
+  background: url("../images/ranpic1.jpg") no-repeat center;
   background-size: cover;
 }
 
@@ -318,7 +318,7 @@
 .mb-slide {
   width: 100%;
   height: 100px;
-  background: url("../image/fastival-test.png") no-repeat center;
+  background: url("../images/fastival-test.png") no-repeat center;
   display: inline-block;
   background-size: cover;
   height: 30.63vw;
