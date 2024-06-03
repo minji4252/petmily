@@ -1,0 +1,123 @@
+/* 박민경 */
+
+.header {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+  /* z-index -> 맨 위로 오게하기 */
+
+  width: 100%;
+  height: 100px;
+  display: block;
+  border-bottom: 1px solid #896555;
+  z-index: 999999;
+  background-color: #fefbf8;
+
+  display: flex;
+  padding: 0 15px;
+}
+
+.nav-inner {
+  width: calc(100% - 30px);
+  max-width: 1465px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px auto;
+}
+
+.navi-list a:hover,
+.navi-list-2 a:hover {
+  border: none;
+  color: white;
+
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+
+  transition-duration: 0.4s;
+  cursor: pointer;
+
+  background-color: #c1a89c;
+  color: white;
+}
+
+.header .inner {
+  height: 100px;
+}
+
+.header-logo-link {
+  display: flex;
+  align-items: center;
+}
+.header-logo-img {
+  width: 130px;
+}
+
+.navi-list {
+  display: flex;
+  gap: 250px;
+  align-items: center;
+}
+
+.navi-list a {
+  color: #896555;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Pretendard-Bold", sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  word-wrap: break-word;
+}
+
+.navi-list-2 {
+  display: flex;
+  gap: 50px;
+}
+
+.navi-list-2 a {
+  color: #a47e6d;
+  font-size: 17px;
+  font-family: "Pretendard-Medium", sans-serif;
+  font-weight: 500;
+  letter-spacing: 1.7px;
+  word-wrap: break-word;
+}
+
+.header-navi {
+  display: flex;
+  gap: 373px;
+}
+
+@media all and (max-width: 1380px) {
+  .header-logo-img {
+    width: 101px;
+  }
+  .navi-list {
+    gap: 90px;
+  }
+
+  .navi-list-2 {
+    gap: 18px;
+  }
+}
+
+@media all and (max-width: 940px) {
+  .navi-list a {
+    font-size: 26px;
+  }
+
+  .navi-list-2 a {
+    font-size: 22px;
+  }
+}
+
+@media all and (max-width: 830px) {
+  .navi-list {
+    gap: 53px;
+  }
+}
+
+@media all and (max-width: 768px) {
+}

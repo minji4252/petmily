@@ -1,0 +1,60 @@
+/* 폰트 */
+@charset "utf-8";
+
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 폰트 굵게 할려니 안돼서 추가했습니다(박민경) */
+@font-face {
+  font-family: "Pretendard-Medium";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff")
+    format("woff");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard-Bold";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff")
+    format("woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+/* a태그 파란글씨 없애고 밑줄 삭제 */
+a {
+  color: #000000;
+  text-decoration: none;
+}
+/* 가로 스크롤바 삭제 */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  /* 폰트 패밀리 프리텐다드 */
+  background-color: #fefbf8;
+  font-family: "Pretendard-Regular", sans-serif;
+}
+
+.wrap {
+  position: relative;
+}
+.inner {
+  width: 100%;
+  max-width: 940px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px auto;
+}

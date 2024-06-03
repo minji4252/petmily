@@ -98,6 +98,9 @@
     0px -3px 20px rgba(255, 255, 255, 0.4);
 
   font-size: 20px;
+
+  font-family: "Pretendard-Regular", sans-serif;
+  font-weight: 400;
 }
 
 .mrc-side {
@@ -125,6 +128,33 @@
 }
 
 /* main-sec-3 부분 - 반려동물관리 */
+.maps-text {
+  font-size: 21px;
+  color: #fff;
+  text-align: center;
+}
+
+.main-animal-pics-sync {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-logos-i {
+  width: 66px;
+}
+
+.mas-icon-1,
+.mas-icon-2,
+.mas-icon-3,
+.mas-icon-4,
+.mas-icon-5,
+.mas-icon-6 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .animal-txt {
   font-size: 20px;
   font-family: "Pretendard-Medium", sans-serif;
@@ -171,7 +201,7 @@
   max-width: 432px;
   height: 388px;
 
-  background-color: hotpink;
+  background-color: #b1998b;
   border: 21px solid #cbb1a2;
   border-radius: 30px;
 }
@@ -343,6 +373,14 @@
 
 /* main-sec-3 반응형 */
 @media all and (max-width: 940px) {
+  .maps-text {
+    font-size: 30px;
+  }
+
+  .main-logos-i {
+    width: 109px;
+  }
+
   .main-sec-3-inner {
     grid-template-columns: 1fr;
   }

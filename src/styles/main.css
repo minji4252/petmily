@@ -1,0 +1,454 @@
+/* 클릭시 사진이 변경되는 사진 부분 */
+.main-wrap {
+  margin-top: 100px;
+}
+
+.main-sec-1 {
+  padding-left: 214px;
+  width: 100%;
+}
+.m-top-random {
+  width: 100%;
+  /* max-width: 1719px; */
+
+  height: 487px;
+
+  border-radius: 40px 999em 999em 40px;
+  background-color: hotpink;
+
+  /* background: dodgerblue; */
+  border-radius: 999em 40px 40px 999em;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding-right: 202px;
+
+  background: url("../images/ranpic1.jpg") no-repeat center;
+  background-size: cover;
+}
+
+.m-tr-text {
+  text-align: right;
+  color: white;
+  font-size: 53px;
+  font-family: "Pretendard-Regular", sans-serif;
+  font-weight: 600;
+  letter-spacing: 10.6px;
+  word-wrap: break-word;
+
+  text-align: right;
+  line-height: 1.2;
+}
+
+.m-tr-text-2 {
+  color: white;
+  font-size: 25px;
+  font-family: "Pretendard-Regular", sans-serif;
+  font-weight: 500;
+  line-height: 35px;
+  word-wrap: break-word;
+  text-align: right;
+}
+
+.m-tr-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+/* main-sec-2 부분 - 캘린더 */
+.main-sec-2 {
+  width: 100%;
+  margin-top: 320px;
+  padding: 0 15px;
+}
+
+.main-sec-2-inner {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 36px;
+}
+
+.main-calendar-sync {
+  width: 100%;
+  max-width: 432px;
+  height: 388px;
+
+  background-color: hotpink;
+  border: 21px solid #cbb1a2;
+  border-radius: 30px;
+}
+
+.m-r-calendar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 25px;
+  padding: 0 20px;
+}
+
+.mrc-side-l {
+  color: #694e42;
+
+  text-shadow:
+    2px 8px 6px rgba(0, 0, 0, 0.2),
+    0px -3px 20px rgba(255, 255, 255, 0.4);
+
+  font-size: 20px;
+
+  font-family: "Pretendard-Regular", sans-serif;
+  font-weight: 400;
+}
+
+.mrc-side {
+  color: #694e42;
+  font-size: 17px;
+}
+
+/* main-sec-2 부분 - 투두 */
+.main-todo-sync {
+  width: 100%;
+  max-width: 678px;
+  height: 388px;
+  background-color: blueviolet;
+
+  background-color: hotpink;
+  border: 21px solid #f3ccb6;
+  border-radius: 30px;
+}
+.m-r-todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 0 20px;
+}
+
+/* main-sec-3 부분 - 반려동물관리 */
+.maps-text {
+  font-size: 21px;
+  color: #fff;
+  text-align: center;
+}
+
+.main-animal-pics-sync {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-logos-i {
+  width: 66px;
+}
+
+.mas-icon-1,
+.mas-icon-2,
+.mas-icon-3,
+.mas-icon-4,
+.mas-icon-5,
+.mas-icon-6 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animal-txt {
+  font-size: 20px;
+  font-family: "Pretendard-Medium", sans-serif;
+  font-weight: 500;
+  color: #694e42;
+}
+
+.animal-margin {
+  margin-bottom: 2px;
+}
+.m-r-animal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 0 20px;
+}
+
+.main-animal-sync {
+  width: 100%;
+  max-width: 678px;
+  height: 388px;
+
+  background-color: #b1998c;
+  border: 21px solid #a47e6d;
+  border-radius: 30px;
+}
+
+.main-sec-3-inner {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr;
+  gap: 36px;
+}
+.animal-manage {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 25px;
+  padding: 0 20px;
+}
+
+.main-animal-pics-sync {
+  width: 100%;
+  max-width: 432px;
+  height: 388px;
+
+  background-color: #b1998b;
+  border: 21px solid #cbb1a2;
+  border-radius: 30px;
+}
+
+.main-sec-3 {
+  width: 100%;
+  margin-top: 320px;
+
+  padding: 0 15px;
+}
+
+.main-space {
+  flex-direction: column;
+}
+
+.xi-plus-square {
+  font-size: 31px;
+  color: #795a4b;
+}
+
+.xi-plus-square:hover {
+  font-size: 31px;
+  transition-duration: 0.4s;
+  color: #c1a89c;
+}
+
+.mra-extra {
+  margin-bottom: 14px;
+}
+
+/* 반려동물 관리 아이콘들 */
+.mas-icon-1 {
+  width: 80px;
+  height: 80px;
+  background-color: #a47e6d;
+  border-radius: 50%;
+}
+.mas-icon-2 {
+  width: 80px;
+  height: 80px;
+  background-color: #e87b4a;
+  border-radius: 50%;
+}
+.mas-icon-3 {
+  width: 80px;
+  height: 80px;
+  background-color: #73aaea;
+  border-radius: 50%;
+}
+.mas-icon-4 {
+  width: 80px;
+  height: 80px;
+  background-color: #72b881;
+  border-radius: 50%;
+}
+.mas-icon-5 {
+  width: 80px;
+  height: 80px;
+  background-color: #bcd233;
+  border-radius: 50%;
+}
+
+.mas-icon-6 {
+  width: 80px;
+  height: 80px;
+  background-color: #f5acac;
+  border-radius: 50%;
+}
+.mas-icon-lists-1 {
+  display: flex;
+  gap: 51px;
+}
+.mas-icon-lists-2 {
+  display: flex;
+  gap: 51px;
+}
+.main-animal-sync {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 60px;
+}
+
+/* 하단 슬라이드 */
+/* .mb-slider {
+  width: 100%;
+  max-width: 100%;
+
+  height: 30.63vw;
+  max-height: 288px;
+} */
+
+/* .main-bottom-slide {
+  width: 100%;
+  max-width: 90px;
+
+  height: 30.63vw;
+  max-height: 288px;
+} */
+.main-sec-4 {
+  width: 100%;
+  max-width: 940px;
+
+  height: 100%;
+  max-height: 288px;
+
+  padding: 0 15px;
+  margin-top: 320px;
+  margin-bottom: 282px;
+}
+
+.mb-slide {
+  width: 100%;
+  height: 100px;
+  background: url("../images/fastival-test.png") no-repeat center;
+  display: inline-block;
+  background-size: cover;
+  height: 30.63vw;
+  max-height: 288px;
+}
+
+/* 반응형 */
+@media all and (max-width: 1380px) {
+  .m-top-random {
+    padding-right: 96px;
+  }
+}
+
+/* main-sec-2 반응형 */
+@media all and (max-width: 940px) {
+  .m-top-random {
+    padding-right: 61px;
+  }
+
+  .m-tr-text {
+    font-size: 47px;
+  }
+
+  .m-tr-text-2 {
+    font-size: 23px;
+  }
+
+  .main-sec-2-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .main-calendar-sync {
+    max-width: 940px;
+    max-height: 910px;
+    height: 96.8vw;
+  }
+
+  .main-todo-sync {
+    max-width: 940px;
+    max-height: 910px;
+    height: 96.8vw;
+  }
+
+  .mrc-side-l {
+    font-size: 31px;
+  }
+
+  .mrc-side {
+    font-size: 26px;
+  }
+}
+
+/* main-sec-3 반응형 */
+@media all and (max-width: 940px) {
+  .maps-text {
+    font-size: 30px;
+  }
+
+  .main-logos-i {
+    width: 109px;
+  }
+
+  .main-sec-3-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .main-animal-sync {
+    max-width: 940px;
+    max-height: 910px;
+    height: 96.8vw;
+  }
+
+  .main-animal-pics-sync {
+    max-width: 940px;
+    max-height: 910px;
+    height: 96.8vw;
+  }
+
+  .animal-pics-box {
+    margin-bottom: 200px;
+  }
+  .animal-txt {
+    font-size: 31px;
+  }
+  .xi-plus-square {
+    font-size: 56px;
+  }
+
+  .xi-plus-square:hover {
+    font-size: 56px;
+  }
+
+  .main-sec-4 {
+    display: none;
+  }
+
+  .mas-icon-1,
+  .mas-icon-2,
+  .mas-icon-3,
+  .mas-icon-4,
+  .mas-icon-5,
+  .mas-icon-6 {
+    width: 150px;
+    height: 150px;
+  }
+}
+/* 작은 크기 */
+
+@media all and (max-width: 816px) {
+  .m-tr-text {
+    font-size: 36px;
+  }
+
+  @media all and (max-width: 768px) {
+  }
+}
+
+/* 공간 크기 조절 */
+
+@media all and (max-width: 940px) {
+  .main-sec-2 {
+    margin-top: 325px;
+  }
+
+  .main-sec-2-inner,
+  .main-sec-3-inner {
+    gap: 123px;
+  }
+
+  .main-sec-3 {
+    margin-top: 119px;
+  }
+}
