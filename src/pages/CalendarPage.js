@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
-import React from "react";
-import "../styles/global.css";
-import "../styles/color.js";
-import { colorSystem } from "../styles/color.js";
 import { CancelButton, SubmitButton } from "../components/common/Button";
 import mypetImage from "../images/mypet.png";
+import "../styles/reset.css";
+import "../styles/global.css";
+import "../styles/font.css";
+import { colorSystem } from "../styles/color.js";
+import RegistModal from "../components/common/RegistModal";
+import useModal from "../hooks/UseModal";
 
 const CalendarMain = styled.main`
   width: 100%;
@@ -137,19 +139,21 @@ const BoxStyle = styled.div`
   background-color: rgb(255, 255, 255);
 `;
 
-const PopUp = styled.div`
-  width: 490px;
-  height: 720px;
-  background-color: lightblue;
-  position: absolute;
-  left: 20%;
-  top: 20%;
-`;
-
 const CalendarPage = () => {
+  const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
+
+  const handleRegister = e => {
+    e.preventDefault();
+    openModal({
+      message: "성공적으로 구매하였습니다.",
+      onConfirm: () => {
+        closeModal();
+      },
+    });
+  };
+
   return (
     <CalendarMain>
-      <PopUp></PopUp>
       <CalLeft>
         <PetManage>
           <BoxStyle className="pet-manage">
@@ -170,7 +174,7 @@ const CalendarPage = () => {
               <ItemName>루이</ItemName>
             </ManageItem>
             <ManageBtn>
-              <SubmitButton label="등록" />
+              <SubmitButton label="등록" onClick={handleRegister} />
               <CancelButton label="수정" />
               <SubmitButton label="저장" />
             </ManageBtn>
@@ -202,6 +206,11 @@ const CalendarPage = () => {
           <h1>달력자리</h1>
         </BoxStyle>
       </CalRight>
+      <RegistModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={confirmAction}
+      />
     </CalendarMain>
   );
 };
