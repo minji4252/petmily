@@ -1,10 +1,9 @@
 .todo-main {
+  margin-top: 100px;
   width: 100%;
   display: flex;
-  gap: 10px 60px;
   align-items: flex-start;
   justify-content: space-between;
-  flex-wrap: wrap;
   padding: 30px 0;
   font: "Pretendard-Regular";
 }
@@ -112,7 +111,7 @@
 .todo-left-detail-box p {
   font-size: 15px;
   color: #a4a4a4;
-  text-align: center;
+  text-align: start;
 }
 
 .todo-left-detail-box h4 {
@@ -130,7 +129,6 @@
 .todo-right {
   width: 100%;
   max-width: 440px;
-  min-width: 440px;
   min-height: 800px;
   display: flex;
   gap: 20px;
@@ -321,10 +319,12 @@
     justify-content: center;
   }
   .todo-left {
+    min-width: 440px;
     margin: 0 50px;
     display: none;
   }
   .todo-right {
+    min-width: 440px;
     margin: 0 50px;
   }
 }
