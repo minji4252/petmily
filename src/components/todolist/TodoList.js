@@ -1,5 +1,8 @@
-import React, { useRef, useState } from "react";
-import TodoList from "../components/todolist/TodoList";
+import TodoLeft from "./TodoLeft";
+import TodoRight from "./TodoRight";
+import "../../styles/TodoList/left.css";
+import { useRef, useState } from "react";
+import TodoTemplate from "./TodoTemple";
 
 const initState = [
   {
@@ -19,7 +22,7 @@ const initState = [
   },
 ];
 
-const TodolistPage = () => {
+const TodoList = () => {
   const [todos, setTodos] = useState(initState);
 
   // id는 고유한 값이어야 한다.
@@ -49,8 +52,21 @@ const TodolistPage = () => {
       ),
     );
   };
-
-  return <TodoList></TodoList>;
+  return (
+    <TodoTemplate>
+      <div className="inner">
+        <div className="todo-main">
+          <TodoLeft />
+          <TodoRight
+            onInsert={onInsert}
+            todos={todos}
+            onRemove={onRemove}
+            onToggle={onToggle}
+          ></TodoRight>
+        </div>
+      </div>
+    </TodoTemplate>
+  );
 };
 
-export default TodolistPage;
+export default TodoList;

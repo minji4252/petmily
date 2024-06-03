@@ -24,6 +24,12 @@ export const colorSystem = {
   g800: "#424242",
   g900: "#292929",
 
+  // Signature
+  signature1: "#A47E6D",
+  signature2: "#CBB1A2",
+  signature3: "#F3CCB6",
+  signature4: "#F0ECE9",
+
   // 기타
   title: "#694E42",
   itemtitle: "#475569",
