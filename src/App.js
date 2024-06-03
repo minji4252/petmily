@@ -7,6 +7,7 @@ import MainPage from "./pages/MainPage";
 import TodolistPage from "./pages/TodolistPage";
 import CalendarPage from "./pages/CalendarPage";
 import NotfoundPage from "./pages/NotfoundPage";
+import RegistModal from "./components/common/RegistModal";
 
 function App() {
   return (
@@ -22,6 +23,11 @@ function App() {
 
           <Route path="/calendar">
             <Route index element={<CalendarPage />}></Route>
+          </Route>
+
+          {/* 임시 */}
+          <Route path="/modal">
+            <Route index element={<RegistModal />}></Route>
           </Route>
 
           <Route path="*" element={<NotfoundPage />}></Route>
