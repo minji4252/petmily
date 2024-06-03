@@ -1,6 +1,6 @@
 window.addEventListener("load", () => {
   const createButton = document.querySelector(".todo-right-create-icon");
-
+  // 플러스 버튼 눌렀을때 리스트추가
   createButton.addEventListener("click", () => {
     const inputBoxElem = document.querySelector("#input-box");
     const inputBoxValue = inputBoxElem.value;
@@ -51,7 +51,7 @@ window.addEventListener("load", () => {
               fill="#CBB1A2"
             />
           </svg>
-              <span class="todo-right-detail-text">${inputBoxValue}</span>
+              <span id="textbox" class="todo-right-detail-text">${inputBoxValue}</span>
             </div>
   
             <div class="todo-right-detail-right">

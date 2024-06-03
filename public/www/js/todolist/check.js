@@ -2,19 +2,18 @@ const onClickDeleteButton = deleteElem => {
   deleteElem.closest("li").remove();
 };
 const onClickCheckButton = checkElem => {
-  checkElem.closest("li").remove;
+  checkElem.closest("li").remove();
 };
+const inputBoxElem = document.querySelector(".todo-right-detail-text");
 
 const onClickCheckbox = svgElement => {
   const listItem = svgElement.closest("li");
   const isEmptyCheckbox = svgElement.classList.contains(
     "todo-right-detail-left-icon-empty",
   );
-
-  const emptyCheckbox = listItem.querySelector(
-    ".todo-right-detail-left-icon-empty",
+  const [emptyCheckbox, filledCheckbox] = listItem.querySelectorAll(
+    ".todo-right-detail-left-icon-empty, .todo-right-detail-left-icon",
   );
-  const filledCheckbox = listItem.querySelector(".todo-right-detail-left-icon");
   const titleText = listItem.querySelector(".todo-right-detail-text");
 
   if (isEmptyCheckbox) {
@@ -50,5 +49,6 @@ const onClickCheckbox = svgElement => {
     emptyCheckbox.style.display = "flex";
     filledCheckbox.style.display = "none";
     titleText.style.textDecoration = "none";
+    document.querySelector(".todo-left-detail").remove();
   }
 };

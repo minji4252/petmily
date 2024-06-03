@@ -1,5 +1,4 @@
 .todo-main {
-  margin-top: 100px;
   width: 100%;
   display: flex;
   gap: 10px 60px;
@@ -52,6 +51,7 @@
 
 .todo-left {
   width: 100%;
+  max-width: 440px;
   min-height: 800px;
   display: flex;
   gap: 55px;
@@ -212,9 +212,7 @@
   box-sizing: border-box;
 }
 .todo-right-create-input::placeholder {
-  align-items: center;
   color: #cfbbb2;
-  font-size: 20px;
 }
 
 .todo-right-box {
@@ -308,7 +306,6 @@
 .todo-right-detail-left-icon {
   min-width: 24px;
   min-height: 24px;
-  display: none;
   cursor: pointer;
 }
 
