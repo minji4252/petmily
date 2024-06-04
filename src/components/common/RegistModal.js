@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "@emotion/styled";
 import { CancelButton, SubmitButton } from "./Button";
 import "../../styles/reset.css";
@@ -32,7 +32,6 @@ const WrapStyle = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   top: 50%;
-  z-index: 9999999;
 
   form p {
     font-size: 12px;
@@ -135,7 +134,6 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
 
     alert(`반려동물 이름: ${petName}`);
     alert(`반려동물 종류: ${petKind}`);
-    console.log(`반려동물 이름: ${petName}`);
     if (selectedIcon) {
       alert(`선택된 아이콘: ${selectedIcon.value}`);
     } else {
@@ -146,6 +144,8 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
     } else {
       alert("배경색을 선택해주세요.");
     }
+
+    onConfirm();
   };
 
   return (
@@ -326,11 +326,7 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
             label="취소하기"
             onClick={onClose}
           ></CancelButton>
-          <SubmitButton
-            type="submit"
-            label="등록하기"
-            onClick={onConfirm}
-          ></SubmitButton>
+          <SubmitButton type="submit" label="등록하기"></SubmitButton>
         </FormBtn>
       </form>
     </WrapStyle>
