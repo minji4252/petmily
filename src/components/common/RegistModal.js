@@ -32,6 +32,7 @@ const WrapStyle = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   top: 50%;
+  z-index: 9999999;
 
   form p {
     font-size: 12px;
