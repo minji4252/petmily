@@ -4,9 +4,10 @@ const TodoListItem = ({ todo, onRemove, onToggle }) => {
   return (
     <div className="to-do-list">
       <div className="todo-right-box">
-        <div className="todo-right-detail-left" onClick={() => onToggle(id)}>
+        <div className="todo-right-detail-left">
           {checked ? (
             <svg
+              onClick={() => onToggle(id)}
               type="checkbox"
               id="checkbox"
               className="todo-right-detail-left-icon-empty"
@@ -26,6 +27,7 @@ const TodoListItem = ({ todo, onRemove, onToggle }) => {
             </svg>
           ) : (
             <svg
+              onClick={() => onToggle(id)}
               type="checkbox"
               id="checkbox"
               className="todo-right-detail-left-icon"

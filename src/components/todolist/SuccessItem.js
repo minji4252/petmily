@@ -1,5 +1,6 @@
-const SuccessItem = ({ todo, onRemove }) => {
+const SuccessItem = ({ todo, onRemove, onToggle }) => {
   const { id, text, checked } = todo;
+  console.log(todo.text);
 
   return !checked ? (
     <div className="todo-left-detail">
@@ -9,7 +10,7 @@ const SuccessItem = ({ todo, onRemove }) => {
       </div>
       <div className="todo-left-detail-delete">
         <svg
-          onClick={() => onRemove(id)}
+          onClick={() => onToggle(id)}
           xmlns="http://www.w3.org/2000/svg"
           width="18"
           height="18"
@@ -24,7 +25,7 @@ const SuccessItem = ({ todo, onRemove }) => {
       </div>
     </div>
   ) : (
-    <div></div>
+    <></>
   );
 };
 

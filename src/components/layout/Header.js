@@ -33,7 +33,7 @@ const Header = () => {
             <a href="#">로그인</a>
           </li>
           <li>
-            <a href="#">회원가입</a>
+            <Link to="/join">회원가입</Link>
           </li>
         </ul>
       </div>
