@@ -1,4 +1,4 @@
-.wrap {
+.join-wrap {
   /* 임시 */
   height: 100vh;
   display: flex;
@@ -90,8 +90,8 @@ form {
 }
 
 /* .login-form input[type="submit"]:hover {
-      background-color: 
-    } */
+        background-color: 
+      } */
 
 .join-btn {
   margin-top: 10px;

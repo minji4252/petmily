@@ -313,6 +313,9 @@
 .checkbox {
   cursor: pointer;
 }
+.create-button {
+  outline: none;
+}
 
 @media all and (max-width: 768px) {
   .todo-main {

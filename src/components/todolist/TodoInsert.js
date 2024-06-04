@@ -25,7 +25,7 @@ const TodoInsert = ({ onInsert }) => {
         onChange={onChange}
         value={value}
       />
-      <button type="submit">
+      <button className="create-button" type="submit">
         <svg
           className="todo-right-create-icon"
           xmlns="http://www.w3.org/2000/svg"
