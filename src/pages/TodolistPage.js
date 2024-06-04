@@ -1,5 +1,8 @@
-import React, { useRef, useState } from "react";
-import TodoList from "../components/todolist/TodoList";
+import { useRef, useState } from "react";
+import TodoLeft from "../components/todolist/TodoLeft";
+import TodoRight from "../components/todolist/TodoRight";
+import TodoTemplate from "../components/todolist/TodoTemple";
+import "../styles/TodoList/left.css";
 
 const initState = [
   {
@@ -10,7 +13,7 @@ const initState = [
   {
     id: 2,
     text: "컴포넌트의 이해",
-    checked: false,
+    checked: true,
   },
   {
     id: 3,
@@ -30,7 +33,7 @@ const TodolistPage = () => {
     const todo = {
       id: nextId.current,
       text,
-      checked: false,
+      checked: true,
     };
     setTodos(todos.concat(todo));
     nextId.current += 1;
@@ -50,7 +53,22 @@ const TodolistPage = () => {
     );
   };
 
-  return <TodoList></TodoList>;
+  return (
+    <TodoTemplate>
+      <TodoLeft
+        todos={todos}
+        onInsert={onInsert}
+        onRemove={onRemove}
+        onToggle={onToggle}
+      ></TodoLeft>
+      <TodoRight
+        todos={todos}
+        onRemove={onRemove}
+        onToggle={onToggle}
+        onInsert={onInsert}
+      ></TodoRight>
+    </TodoTemplate>
+  );
 };
 
 export default TodolistPage;

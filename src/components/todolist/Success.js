@@ -1,11 +1,10 @@
-import "../../styles/TodoList/left.css";
-import TodoListItem from "./TodoListItem";
+import SuccessItem from "./SuccessItem";
 
-const TodoList = ({ todos, onRemove, onToggle }) => {
+const Success = ({ todos, onRemove, onToggle }) => {
   return (
     <div className="TodoList">
       {todos.map(todo => (
-        <TodoListItem
+        <SuccessItem
           key={todo.id}
           todo={todo}
           onRemove={onRemove}
@@ -16,4 +15,4 @@ const TodoList = ({ todos, onRemove, onToggle }) => {
   );
 };
 
-export default TodoList;
+export default Success;
