@@ -1,6 +1,8 @@
-import "../styles/main.css";
+import { Link } from "react-router-dom";
 import "../styles/common.css";
+import "../styles/main.css";
 import "../styles/reset.css";
+import TodoRight from "./todolist/TodoRight";
 
 function MainTodo() {
   return (
@@ -8,13 +10,13 @@ function MainTodo() {
       <div className="main-sec-2-inner">
         <div className="main-calendar-box">
           <div className="m-r-calendar">
-            <a href="#" className="mrc-side-l">
+            <Link to="/calendar" className="mrc-side-l">
               이번달 스케줄
-            </a>
+            </Link>
             <span>
-              <a href="#" className="mrc-side">
+              <Link to="/calendar" className="mrc-side">
                 자세히 보기
-              </a>
+              </Link>
             </span>
           </div>
           <div className="main-calendar-sync"></div>
@@ -22,13 +24,13 @@ function MainTodo() {
 
         <div className="main-todo-box">
           <div className="m-r-todo">
-            <a href="#" className="mrc-side-l">
+            <Link to="/todolist" className="mrc-side-l">
               다가오는 일정
-            </a>
+            </Link>
             <span>
-              <a href="#" className="mrc-side">
+              <Link to="/todolist" className="mrc-side">
                 더보기
-              </a>
+              </Link>
             </span>
           </div>
           <div className="main-todo-sync"></div>
