@@ -5,6 +5,7 @@ import "../styles/main.css";
 import MainRandom from "../components/MainRandom";
 import MainTodo from "../components/MainTodo";
 import MainUpload from "../components/MainUpload";
+import MainSlides from "../components/MainSlides";
 
 const MainPage = () => {
   return (
@@ -14,6 +15,7 @@ const MainPage = () => {
         <div className="inner main-space">
           <MainTodo></MainTodo>
           <MainUpload></MainUpload>
+          <MainSlides></MainSlides>
         </div>
       </main>
     </div>
