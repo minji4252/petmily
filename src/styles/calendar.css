@@ -3,7 +3,7 @@
   max-width: 100%;
   background: white;
   border: 1px solid #a0a096;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Pretendard-Regular";
   line-height: 1.125em;
 }
 
@@ -57,15 +57,15 @@
 
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
+  background-color: transparent;
 }
 
 .react-calendar__month-view__weekdays {
   text-align: center;
   text-transform: uppercase;
   font: inherit;
-  font-size: 0.75em;
-  font-weight: bold;
+  font-size: 0.9rem;
+  color: #c6c2c2;
 }
 
 .react-calendar__month-view__weekdays__weekday {
@@ -82,7 +82,7 @@
 }
 
 .react-calendar__month-view__days__day--weekend {
-  color: #d10000;
+  color: #000 !important;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth,
@@ -124,7 +124,7 @@
 }
 
 .react-calendar__tile--now {
-  background: #ffff76;
+  background: rgb(238, 237, 237);
 }
 
 .react-calendar__tile--now:enabled:hover,
@@ -142,13 +142,13 @@
 }
 
 .react-calendar__tile--active {
-  background: #006edc;
-  color: white;
+  border: 2px solid #d5c3bc !important;
+  color: #000;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
+  background: #cbb1a2;
 }
 
 .react-calendar--selectRange .react-calendar__tile--hover {
@@ -160,5 +160,46 @@
 }
 
 .sun {
-  background-color: orange !important;
+  background-color: #ffd9d9 !important;
+}
+
+/* 네비게이션 폰트 설정 */
+.react-calendar__navigation button {
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.react-calendar__navigation button:first-child {
+  position: absolute;
+  right: 65px;
+  background: url("../images/nav-lt.png") no-repeat center;
+  background-size: contain;
+  color: transparent;
+  height: 20px;
+}
+
+.react-calendar__navigation button:last-child {
+  position: absolute;
+  right: 40px;
+  background: url("../images/nav-rt.png") no-repeat center;
+  background-size: contain;
+  color: transparent;
+  height: 20px;
+}
+
+/* 네비게이션 비활성화 됐을때 스타일 */
+.react-calendar__navigation button:disabled {
+  background-color: white;
+  color: #a47e6d;
+}
+
+/* 년/월 상단 네비게이션 칸 크기 줄이기 */
+.react-calendar__navigation__label {
+  flex-grow: 0 !important;
+}
+
+/* 요일 밑줄 제거 */
+.react-calendar__month-view__weekdays abbr {
+  text-decoration: none;
+  font-weight: 800;
 }

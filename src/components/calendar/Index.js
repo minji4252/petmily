@@ -205,11 +205,6 @@ const CalRight = styled.div`
   width: 57%;
   margin-top: 25px;
 
-  .calander {
-    height: 470px;
-    padding: 30px;
-  }
-
   @media all and (max-width: 768px) {
     width: 92%;
     margin: 30px 0 0 30px;
@@ -260,7 +255,7 @@ const Index = () => {
               <label className="radio_label">
                 <input type="radio" name="itemcheck" value="itemcheck" />
                 <span className="radio_icon"></span>
-                <RadioText>루이</RadioText>
+                <RadioText>전체</RadioText>
                 <button type="button">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -383,9 +378,7 @@ const Index = () => {
         </CalAddition>
       </CalLeft>
       <CalRight>
-        <BoxStyle className="calander">
-          <Calendar />
-        </BoxStyle>
+        <Calendar />
       </CalRight>
       <RegistModal
         isOpen={isModalOpen}
