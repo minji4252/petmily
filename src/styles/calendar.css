@@ -47,7 +47,7 @@
 }
 
 .react-calendar__navigation button {
-  min-width: 44px;
+  min-width: 20px;
   background: none;
 }
 
@@ -171,7 +171,7 @@
 
 .react-calendar__navigation button:first-child {
   position: absolute;
-  right: 65px;
+  right: 80px;
   background: url("../images/nav-lt.png") no-repeat center;
   background-size: contain;
   color: transparent;
@@ -180,7 +180,7 @@
 
 .react-calendar__navigation button:last-child {
   position: absolute;
-  right: 40px;
+  right: 50px;
   background: url("../images/nav-rt.png") no-repeat center;
   background-size: contain;
   color: transparent;
