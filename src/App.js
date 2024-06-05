@@ -7,6 +7,7 @@ import TodolistPage from "./pages/TodolistPage";
 import CalendarPage from "./pages/CalendarPage";
 import NotfoundPage from "./pages/NotfoundPage";
 import JoinPage from "./pages/JoinPage";
+import LoginPage from "./pages/member/LoginPage";
 
 function App() {
   return (
@@ -33,6 +34,10 @@ function App() {
 
           <Route path="/join">
             <Route index element={<JoinPage />}></Route>
+          </Route>
+
+          <Route path="/login">
+            <Route index element={<LoginPage />}></Route>
           </Route>
 
           <Route path="*" element={<NotfoundPage></NotfoundPage>}></Route>

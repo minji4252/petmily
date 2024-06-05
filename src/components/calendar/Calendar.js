@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
+import moment from "moment";
+import { useEffect, useState } from "react";
 import ReactCalendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/calendar.css";
 import "../../styles/font.css";
 import "../../styles/global.css";
 import "../../styles/reset.css";
-import moment from "moment";
-import { useEffect, useState } from "react";
+import SimpleModal from "./SimpleModal";
+import useModal from "../../hooks/UseModal";
 
 export const StyledCalendarWrapper = styled.div`
   width: 100%;
@@ -27,6 +29,24 @@ export const StyledCalendarWrapper = styled.div`
 `;
 
 const Calendar = () => {
+  // 모달창
+  const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
+
+  const handleRegister = e => {
+    e.preventDefault();
+    openModal({
+      onConfirm: () => {
+        closeModal();
+      },
+    });
+  };
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  const ManageVisible = () => {
+    setIsVisible(!isVisible);
+  };
+
   // 외부 데이터의 내용을 날짜에 출력하기
   // axios.get("todos") 리턴결과
   const todoApi = [
@@ -52,7 +72,7 @@ const Calendar = () => {
       pk: 3,
       title: "애견호텔",
       text: "내용 4",
-      day: "2024-06-29",
+      day: "2024-06-04",
     },
   ];
   const [allData, setAllData] = useState([]);
@@ -74,7 +94,7 @@ const Calendar = () => {
     if (dayResult) {
       return (
         <div>
-          <h2>{dayResult.title}</h2>
+          <h2 style={{ backgroundColor: "yellow" }}>{dayResult.title}</h2>
         </div>
       );
     }
@@ -89,8 +109,17 @@ const Calendar = () => {
     }
   };
 
+  // 날짜 클릭시 좌표 추출하기
+  const onClickDay = (value, event) => {
+    const rect = event.target.getBoundingClientRect();
+    const x = rect.left;
+    const y = rect.top;
+    alert(`클릭한 좌표: X = ${x}, Y = ${y}`);
+  };
+
   return (
     <StyledCalendarWrapper>
+      <button onClick={handleRegister}>여기누르면 모달나옴</button>
       <ReactCalendar
         calendarType="gregory"
         showNeighboringMonth={false}
@@ -101,7 +130,13 @@ const Calendar = () => {
         formatMonthYear={(locale, date) => moment(date).format("M월 YYYY")}
         tileClassName={tileClassName}
         tileContent={tileContent}
+        onClickDay={onClickDay}
       ></ReactCalendar>
+      <SimpleModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={confirmAction}
+      />
     </StyledCalendarWrapper>
   );
 };

@@ -11,6 +11,8 @@ import { useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/calendar.css";
 import Calendar from "./Calendar";
+import SimpleModal from "./SimpleModal";
+import DetailModal from "./DetailModal";
 
 const CalendarMain = styled.main`
   width: 100%;
@@ -256,6 +258,11 @@ const Index = () => {
                 <input type="radio" name="itemcheck" value="itemcheck" />
                 <span className="radio_icon"></span>
                 <RadioText>전체</RadioText>
+              </label>
+              <label className="radio_label">
+                <input type="radio" name="itemcheck" value="itemcheck" />
+                <span className="radio_icon"></span>
+                <RadioText>루이</RadioText>
                 <button type="button">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -322,7 +329,7 @@ const Index = () => {
               </label>
             </ManageItem>
             <ManageBtn>
-              <SubmitButton label="등록" onClick={handleRegister} />
+              <SubmitButton label="등록" />
               <CancelButton label="수정" />
               <SubmitButton label="저장" />
             </ManageBtn>
@@ -373,14 +380,19 @@ const Index = () => {
                 />
               </CloseIcon>
             </button>
-            <SubmitButton label="상세 추가" />
+            <SubmitButton label="상세 추가" onClick={handleRegister} />
           </BoxStyle>
         </CalAddition>
       </CalLeft>
       <CalRight>
         <Calendar />
       </CalRight>
-      <RegistModal
+      {/* <RegistModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={confirmAction}
+      /> */}
+      <DetailModal
         isOpen={isModalOpen}
         onClose={closeModal}
         onConfirm={confirmAction}

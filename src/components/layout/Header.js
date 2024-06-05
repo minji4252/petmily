@@ -30,7 +30,7 @@ const Header = () => {
         </ul>
         <ul className="navi-list-2">
           <li>
-            <a href="#">로그인</a>
+            <Link to="/login">로그인</Link>
           </li>
           <li>
             <Link to="/join">회원가입</Link>
