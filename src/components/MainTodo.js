@@ -3,6 +3,8 @@ import "../styles/common.css";
 import "../styles/main.css";
 import "../styles/reset.css";
 import TodoRight from "./todolist/TodoRight";
+import Calendar from "../components/calendar/Calendar";
+import styled from "@emotion/styled";
 
 function MainTodo() {
   return (
@@ -19,7 +21,10 @@ function MainTodo() {
               </Link>
             </span>
           </div>
-          <div className="main-calendar-sync"></div>
+
+          <div className="main-calendar-sync">
+            <Calendar />
+          </div>
         </div>
 
         <div className="main-todo-box">

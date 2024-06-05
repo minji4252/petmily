@@ -1,36 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
+// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 
+import b1 from "../images/b1.jpg";
+import b2 from "../images/b2.jpg";
+import b3 from "../images/b3.jpg";
+import b4 from "../images/b4.jpg";
+
+// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 
-const imagePaths = ["b1.jpg", "b2.jpg", "b3.jpg", "b4.jpg"];
-const fetchImages = async () => {
-  return imagePaths.map(path => `images/${path}`);
-};
+import "../styles/styles.css";
 
-const SlideMain = () => {
-  const [images, setImages] = useState([]);
+// import required modules
 
-  useEffect(() => {
-    const loadImages = async () => {
-      const loadedImages = await fetchImages();
-      setImages(loadedImages);
-    };
-    loadImages();
-  }, []);
+export default function SliderContainer() {
+  const items = [{ src: b1 }, { src: b2 }, { src: b3 }, { src: b4 }];
 
   return (
-    <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-      {images.map((image, index) => (
-        <SwiperSlide key={index}>
-          <img src={image} alt={`Slide ${index + 1}`} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="swiper-box">
+      <Swiper
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        navigation={true}
+        modules={[Navigation, Autoplay]}
+        className="mySwiper"
+        loop={true}
+      >
+        {items.map((item, idx) => (
+          <SwiperSlide key={idx}>
+            <img src={item.src} alt={`Slide ${idx + 1}`} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
-};
-export default SlideMain;
+}
