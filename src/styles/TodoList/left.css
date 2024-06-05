@@ -1,9 +1,9 @@
 .todo-main {
-  margin-top: 100px;
   width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  margin-top: 100px;
   padding: 30px 0;
   font: "Pretendard-Regular";
 }
@@ -81,6 +81,7 @@
   font-weight: 600;
   color: #e13838;
   text-align: right;
+  cursor: pointer;
 }
 
 .todo-left-title {
@@ -101,6 +102,13 @@
 }
 
 .todo-left-detail-box {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+}
+.todo-left-detail-textbox {
   display: flex;
   gap: 10px;
   justify-content: space-between;
@@ -166,7 +174,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  display: flex;
+  display: none;
   gap: 10px;
   align-items: center;
   justify-content: center;
@@ -194,14 +202,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: row;
   padding: 10px 12.5px;
   background-color: #fff;
   border-radius: 30px;
 }
 
 .todo-right-create-input {
-  display: flex;
   width: 100%;
+  display: flex;
   align-items: center;
   padding: 10px;
   border: none;
@@ -256,6 +265,7 @@
 .realdelete {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: none;
@@ -315,6 +325,7 @@
 }
 .create-button {
   outline: none;
+  all: unset;
 }
 
 @media all and (max-width: 768px) {
@@ -323,8 +334,8 @@
   }
   .todo-left {
     min-width: 440px;
-    margin: 0 50px;
     display: none;
+    margin: 0 50px;
   }
   .todo-right {
     min-width: 440px;

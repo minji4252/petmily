@@ -1,8 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TodoLeft from "../components/todolist/TodoLeft";
 import TodoRight from "../components/todolist/TodoRight";
 import TodoTemplate from "../components/todolist/TodoTemple";
 import "../styles/TodoList/left.css";
+import Clear from "../components/todolist/Clear";
+import useClearModal from "../components/todolist/useClearModal";
 
 const initState = [
   {
@@ -21,7 +23,6 @@ const initState = [
     checked: true,
   },
 ];
-
 const TodolistPage = () => {
   const [todos, setTodos] = useState(initState);
 
@@ -48,6 +49,9 @@ const TodolistPage = () => {
   const onRemove = id => {
     setTodos(todos.filter(todo => todo.id !== id));
   };
+  const onRemoveAll = () => {
+    setTodos([]);
+  };
 
   // 토글 기능
   const onToggle = id => {
@@ -57,10 +61,13 @@ const TodolistPage = () => {
       ),
     );
   };
+  const { clearModalOpen, openClearModal, clearNo, clearYes } =
+    useClearModal(todos);
 
   return (
     <TodoTemplate>
       <TodoLeft
+        openClearModal={openClearModal}
         todos={todos}
         onRemove={onRemove}
         onToggle={onToggle}
@@ -71,6 +78,13 @@ const TodolistPage = () => {
         onToggle={onToggle}
         onInsert={onInsert}
       ></TodoRight>
+      <Clear
+        onRemoveAll={onRemoveAll}
+        clearNo={clearNo}
+        clearYes={clearYes}
+        clearModalOpen={clearModalOpen}
+        openClearModal={openClearModal}
+      ></Clear>
     </TodoTemplate>
   );
 };
