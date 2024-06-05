@@ -4,7 +4,12 @@ const Success = ({ todos, onRemove, onToggle }) => {
   return (
     <div className="TodoList">
       {todos.map(todo => (
-        <SuccessItem key={todo.id} todo={todo} onToggle={onToggle} />
+        <SuccessItem
+          key={todo.id}
+          todo={todo}
+          onToggle={onToggle}
+          onRemove={onRemove}
+        />
       ))}
     </div>
   );

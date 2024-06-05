@@ -1,16 +1,34 @@
 const SuccessItem = ({ todo, onRemove, onToggle }) => {
   const { id, text, checked } = todo;
-  console.log(todo.text);
 
   return !checked ? (
     <div className="todo-left-detail">
       <div className="todo-left-detail-box">
-        <p>05.26 완료</p>
-        <h4>{text}</h4>
+        <svg
+          onClick={() => onToggle(id)}
+          type="checkbox"
+          id="checkbox"
+          className="todo-right-detail-left-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 25 26"
+          fill="none"
+        >
+          <circle cx="12.5" cy="13" r="11.5" stroke="#CBB1A2" strokeWidth="2" />
+          <path
+            d="M12.5 0.5C5.59648 0.5 0 6.09648 0 13C0 19.9039 5.59648 25.5 12.5 25.5C19.4039 25.5 25 19.9039 25 13C25 6.09648 19.4039 0.5 12.5 0.5ZM12.5 23.9621C6.46914 23.9621 1.5625 19.0309 1.5625 13C1.5625 6.96909 6.46914 2.06245 12.5 2.06245C18.5309 2.06245 23.4375 6.96912 23.4375 13C23.4375 19.0308 18.5309 23.9621 12.5 23.9621ZM17.4887 8.42617L10.1547 15.8062L6.85193 12.5035C6.54685 12.1984 6.05232 12.1984 5.74685 12.5035C5.44177 12.8086 5.44177 13.3031 5.74685 13.6082L9.61365 17.4754C9.91873 17.7801 10.4133 17.7801 10.7187 17.4754C10.7539 17.4402 10.784 17.4019 10.8113 17.3621L18.5941 9.53123C18.8988 9.22615 18.8988 8.73162 18.5941 8.42617C18.2887 8.12109 17.7941 8.12109 17.4887 8.42617Z"
+            fill="#CBB1A2"
+          />
+        </svg>
+        <div className="todo-left-detail-textbox">
+          <p>05.26 완료</p>
+          <h4>{text}</h4>
+        </div>
       </div>
       <div className="todo-left-detail-delete">
         <svg
-          onClick={() => onToggle(id)}
+          onClick={() => onRemove(id)}
           xmlns="http://www.w3.org/2000/svg"
           width="18"
           height="18"
