@@ -81,6 +81,37 @@
   border-radius: 30px;
 }
 
+/* 캘린더 임포트 스타일 */
+.main-calendar-sync .react-calendar {
+  margin-right: 0 !important;
+  border-radius: 9px !important;
+  height: 346px !important;
+  padding: 11px !important;
+
+  pointer-events: none !important;
+}
+
+.main-calendar-sync .react-calendar__tile {
+  padding: 0px 10px !important;
+}
+
+.main-calendar-sync .react-calendar__navigation__label {
+  flex-grow: 1 !important;
+  padding-top: 12px !important;
+}
+
+.react-calendar__navigation button:first-child {
+  margin-top: 17px !important;
+  right: 33px !important;
+  display: none !important;
+}
+
+.react-calendar__navigation button:last-child {
+  margin-top: 17px !important;
+  right: 7px !important;
+  display: none !important;
+}
+
 .m-r-calendar {
   display: flex;
   justify-content: space-between;
@@ -256,6 +287,7 @@
   height: 80px;
   background-color: #72b881;
   border-radius: 50%;
+  padding: 0 15px;
 }
 .mas-icon-5 {
   width: 80px;
@@ -310,7 +342,7 @@
   height: 100%;
   max-height: 288px;
 
-  padding: 0 15px;
+  /* padding: 0 15px; */
   margin-top: 320px;
   margin-bottom: 282px;
 }
