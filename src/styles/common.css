@@ -58,3 +58,20 @@ body {
   justify-content: space-between;
   margin: 0px auto;
 }
+
+/* 닫기버튼 */
+.close-btn {
+  background-color: transparent;
+  border: 0px;
+  position: absolute;
+  top: 4%;
+  right: 8%;
+  cursor: pointer;
+  max-width: 25px;
+}
+
+.close-btn svg {
+  width: 100%;
+  height: 25px;
+  color: #777;
+}
