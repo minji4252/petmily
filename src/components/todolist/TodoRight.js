@@ -1,6 +1,7 @@
 import "../../styles/TodoList/left.css";
 import "../../styles/font.css";
 import "../../styles/global.css";
+import ModifyModal from "./ModifyModal";
 import TodoInsert from "./TodoInsert";
 import TodoList from "./TodoList";
 
@@ -33,6 +34,7 @@ const TodoRight = ({ onInsert, todos, onRemove, onToggle }) => {
       <p className="todo-right-title">오늘의 할일</p>
       <TodoInsert onInsert={onInsert}></TodoInsert>
       <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
+      <ModifyModal></ModifyModal>
     </div>
   );
 };
