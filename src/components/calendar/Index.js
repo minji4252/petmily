@@ -186,7 +186,7 @@ const CalRight = styled.div`
 const Index = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
 
-  const handleRegister = e => {
+  const handleSchedule = e => {
     e.preventDefault();
     openModal({
       onConfirm: () => {
@@ -252,7 +252,7 @@ const Index = () => {
               >
                 <IoClose />
               </button>
-              <SubmitButton label="일정 추가" onClick={handleRegister} />
+              <SubmitButton label="일정 추가" onClick={handleSchedule} />
             </BoxStyle>
           )}
         </CalAddition>
@@ -260,11 +260,6 @@ const Index = () => {
       <CalRight>
         <Calendar />
       </CalRight>
-      {/* <RegistModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        onConfirm={confirmAction}
-      /> */}
       <DetailModal
         isOpen={isModalOpen}
         onClose={closeModal}

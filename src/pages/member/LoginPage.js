@@ -8,13 +8,11 @@ const WrapStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* 임시 */
-  height: 100vh;
+  height: 50vw;
 `;
 
 const Container = styled.div`
   width: 460px;
-  /* padding: 20px; */
   border-radius: 5px;
 
   > h2 {

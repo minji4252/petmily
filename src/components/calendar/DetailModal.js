@@ -6,6 +6,7 @@ import "../../styles/common.css";
 import "../../styles/font.css";
 import "../../styles/reset.css";
 import { CancelButton, SubmitButton } from "../common/Button";
+import axios from "axios";
 
 // 공통
 const WrapStyle = styled.div`
@@ -136,15 +137,48 @@ const DetailModal = ({ isOpen, onClose, onConfirm }) => {
   const [dateValue, setDateValue] = useState(getCurrentDate());
   const [timeValue, setTimeValue] = useState(getCurrentTime());
   const [scheduleTitle, setScheduleTitle] = useState("");
+  const [selected, setSelected] = useState("none");
   const [scheduleMemo, setScheduleMemo] = useState("");
 
-  const handleSubmit = event => {
+  //백엔드 데이터
+  const selectList = [
+    { value: "none", name: "선택하세요" },
+    { value: "1", name: "루이" },
+    { value: "2", name: "데이지" },
+    { value: "3", name: "코코" },
+  ];
+
+  const handleSelect = e => {
+    setSelected(e.target.value);
+  };
+
+  const handleSubmit = async event => {
     event.preventDefault();
-    alert(`날짜: ${dateValue}`);
-    alert(`시간: ${timeValue}`);
-    alert(`일정 제목: ${scheduleTitle}`);
-    alert(`상세 메모: ${scheduleMemo}`);
-    onConfirm();
+    // try {
+    //   const res = await axios.post("url주소", {
+    //     date: dateValue,
+    //     time: timeValue,
+    //     title: scheduleTitle,
+    //     pet: selected,
+    //     memo: scheduleMemo,
+    //   });
+
+    //   const status = res.status.toString().charAt(0);
+    //   if (status === "2") {
+    //     // console.log(res.data);
+    //     alert("일정 등록 성공");
+    //     onConfirm();
+    //   } else {
+    //     console.log("API 오류");
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    //   alert("일정 등록 실패");
+    // }
+
+    alert(
+      `정보: ${dateValue}, ${timeValue}, ${scheduleTitle}, ${selected}, ${scheduleMemo} `,
+    );
   };
 
   // 오늘 날짜를 반환하는 함수
@@ -213,12 +247,19 @@ const DetailModal = ({ isOpen, onClose, onConfirm }) => {
 
             <Label htmlFor="mypet">
               <p>반려동물</p>
-              <select name="mypet" id="mypet">
-                <option value="none" disabled selected>
-                  선택하세요
-                </option>
-                <option value="루이">루이</option>
-                <option value="코코">코코</option>
+              <select
+                name="mypet"
+                id="mypet"
+                value={selected}
+                onChange={handleSelect}
+              >
+                {selectList.map(item => {
+                  return (
+                    <option value={item.value} key={item.value}>
+                      {item.name}
+                    </option>
+                  );
+                })}
               </select>
             </Label>
           </FormLeft>

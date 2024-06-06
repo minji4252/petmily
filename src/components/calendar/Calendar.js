@@ -28,52 +28,55 @@ export const StyledCalendarWrapper = styled.div`
   }
 `;
 
+const ModalWrapper = styled.div`
+  position: fixed;
+  top: ${props => props.top || "50%"};
+  left: ${props => props.left || "50%"};
+  transform: translate(-50%, 0%);
+`;
+
 const Calendar = () => {
-  // 모달창
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
+  const [modalPosition, setModalPosition] = useState({});
+  const [clickDay, setClickDay] = useState("");
+  const [clickInfo, setClickInfo] = useState(null);
 
-  const handleRegister = e => {
-    e.preventDefault();
-    openModal({
-      onConfirm: () => {
-        closeModal();
-      },
-    });
-  };
+  // 날짜 클릭시 모달창 띄우기
+  const onClickDay = (value, event) => {
+    const checkDay = moment(value).format("YYYY-MM-DD");
+    setClickDay(checkDay);
 
-  const [isVisible, setIsVisible] = useState(false);
+    const dayResult = allData.find(item => checkDay === item.day);
 
-  const ManageVisible = () => {
-    setIsVisible(!isVisible);
+    if (dayResult) {
+      setClickInfo(dayResult);
+    } else {
+      setClickInfo(null);
+    }
+
+    const target = event.target.closest(".react-calendar__tile");
+    if (target) {
+      const rect = target.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height + 10;
+      setModalPosition({ top: `${y}px`, left: `${x}px` });
+
+      event.preventDefault();
+      openModal({
+        onConfirm: () => {
+          closeModal();
+        },
+      });
+    }
   };
 
   // 외부 데이터의 내용을 날짜에 출력하기
   // axios.get("todos") 리턴결과
   const todoApi = [
-    {
-      pk: 0,
-      title: "동물병원",
-      text: "내용 1",
-      day: "2024-06-04",
-    },
-    {
-      pk: 1,
-      title: "유치원",
-      text: "내용 2",
-      day: "2024-05-31",
-    },
-    {
-      pk: 2,
-      title: "산책가기",
-      text: "내용 3",
-      day: "2024-06-17",
-    },
-    {
-      pk: 3,
-      title: "애견호텔",
-      text: "내용 4",
-      day: "2024-06-04",
-    },
+    { pk: 0, title: "동물병원", text: "내용 1", day: "2024-06-04" },
+    { pk: 1, title: "유치원", text: "내용 2", day: "2024-05-31" },
+    { pk: 2, title: "산책가기", text: "내용 3", day: "2024-06-17" },
+    { pk: 3, title: "애견호텔", text: "내용 4", day: "2024-06-04" },
   ];
   const [allData, setAllData] = useState([]);
   useEffect(() => {
@@ -84,38 +87,21 @@ const Calendar = () => {
 
   // 내용 출력하기
   const tileContent = ({ date }) => {
-    // console.log("내용 : ", date);
     const checkDay = moment(date).format("YYYY-MM-DD");
-    // console.log("변환 : ", day);
-    // 아래 구문은 api 데이터의 날짜와 현재 체크 날짜를 비교한다.
-    const dayResult = allData.find((item, index, arr) => checkDay === item.day);
-    console.log(dayResult);
-
+    const dayResult = allData.find(item => checkDay === item.day);
     if (dayResult) {
       return (
         <div>
-          <h2 style={{ backgroundColor: "yellow" }}>{dayResult.title}</h2>
+          <h2 style={{ backgroundColor: "#ffd9d9" }}>{dayResult.title}</h2>
         </div>
       );
     }
   };
 
-  //날짜 css 꾸미기
-  const tileClassName = ({ date }) => {
-    const checkDay = moment(date).format("YYYY-MM-DD");
-    const dayResult = allData.find(item => checkDay === item.day);
-    if (dayResult) {
-      return "sun";
-    }
-  };
-
-  // 날짜 클릭시 좌표 추출하기
-  const onClickDay = (value, event) => {
-    const rect = event.target.getBoundingClientRect();
-    const x = rect.left;
-    const y = rect.top;
-    alert(`클릭한 좌표: X = ${x}, Y = ${y}`);
-  };
+  // 일정 삭제
+  // const scheduleDelete = _pk => {
+  //   alert(`삭제해요. 스케쥴 번호 ${_pk}`);
+  // };
 
   return (
     <StyledCalendarWrapper>
@@ -127,18 +113,18 @@ const Calendar = () => {
         minDetail="year"
         formatDay={(locale, date) => moment(date).format("D")}
         formatMonthYear={(locale, date) => moment(date).format("M월 YYYY")}
-        tileClassName={tileClassName}
         tileContent={tileContent}
         onClickDay={onClickDay}
-      ></ReactCalendar>
-      <SimpleModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        onConfirm={confirmAction}
       />
-      {/* <button style={{ height: "50px" }} onClick={handleRegister}>
-        여기누르면 모달나옴
-      </button> */}
+      <ModalWrapper top={modalPosition.top} left={modalPosition.left}>
+        <SimpleModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onConfirm={confirmAction}
+          clickDay={clickDay}
+          clickInfo={clickInfo}
+        />
+      </ModalWrapper>
     </StyledCalendarWrapper>
   );
 };

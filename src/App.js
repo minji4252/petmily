@@ -5,6 +5,7 @@ import Footer from "./components/layout/Footer";
 import MainPage from "./pages/MainPage";
 import TodolistPage from "./pages/TodolistPage";
 import CalendarPage from "./pages/CalendarPage";
+import PetAdminPage from "./pages/PetAdminPage";
 import NotfoundPage from "./pages/NotfoundPage";
 import JoinPage from "./pages/JoinPage";
 import LoginPage from "./pages/member/LoginPage";
@@ -30,6 +31,10 @@ function App() {
 
           <Route path="/calendar">
             <Route index element={<CalendarPage />}></Route>
+          </Route>
+
+          <Route path="/petadmin">
+            <Route index element={<PetAdminPage />}></Route>
           </Route>
 
           <Route path="/join">

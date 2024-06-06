@@ -25,7 +25,7 @@ const Header = () => {
             <Link to="/calendar">캘린더</Link>
           </li>
           <li>
-            <Link to="/">게시판</Link>
+            <Link to="/petadmin">반려동물관리</Link>
           </li>
         </ul>
         <ul className="navi-list-2">
