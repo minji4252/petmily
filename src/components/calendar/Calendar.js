@@ -119,7 +119,6 @@ const Calendar = () => {
 
   return (
     <StyledCalendarWrapper>
-      <button onClick={handleRegister}>여기누르면 모달나옴</button>
       <ReactCalendar
         calendarType="gregory"
         showNeighboringMonth={false}
@@ -137,6 +136,9 @@ const Calendar = () => {
         onClose={closeModal}
         onConfirm={confirmAction}
       />
+      {/* <button style={{ height: "50px" }} onClick={handleRegister}>
+        여기누르면 모달나옴
+      </button> */}
     </StyledCalendarWrapper>
   );
 };
