@@ -1,6 +1,6 @@
-const Clear = ({ clearNo, clearYes, onRemoveAll }) => {
+const Clear = ({ clearNo, clearYes, clearModalRef }) => {
   return (
-    <div className="realdelete">
+    <div className="realdelete" ref={clearModalRef}>
       <p>정말 삭제 하시겠습니까?</p>
       <button className="delete-button yes" onClick={clearYes}>
         <p>확인</p>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TodoLeft from "../components/todolist/TodoLeft";
 import TodoRight from "../components/todolist/TodoRight";
 import TodoTemplate from "../components/todolist/TodoTemple";
@@ -45,6 +45,12 @@ const TodolistPage = () => {
     }
   };
 
+  const onModify = text => {
+    if (text == "") {
+      alert("공백은 안된다 했지.");
+    }
+  };
+
   // 삭제 기능
   const onRemove = id => {
     setTodos(todos.filter(todo => todo.id !== id));
@@ -61,8 +67,9 @@ const TodolistPage = () => {
       ),
     );
   };
-  const { clearModalOpen, openClearModal, clearNo, clearYes } =
-    useClearModal(todos);
+
+  const { clearModalOpen, openClearModal, clearNo, clearYes, clearModalRef } =
+    useClearModal({ todos, setTodos });
 
   return (
     <TodoTemplate>
@@ -79,6 +86,7 @@ const TodolistPage = () => {
         onInsert={onInsert}
       ></TodoRight>
       <Clear
+        clearModalRef={clearModalRef}
         onRemoveAll={onRemoveAll}
         clearNo={clearNo}
         clearYes={clearYes}
