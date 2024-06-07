@@ -53,6 +53,17 @@ const CancelButtonStyle = styled(ButtonStyle)`
   }
 `;
 
+const DelectButtonStyle = styled(ButtonStyle)`
+  background-color: ${colorSystem.error};
+  color: ${colorSystem.white};
+
+  &:hover {
+    border: 1px solid #ca2929;
+    background-color: #ca2929;
+    color: ${colorSystem.white};
+  }
+`;
+
 const SubmitButton = ({ label = "버튼", onClick }) => {
   return <SubmitButtonStyle onClick={onClick}>{label}</SubmitButtonStyle>;
 };
@@ -65,4 +76,8 @@ const CancelButton = ({ label = "버튼", onClick }) => {
   return <CancelButtonStyle onClick={onClick}>{label}</CancelButtonStyle>;
 };
 
-export { SubmitButton, ActionButton, CancelButton };
+const DelectButton = ({ label = "버튼", onClick }) => {
+  return <DelectButtonStyle onClick={onClick}>{label}</DelectButtonStyle>;
+};
+
+export { SubmitButton, ActionButton, CancelButton, DelectButton };

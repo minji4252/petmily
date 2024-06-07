@@ -155,14 +155,6 @@
   background-color: #e6e6e6;
 }
 
-.rain {
-  background-color: skyblue !important;
-}
-
-.sun {
-  background-color: #ffd9d9 !important;
-}
-
 /* 네비게이션 폰트 설정 */
 .react-calendar__navigation button {
   font-weight: 800;

@@ -33,7 +33,7 @@ const TodolistPage = () => {
 
   const onInsert = text => {
     if (text == "") {
-      alert("공백은 넣을수 없습니다.");
+      alert("공백은 넣을 수 없습니다.");
     } else {
       const todo = {
         id: nextId.current,
