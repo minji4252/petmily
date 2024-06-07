@@ -4,21 +4,20 @@ import { useEffect, useState } from "react";
 import ReactCalendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/calendar.css";
-import "../../styles/font.css";
-import "../../styles/global.css";
-import "../../styles/reset.css";
 import SimpleModal from "./SimpleModal";
 import useModal from "../../hooks/UseModal";
 
 export const StyledCalendarWrapper = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   position: relative;
 
   .react-calendar {
     border: 0;
-    height: 470px;
+    /* height: 470px; */
+    height: 100%;
     padding: 30px;
     width: 100%;
     border-radius: 32px;

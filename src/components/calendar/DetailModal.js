@@ -1,137 +1,26 @@
-import styled from "@emotion/styled";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
-import { colorSystem } from "../../styles/color.js";
-import "../../styles/common.css";
-import "../../styles/font.css";
-import "../../styles/reset.css";
+import {
+  FormBtn,
+  FormItem,
+  FormLeft,
+  FormRight,
+  InputStyle,
+  Label,
+  PetImgRegist,
+  ScheduleTitle,
+  WrapStyle,
+} from "../../styles/calendar/DetailModalStyles.js";
 import { CancelButton, SubmitButton } from "../common/Button";
 import axios from "axios";
 
-// 공통
-const WrapStyle = styled.div`
-  max-width: 600px;
-  width: 100%;
-  height: 720px;
-  padding: 80px 50px 0px 50px;
-  border-radius: 13px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
-  background-color: rgb(255, 255, 255);
-
-  position: fixed;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  z-index: 9999;
-
-  form {
-    height: 85%;
-  }
-
-  form p {
-    font-size: 12px;
-    margin-top: 20px;
-    margin-bottom: 6px;
-  }
-
-  .box-style {
-    border-radius: 13px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
-    background-color: rgb(255, 255, 255);
-  }
-`;
-
-// 제목
-const ScheduleTitle = styled.h1`
-  font-size: 20px;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 40px;
-  color: ${colorSystem.title};
-`;
-
-// 폼 전체
-const FormItem = styled.div`
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const FormLeft = styled.div`
-  input[type="date" i] {
-    font-family: "Pretendard-Regular";
-  }
-
-  input[type="time" i] {
-    font-family: "Pretendard-Regular";
-  }
-
-  input {
-    font-family: "Pretendard-Regular";
-  }
-`;
-
-// 날짜, 시간
-const InputStyle = styled.input`
-  background-color: ${colorSystem.white};
-  width: 200px;
-  height: 32px;
-  border-radius: 50px;
-  border: 1px solid #cbd5e1;
-  padding: 8px;
-
-  &::placeholder {
-    font-size: 0.8rem;
-    color: ${colorSystem.placeholder};
-    font-family: "Pretendard-Regular";
-  }
-`;
-
-// 선택박스
-const Label = styled.label`
-  > select {
-    background-color: ${colorSystem.white};
-    width: 200px;
-    height: 32px;
-    border-radius: 50px;
-    border: 1px solid #cbd5e1;
-    padding: 8px;
-    font-size: 0.8rem;
-    font-family: "Pretendard-Regular";
-  }
-`;
-
-// 폼 오른쪽
-const FormRight = styled.div``;
-
-// 일정 상세메모
-const PetImgRegist = styled.textarea`
-  width: 270px;
-  height: 80%;
-  border-radius: 7px;
-  border: 0px;
-  vertical-align: top;
-  padding: 15px;
-  resize: none;
-  margin-top: 5px;
-  font-family: "Pretendard-Regular";
-
-  &::placeholder {
-    font-size: 0.8rem;
-    color: ${colorSystem.placeholder};
-    font-family: "Pretendard-Regular";
-  }
-`;
-
-// 버튼
-const FormBtn = styled.div`
-  margin-top: 30px;
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-`;
-
-const DetailModal = ({ isOpen, onClose, onConfirm }) => {
+const DetailModal = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  title,
+  submitButtonLabel,
+}) => {
   if (!isOpen) return null;
 
   const [dateValue, setDateValue] = useState(getCurrentDate());
@@ -154,27 +43,26 @@ const DetailModal = ({ isOpen, onClose, onConfirm }) => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    // try {
-    //   const res = await axios.post("url주소", {
-    //     date: dateValue,
-    //     time: timeValue,
-    //     title: scheduleTitle,
-    //     pet: selected,
-    //     memo: scheduleMemo,
-    //   });
+    try {
+      const res = await axios.post("http://localhost:5000/todos", {
+        startDate: dateValue,
+        startTime: timeValue,
+        title: scheduleTitle,
+        petId: selected,
+        content: scheduleMemo,
+      });
 
-    //   const status = res.status.toString().charAt(0);
-    //   if (status === "2") {
-    //     // console.log(res.data);
-    //     alert("일정 등록 성공");
-    //     onConfirm();
-    //   } else {
-    //     console.log("API 오류");
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    //   alert("일정 등록 실패");
-    // }
+      const status = res.status.toString().charAt(0);
+      if (status === "2") {
+        alert("일정 등록 성공");
+        onConfirm();
+      } else {
+        console.log("API 오류");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("일정 등록 실패");
+    }
 
     alert(
       `정보: ${dateValue}, ${timeValue}, ${scheduleTitle}, ${selected}, ${scheduleMemo} `,
@@ -203,7 +91,7 @@ const DetailModal = ({ isOpen, onClose, onConfirm }) => {
       <button className="close-btn" type="button" onClick={onClose}>
         <IoClose />
       </button>
-      <ScheduleTitle>일정 추가하기</ScheduleTitle>
+      <ScheduleTitle>{title}</ScheduleTitle>
       <form onSubmit={handleSubmit}>
         <FormItem>
           <FormLeft>
@@ -280,7 +168,7 @@ const DetailModal = ({ isOpen, onClose, onConfirm }) => {
         </FormItem>
         <FormBtn>
           <CancelButton type="button" label="취소하기" onClick={onClose} />
-          <SubmitButton type="submit" label="등록하기" />
+          <SubmitButton type="submit" label={submitButtonLabel} />
         </FormBtn>
       </form>
     </WrapStyle>
