@@ -3,10 +3,7 @@ import Calendar from "../components/calendar/Calendar";
 import "../styles/common.css";
 import "../styles/main.css";
 import "../styles/reset.css";
-
 import "../../src/styles/TodoList/left.css";
-import "../styles/font.css";
-import "../styles/global.css";
 
 function MainTodo() {
   return (
