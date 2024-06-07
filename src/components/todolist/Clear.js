@@ -1,7 +1,7 @@
 const Clear = ({ clearNo, clearYes, clearModalRef }) => {
   return (
     <div className="realdelete" ref={clearModalRef}>
-      <p>정말 삭제 하시겠습니까?</p>
+      <span>정말 모두 삭제 하시겠습니까?</span>
       <button className="delete-button yes" onClick={clearYes}>
         <p>확인</p>
       </button>

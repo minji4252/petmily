@@ -1,4 +1,3 @@
-import "../../styles/TodoList/left.css";
 import Success from "./Success";
 
 const TodoLeft = ({ todos, onRemove, onToggle, openClearModal }) => {

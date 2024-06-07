@@ -1,16 +1,28 @@
+
 import "../../styles/TodoList/left.css";
 import "../../styles/common.css";
 import ModifyModal from "./ModifyModal";
 import TodoInsert from "./TodoInsert";
 import TodoList from "./TodoList";
 
-const TodoRight = ({ onInsert, todos, onRemove, onToggle }) => {
+const TodoRight = ({
+  onInsert,
+  todos,
+  onRemove,
+  onToggle,
+  openModifyModal,
+  modifyYes,
+  modifyNo,
+  modifyModalRef,
+  modifyInsert,
+  modifyValue,
+}) => {
   return (
     <div className="todo-right">
       <div className="todo-right-title-box">
         <div className="todo-right-dummy-box"></div>
         <div className="todo-right-date">05.24</div>
-        <a className="todo-right-setting-box" href="#">
+        <a className="todo-right-setting-box">
           <p className="todo-right-setting">설정</p>
           <div className="todo-right-setting-icon">
             <svg
@@ -32,8 +44,20 @@ const TodoRight = ({ onInsert, todos, onRemove, onToggle }) => {
       </div>
       <p className="todo-right-title">오늘의 할일</p>
       <TodoInsert onInsert={onInsert}></TodoInsert>
-      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
-      <ModifyModal></ModifyModal>
+      <TodoList
+        openModifyModal={openModifyModal}
+        todos={todos}
+        onRemove={onRemove}
+        onToggle={onToggle}
+      />
+
+      <ModifyModal
+        modifyValue={modifyValue}
+        modifyInsert={modifyInsert}
+        modifyModalRef={modifyModalRef}
+        modifyYes={modifyYes}
+        modifyNo={modifyNo}
+      ></ModifyModal>
     </div>
   );
 };

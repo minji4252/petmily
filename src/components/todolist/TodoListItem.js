@@ -1,4 +1,4 @@
-const TodoListItem = ({ todo, onRemove, onToggle }) => {
+const TodoListItem = ({ todo, onRemove, onToggle, openModifyModal }) => {
   const { id, text, checked } = todo;
 
   return (
@@ -77,6 +77,9 @@ const TodoListItem = ({ todo, onRemove, onToggle }) => {
               height="24"
               viewBox="0 0 28 26"
               fill="none"
+              onClick={() => {
+                openModifyModal();
+              }}
             >
               <path
                 d="M17.5 6.5L21 9.75M15.1667 21.6667H24.5M5.83335 17.3333L4.66669 21.6667L9.33335 20.5833L22.8504 8.03183C23.2878 7.62552 23.5335 7.07452 23.5335 6.5C23.5335 5.92548 23.2878 5.37447 22.8504 4.96816L22.6497 4.78183C22.2121 4.37564 21.6187 4.14746 21 4.14746C20.3813 4.14746 19.7879 4.37564 19.3504 4.78183L5.83335 17.3333Z"
