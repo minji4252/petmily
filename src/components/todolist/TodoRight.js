@@ -1,3 +1,6 @@
+
+import "../../styles/TodoList/left.css";
+import "../../styles/common.css";
 import ModifyModal from "./ModifyModal";
 import TodoInsert from "./TodoInsert";
 import TodoList from "./TodoList";
