@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TodoLeft from "../components/todolist/TodoLeft";
 import TodoRight from "../components/todolist/TodoRight";
 import TodoTemplate from "../components/todolist/TodoTemple";
 import "../styles/TodoList/left.css";
 import Clear from "../components/todolist/Clear";
 import useClearModal from "../components/todolist/useClearModal";
+import useModifyModal from "../components/todolist/useModifyModal.js";
 
 const initState = [
   {
@@ -25,6 +26,7 @@ const initState = [
 ];
 const TodolistPage = () => {
   const [todos, setTodos] = useState(initState);
+  const [modifyValue, setModifyValue] = useState("");
 
   // id는 고유한 값이어야 한다.
   const nextId = useRef(4);
@@ -45,12 +47,19 @@ const TodolistPage = () => {
     }
   };
 
+  const modifyInsert = (id, newText) => {
+    // id에 해당하는 할 일을 찾아서 텍스트를 수정
+    const modifiedTodos = todos.map(todo => {
+      if (todo.id === id) {
+        return { ...todo, text: newText };
+      }
+      return todo;
+    });
+  };
+
   // 삭제 기능
   const onRemove = id => {
     setTodos(todos.filter(todo => todo.id !== id));
-  };
-  const onRemoveAll = () => {
-    setTodos([]);
   };
 
   // 토글 기능
@@ -61,8 +70,15 @@ const TodolistPage = () => {
       ),
     );
   };
-  const { clearModalOpen, openClearModal, clearNo, clearYes } =
-    useClearModal(todos);
+
+  const { clearModalOpen, openClearModal, clearNo, clearYes, clearModalRef } =
+    useClearModal({ todos, setTodos });
+
+  const { openModifyModal, modifyModalRef, modifyYes, modifyNo } =
+    useModifyModal({
+      modifyInsert,
+      todos,
+    });
 
   return (
     <TodoTemplate>
@@ -73,17 +89,20 @@ const TodolistPage = () => {
         onToggle={onToggle}
       ></TodoLeft>
       <TodoRight
+        modifyInsert={modifyInsert}
+        modifyModalRef={modifyModalRef}
+        onInsert={onInsert}
         todos={todos}
         onRemove={onRemove}
         onToggle={onToggle}
-        onInsert={onInsert}
+        openModifyModal={openModifyModal}
+        modifyYes={modifyYes}
+        modifyNo={modifyNo}
       ></TodoRight>
       <Clear
-        onRemoveAll={onRemoveAll}
+        clearModalRef={clearModalRef}
         clearNo={clearNo}
         clearYes={clearYes}
-        clearModalOpen={clearModalOpen}
-        openClearModal={openClearModal}
       ></Clear>
     </TodoTemplate>
   );

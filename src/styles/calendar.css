@@ -124,7 +124,7 @@
 }
 
 .react-calendar__tile--now {
-  background: rgb(238, 237, 237);
+  background: url("../images/back-1.png") no-repeat center;
 }
 
 .react-calendar__tile--now:enabled:hover,

@@ -1,5 +1,4 @@
-import "../../styles/font.css";
-import "../../styles/global.css";
+import "../../styles/common.css";
 import "../../styles/TodoList/left.css";
 
 const TodoTemplate = ({ children }) => {

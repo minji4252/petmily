@@ -1,7 +1,7 @@
 import "../../styles/TodoList/left.css";
 import TodoListItem from "./TodoListItem";
 
-const TodoList = ({ todos, onRemove, onToggle }) => {
+const TodoList = ({ todos, onRemove, onToggle, openModifyModal }) => {
   return (
     <div className="TodoList">
       {todos.map(todo => (
@@ -10,6 +10,7 @@ const TodoList = ({ todos, onRemove, onToggle }) => {
           todo={todo}
           onRemove={onRemove}
           onToggle={onToggle}
+          openModifyModal={openModifyModal}
         />
       ))}
     </div>

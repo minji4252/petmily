@@ -1,5 +1,5 @@
 import "../../styles/header.css";
-import "../../styles/global.css";
+import "../../styles/common.css";
 import "../../styles/reset.css";
 import { Link } from "react-router-dom";
 import petmilyLogo from "../../images/petmily-header.png";

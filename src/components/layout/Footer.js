@@ -1,5 +1,5 @@
 import "../../styles/footer.css";
-import "../../styles/global.css";
+import "../../styles/common.css";
 import "../../styles/reset.css";
 import petmilyFooter from "../../images/petmily-footer.png";
 import { Link } from "react-router-dom";

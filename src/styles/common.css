@@ -30,6 +30,7 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  font-family: "Pretendard-Regular", sans-serif !important;
 }
 /* a태그 파란글씨 없애고 밑줄 삭제 */
 a {
@@ -44,7 +45,7 @@ html {
 body {
   /* 폰트 패밀리 프리텐다드 */
   background-color: #fefbf8;
-  font-family: "Pretendard-Regular", sans-serif;
+  /* font-family: "Pretendard-Regular", sans-serif !important; */
 }
 
 .wrap {

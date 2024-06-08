@@ -71,6 +71,7 @@
   gap: 36px;
 }
 
+/* 캘린더 임포트 스타일 */
 .main-calendar-sync {
   width: 100%;
   max-width: 432px;
@@ -81,7 +82,6 @@
   border-radius: 30px;
 }
 
-/* 캘린더 임포트 스타일 */
 .main-calendar-sync .react-calendar {
   margin-right: 0 !important;
   border-radius: 9px !important;
@@ -100,16 +100,60 @@
   padding-top: 12px !important;
 }
 
-.react-calendar__navigation button:first-child {
+.main-calendar-sync .react-calendar__navigation button:first-child {
   margin-top: 17px !important;
   right: 33px !important;
   display: none !important;
 }
 
-.react-calendar__navigation button:last-child {
+.main-calendar-sync .react-calendar__navigation button:last-child {
   margin-top: 17px !important;
   right: 7px !important;
   display: none !important;
+}
+
+/* 캘린더 임포트 스타일 - 반응형*/
+@media all and (max-width: 940px) {
+  .main-calendar-sync .react-calendar {
+    max-height: 868px !important;
+    height: 92.34vw !important;
+  }
+  .main-calendar-sync .react-calendar__navigation {
+    height: 160px !important;
+    margin-top: 16px !important;
+  }
+  .main-calendar-sync .react-calendar__navigation button {
+    font-size: 2.6rem;
+  }
+
+  .main-calendar-sync .react-calendar__month-view__weekdays {
+    padding: 0 75px !important;
+    font-size: 26px !important;
+  }
+
+  .main-calendar-sync .react-calendar__tile {
+    padding: 16px 0px !important;
+  }
+  .main-calendar-sync .react-calendar__month-view__days {
+    padding: 0 71px !important;
+    font-size: 23px !important;
+  }
+}
+@media all and (max-width: 871px) {
+  .main-calendar-sync .react-calendar {
+    height: 91.91vw !important;
+  }
+}
+@media all and (max-width: 818px) {
+  .main-calendar-sync .react-calendar {
+    height: 91.61vw !important;
+  }
+}
+
+@media all and (max-width: 746px) {
+  .main-calendar-sync .react-calendar {
+    height: 91.1vw !important;
+  }
 }
 
 .m-r-calendar {
@@ -483,4 +527,23 @@
   .main-sec-3 {
     margin-top: 119px;
   }
+}
+
+/* Todo-list CSS */
+.main-t-item {
+  /* width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px; */
+  border-bottom: 1px solid #795a4b;
+  height: 70px;
+  display: flex;
+}
+
+.main-todolist {
+  display: flex;
+  flex-direction: column;
+  padding: 0 60px;
 }
