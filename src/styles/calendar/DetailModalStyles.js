@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import { colorSystem } from "../../styles/color.js";
 
 // 공통
-export const WrapStyle = styled.div`
-  max-width: 600px;
-  width: 100%;
+export const DetailWrapStyle = styled.div`
+  /* max-width: 600px; */
+  width: 600px;
   height: 720px;
   padding: 80px 50px 0px 50px;
   border-radius: 13px;
@@ -50,19 +50,7 @@ export const FormItem = styled.div`
   justify-content: space-between;
 `;
 
-export const FormLeft = styled.div`
-  input[type="date" i] {
-    font-family: "Pretendard-Regular";
-  }
-
-  input[type="time" i] {
-    font-family: "Pretendard-Regular";
-  }
-
-  input {
-    font-family: "Pretendard-Regular";
-  }
-`;
+export const FormLeft = styled.div``;
 
 // 날짜, 시간
 export const InputStyle = styled.input`
@@ -76,7 +64,6 @@ export const InputStyle = styled.input`
   &::placeholder {
     font-size: 0.8rem;
     color: ${colorSystem.placeholder};
-    font-family: "Pretendard-Regular";
   }
 `;
 
@@ -90,7 +77,6 @@ export const Label = styled.label`
     border: 1px solid #cbd5e1;
     padding: 8px;
     font-size: 0.8rem;
-    font-family: "Pretendard-Regular";
   }
 `;
 
@@ -107,12 +93,10 @@ export const PetImgRegist = styled.textarea`
   padding: 15px;
   resize: none;
   margin-top: 5px;
-  font-family: "Pretendard-Regular";
 
   &::placeholder {
     font-size: 0.8rem;
     color: ${colorSystem.placeholder};
-    font-family: "Pretendard-Regular";
   }
 `;
 

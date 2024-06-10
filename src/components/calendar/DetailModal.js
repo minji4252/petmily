@@ -9,7 +9,7 @@ import {
   Label,
   PetImgRegist,
   ScheduleTitle,
-  WrapStyle,
+  DetailWrapStyle,
 } from "../../styles/calendar/DetailModalStyles.js";
 import { CancelButton, SubmitButton } from "../common/Button";
 import axios from "axios";
@@ -103,7 +103,7 @@ const DetailModal = ({
 
   // 심플 모달의 위치에 상관없이 독립적으로 렌더링
   return ReactDOM.createPortal(
-    <WrapStyle className="box-style">
+    <DetailWrapStyle className="box-style">
       <button className="close-btn" type="button" onClick={onClose}>
         <IoClose />
       </button>
@@ -207,7 +207,7 @@ const DetailModal = ({
           </FormBtn>
         )}
       </form>
-    </WrapStyle>,
+    </DetailWrapStyle>,
     document.body,
   );
 };

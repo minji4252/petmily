@@ -99,12 +99,18 @@
 
 .react-calendar__tile {
   max-width: 100%;
-  padding: 10px 6.6667px;
+  width: 100px;
+  height: 80px;
+  padding: 10px 6px 0px 6px;
   background: none;
-  text-align: center;
+  text-align: left;
   line-height: 16px;
   font: inherit;
   font-size: 0.833em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .react-calendar__tile:disabled {
@@ -125,6 +131,7 @@
 
 .react-calendar__tile--now {
   background: url("../images/back-1.png") no-repeat center;
+  background-size: cover;
 }
 
 .react-calendar__tile--now:enabled:hover,
