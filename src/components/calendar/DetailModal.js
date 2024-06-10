@@ -13,6 +13,7 @@ import {
 } from "../../styles/calendar/DetailModalStyles.js";
 import { CancelButton, SubmitButton } from "../common/Button";
 import axios from "axios";
+import ReactDOM from "react-dom";
 
 const DetailModal = ({
   isOpen,
@@ -20,14 +21,24 @@ const DetailModal = ({
   onConfirm,
   title,
   submitButtonLabel,
+  initialDateValue, // 추가된 날짜 관련 props
+  initialTimeValue,
+  initialTitle,
+  initialPetId,
+  initialContent,
+  readOnly = false,
 }) => {
   if (!isOpen) return null;
 
-  const [dateValue, setDateValue] = useState(getCurrentDate());
-  const [timeValue, setTimeValue] = useState(getCurrentTime());
-  const [scheduleTitle, setScheduleTitle] = useState("");
-  const [selected, setSelected] = useState("none");
-  const [scheduleMemo, setScheduleMemo] = useState("");
+  const [dateValue, setDateValue] = useState(
+    initialDateValue || getCurrentDate(),
+  );
+  const [timeValue, setTimeValue] = useState(
+    initialTimeValue || getCurrentTime(),
+  );
+  const [scheduleTitle, setScheduleTitle] = useState(initialTitle || "");
+  const [selected, setSelected] = useState(initialPetId || "none");
+  const [scheduleMemo, setScheduleMemo] = useState(initialContent || "");
 
   //백엔드 데이터
   const selectList = [
@@ -43,6 +54,10 @@ const DetailModal = ({
 
   const handleSubmit = async event => {
     event.preventDefault();
+    if (readOnly) {
+      onClose();
+      return;
+    }
     try {
       const res = await axios.post("http://localhost:5000/todos", {
         startDate: dateValue,
@@ -86,7 +101,8 @@ const DetailModal = ({
     return `${hours}:${minutes}`;
   }
 
-  return (
+  // 심플 모달의 위치에 상관없이 독립적으로 렌더링
+  return ReactDOM.createPortal(
     <WrapStyle className="box-style">
       <button className="close-btn" type="button" onClick={onClose}>
         <IoClose />
@@ -104,6 +120,8 @@ const DetailModal = ({
                 required
                 value={dateValue}
                 onChange={e => setDateValue(e.target.value)}
+                readOnly={readOnly}
+                disabled={readOnly}
               />
             </label>
 
@@ -116,6 +134,8 @@ const DetailModal = ({
                 required
                 value={timeValue}
                 onChange={e => setTimeValue(e.target.value)}
+                readOnly={readOnly}
+                disabled={readOnly}
               />
             </label>
 
@@ -130,6 +150,8 @@ const DetailModal = ({
                 autoComplete="off"
                 value={scheduleTitle}
                 onChange={e => setScheduleTitle(e.target.value)}
+                readOnly={readOnly}
+                disabled={readOnly}
               />
             </label>
 
@@ -140,6 +162,7 @@ const DetailModal = ({
                 id="mypet"
                 value={selected}
                 onChange={handleSelect}
+                disabled={readOnly}
               >
                 {selectList.map(item => {
                   return (
@@ -162,16 +185,30 @@ const DetailModal = ({
                 required
                 value={scheduleMemo}
                 onChange={e => setScheduleMemo(e.target.value)}
+                readOnly={readOnly}
+                disabled={readOnly}
               />
             </label>
           </FormRight>
         </FormItem>
-        <FormBtn>
-          <CancelButton type="button" label="취소하기" onClick={onClose} />
-          <SubmitButton type="submit" label={submitButtonLabel} />
-        </FormBtn>
+        {!readOnly && (
+          <FormBtn>
+            <CancelButton type="button" label="취소하기" onClick={onClose} />
+            <SubmitButton type="submit" label={submitButtonLabel} />
+          </FormBtn>
+        )}
+        {readOnly && (
+          <FormBtn>
+            <SubmitButton
+              type="button"
+              label={submitButtonLabel}
+              onClick={onClose}
+            />
+          </FormBtn>
+        )}
       </form>
-    </WrapStyle>
+    </WrapStyle>,
+    document.body,
   );
 };
 

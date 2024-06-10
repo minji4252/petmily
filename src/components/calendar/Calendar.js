@@ -16,7 +16,6 @@ export const StyledCalendarWrapper = styled.div`
 
   .react-calendar {
     border: 0;
-    /* height: 470px; */
     height: 100%;
     padding: 30px;
     width: 100%;
@@ -28,10 +27,20 @@ export const StyledCalendarWrapper = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-  position: fixed;
+  position: absolute;
   top: ${props => props.top || "50%"};
   left: ${props => props.left || "50%"};
   transform: translate(-50%, 0%);
+`;
+
+const Title = styled.h2`
+  background-color: #ffd9d9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  padding: 0 5px;
+  font-size: 0.7rem;
 `;
 
 const Calendar = () => {
@@ -45,7 +54,7 @@ const Calendar = () => {
     const checkDay = moment(value).format("YYYY-MM-DD");
     setClickDay(checkDay);
 
-    const dayResult = allData.find(item => checkDay === item.day);
+    const dayResult = allData.find(item => checkDay === item.startDate);
 
     if (dayResult) {
       setClickInfo(dayResult);
@@ -56,8 +65,11 @@ const Calendar = () => {
     const target = event.target.closest(".react-calendar__tile");
     if (target) {
       const rect = target.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height + 10;
+      const calendarRect = target
+        .closest(".react-calendar")
+        .getBoundingClientRect();
+      const x = rect.left + rect.width / 2 - calendarRect.left;
+      const y = rect.top + rect.height - calendarRect.top + 10;
       setModalPosition({ top: `${y}px`, left: `${x}px` });
 
       event.preventDefault();
@@ -72,10 +84,38 @@ const Calendar = () => {
   // 외부 데이터의 내용을 날짜에 출력하기
   // axios.get("todos") 리턴결과
   const todoApi = [
-    { pk: 0, title: "동물병원", text: "내용 1", day: "2024-06-04" },
-    { pk: 1, title: "유치원", text: "내용 2", day: "2024-05-31" },
-    { pk: 2, title: "산책가기", text: "내용 3", day: "2024-06-17" },
-    { pk: 3, title: "애견호텔", text: "내용 4", day: "2024-06-04" },
+    {
+      pk: 0,
+      petId: "1",
+      title: "동물병원 가기",
+      content: "내용 1",
+      startDate: "2024-06-27",
+      startTime: "10:40",
+    },
+    {
+      pk: 1,
+      petId: "1",
+      title: "유치원",
+      content: "내용 2",
+      startDate: "2024-05-31",
+      startTime: "17:21",
+    },
+    {
+      pk: 2,
+      petId: "2",
+      title: "산책가기",
+      content: "내용 3",
+      startDate: "2024-06-27",
+      startTime: "08:16",
+    },
+    {
+      pk: 3,
+      petId: "3",
+      title: "애견호텔",
+      content: "내용 4",
+      startDate: "2024-06-27",
+      startTime: "21:40",
+    },
   ];
   const [allData, setAllData] = useState([]);
   useEffect(() => {
@@ -87,11 +127,28 @@ const Calendar = () => {
   // 내용 출력하기
   const tileContent = ({ date }) => {
     const checkDay = moment(date).format("YYYY-MM-DD");
-    const dayResult = allData.find(item => checkDay === item.day);
-    if (dayResult) {
+    const dayResult = allData.filter(item => checkDay === item.startDate);
+    if (dayResult.length > 0) {
       return (
         <div>
-          <h2 style={{ backgroundColor: "#ffd9d9" }}>{dayResult.title}</h2>
+          {dayResult.slice(0, 2).map(event => (
+            <Title key={event.pk} style={{ backgroundColor: "#ffd9d9" }}>
+              {event.title}
+            </Title>
+          ))}
+          {dayResult.length > 2 && (
+            <Title
+              style={{
+                backgroundColor: "transparent",
+                color: "#015DE7",
+                textAlign: "right",
+                fontSize: "0.6rem",
+                padding: "0",
+              }}
+            >
+              view more
+            </Title>
+          )}
         </div>
       );
     }

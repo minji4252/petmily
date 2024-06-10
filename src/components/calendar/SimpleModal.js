@@ -9,43 +9,117 @@ import {
   ModalTitle,
   SimpleModalStyle,
 } from "../../styles/calendar/SimpleModalStyles";
-import { ActionButton, DelectButton, SubmitButton } from "../common/Button";
+import {
+  ActionButton,
+  CancelButton,
+  DelectButton,
+  SubmitButton,
+} from "../common/Button";
+import useModal from "../../hooks/UseModal";
+import DetailModal from "./DetailModal";
+import { useState } from "react";
+import { RiArrowRightWideFill } from "react-icons/ri";
 
 const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
+  const [detailmodalMode, setDetailModalMode] = useState("add");
+  const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
+
+  const handleSchedule = (e, mode) => {
+    e.preventDefault();
+    setDetailModalMode(mode);
+
+    openModal({
+      onConfirm: () => {
+        closeModal();
+      },
+      initialDateValue: clickDay,
+      initialTimeValue: clickInfo ? clickInfo.startTime : "",
+      initialTitle: clickInfo ? clickInfo.title : "",
+      initialPetId: clickInfo ? clickInfo.petId : "none",
+      initialContent: clickInfo ? clickInfo.content : "",
+      readOnly: mode === "view",
+    });
+  };
+
   if (!isOpen) return null;
   const titleDate = moment(clickDay).format("DD dddd");
+
   return (
-    <SimpleModalStyle>
-      <ModalTitle>{titleDate}</ModalTitle>
-      <button className="close-btn" type="button" onClick={onClose}>
-        <IoClose />
-      </button>
-      <ModalLine />
-      <ModalList>
-        <ModalItem>
+    <>
+      <SimpleModalStyle>
+        <ModalTitle>{titleDate}</ModalTitle>
+        <button className="close-btn" type="button" onClick={onClose}>
+          <IoClose />
+        </button>
+        <ModalLine />
+        <ModalList>
+          <ModalItem>
+            {clickInfo ? (
+              <>
+                <p>
+                  {clickInfo.startTime} {clickInfo.petId}
+                  <RiArrowRightWideFill /> {clickInfo.title}
+                </p>
+                <ActionButton
+                  label="더보기"
+                  onClick={e => handleSchedule(e, "view")}
+                />
+              </>
+            ) : (
+              <p>일정이 없습니다</p>
+            )}
+          </ModalItem>
+        </ModalList>
+        <ModalBtn>
           {clickInfo ? (
             <>
-              <p>10 : 20 {clickInfo.title}</p>
-              <ActionButton label="상세정보" />
+              <SubmitButton
+                label="추가"
+                onClick={e => handleSchedule(e, "add")}
+              />
+              <ActionButton
+                label="수정"
+                onClick={e => handleSchedule(e, "edit")}
+              />
+              <DelectButton label="삭제" />
             </>
           ) : (
-            <p>일정이 없습니다</p>
+            <>
+              <SubmitButton
+                label="추가"
+                onClick={e => handleSchedule(e, "add")}
+              />
+              <CancelButton label="확인" onClick={onClose} />
+            </>
           )}
-        </ModalItem>
-      </ModalList>
-
-      <ModalBtn>
-        {clickInfo ? (
-          <>
-            <SubmitButton label="추가" />
-            <ActionButton label="수정" />
-            <DelectButton label="삭제" />
-          </>
-        ) : (
-          <></>
-        )}
-      </ModalBtn>
-    </SimpleModalStyle>
+        </ModalBtn>
+      </SimpleModalStyle>
+      <DetailModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={confirmAction}
+        title={
+          detailmodalMode === "add"
+            ? "일정 추가하기"
+            : detailmodalMode === "edit"
+              ? "일정 수정하기"
+              : "일정 상세보기"
+        }
+        submitButtonLabel={
+          detailmodalMode === "add"
+            ? "등록하기"
+            : detailmodalMode === "edit"
+              ? "수정하기"
+              : "확인하기"
+        }
+        initialDateValue={clickDay}
+        initialTimeValue={clickInfo ? clickInfo.startTime : ""}
+        initialTitle={clickInfo ? clickInfo.title : ""}
+        initialPetId={clickInfo ? clickInfo.petId : "none"}
+        initialContent={clickInfo ? clickInfo.content : ""}
+        readOnly={detailmodalMode === "view"}
+      />
+    </>
   );
 };
 
