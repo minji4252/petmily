@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useState } from "react";
 import milyicon from "../../images/mily-icon.png";
+import { useNavigate } from "react-router-dom";
+import { postSignIn } from "../../api/user/apiuser";
 
 const WrapStyle = styled.div`
   margin: 0;
@@ -85,6 +87,20 @@ const JoinBtn = styled.button`
 `;
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+  const [userId, setUserId] = useState("");
+  const [userPass, setUserPass] = useState("");
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const result = await postSignIn({ userId, userPass });
+    if (result.statusCode !== 2) {
+      alert(result.resultMsg);
+      return;
+    }
+    navigate("/");
+  };
+
   return (
     <WrapStyle>
       <Container>
@@ -95,16 +111,42 @@ const LoginPage = () => {
         </MilyImgGroup>
         <h2>펫밀리 로그인</h2>
         <LoginLine></LoginLine>
+
         <LoginForm action="#" method="post">
-          <input type="email" name="useremail" placeholder="이메일" required />
+          <input
+            type="email"
+            placeholder="이메일"
+            value={userId}
+            id="userid"
+            onChange={e => {
+              setUserId(e.target.value);
+            }}
+            required
+            autoComplete="off"
+          />
+
           <input
             type="password"
-            name="password"
             placeholder="비밀번호"
+            value={userPass}
+            id="pass"
+            onChange={e => {
+              setUserPass(e.target.value);
+            }}
             required
+            autoComplete="off"
           />
-          <button type="submit">로그인</button>
+
+          <button
+            type="submit"
+            onClick={e => {
+              handleSubmit(e);
+            }}
+          >
+            로그인
+          </button>
         </LoginForm>
+
         <JoinBtn type="submit">회원가입</JoinBtn>
       </Container>
     </WrapStyle>

@@ -3,7 +3,8 @@ import { colorSystem } from "../color";
 
 export const SimpleModalStyle = styled.div`
   width: 220px;
-  height: 150px;
+  min-height: 135px;
+  height: 100%;
   border-radius: 20px;
   background-color: ${colorSystem.white};
   border: 3px solid ${colorSystem.signature2};
@@ -28,43 +29,97 @@ export const ModalLine = styled.div`
   margin-top: 10px;
 `;
 
-export const ModalList = styled.div``;
+export const ModalList = styled.div`
+  width: 150px;
+  margin-bottom: 53px;
+  margin-top: 15px;
+`;
 export const ModalItem = styled.div`
   display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 8px;
+  margin-left: 10px;
+
+  > input {
+    margin-right: 10px;
+  }
 
   > button {
     border-radius: 0;
     background-color: ${colorSystem.white};
     width: 100%;
-    max-width: 60px;
-    height: 24px;
+    max-width: 43px;
+    height: 22px;
     font-size: 0.7rem;
     padding: 0;
     position: absolute;
     right: 10px;
-    top: 50px;
+    margin-top: 0px;
   }
 
-  > p {
-    margin-top: 18px;
-    margin-left: 10px;
-    font-size: 0.9rem;
+  p {
+    margin-left: 5px;
+    font-size: 0.8rem;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  p > svg {
+    width: 100%;
+    color: ${colorSystem.signature2};
+  }
+
+  & Input {
+    display: none;
+  }
+
+  .radio_label {
+    display: flex;
+    align-items: center;
+    margin-top: 3px;
+  }
+
+  .radio_icon::before {
+    content: "";
+    display: block;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-color: transparent;
+    border: 1px solid #9da3a5;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+  }
+  .radio_icon::before {
+    border-radius: 50px;
+  }
+
+  .radio_label input:checked + .radio_icon::before {
+    transition: all 0.15s ease;
+    background: url(https://intranet.adef.co.kr/asset/images/ic_check.png)
+      ${colorSystem.signature2} no-repeat center;
+    border: none;
   }
 `;
+
 export const ModalBtn = styled.div`
   width: 100%;
   display: flex;
-  gap: 3px;
+  gap: 5px;
   justify-content: center;
   align-items: center;
   position: absolute;
   bottom: 15px;
   > button {
-    max-width: 50px;
+    max-width: 45px;
     width: 100%;
     height: 23px;
-    line-height: 10px;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     padding: 0;
   }
 `;
