@@ -54,8 +54,8 @@ const Calendar = () => {
   // 달력 전체 데이터를 불러오는 API 함수
   const getData = async () => {
     try {
-      const response = await axios.get(`/api/calendar/user_id?user_id=12`);
-
+      const response = await axios.get("/api/calendar/user_id?user_id=12");
+      console.log(response.data.data);
       setAllData(response.data.data);
     } catch (error) {
       console.log(error);

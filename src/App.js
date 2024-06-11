@@ -7,7 +7,7 @@ import TodolistPage from "./pages/TodolistPage";
 import CalendarPage from "./pages/CalendarPage";
 import PetAdminPage from "./pages/PetAdminPage";
 import NotfoundPage from "./pages/NotfoundPage";
-import JoinPage from "./pages/JoinPage";
+import JoinPage from "./pages/member/JoinPage";
 import LoginPage from "./pages/member/LoginPage";
 
 function App() {
