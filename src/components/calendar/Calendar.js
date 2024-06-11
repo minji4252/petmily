@@ -36,9 +36,9 @@ const ModalWrapper = styled.div`
 
 const Title = styled.h2`
   background-color: #ffd9d9;
-  white-space: nowrap;
+  /* white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; */
   max-width: 100%;
   padding: 0 5px;
   font-size: 0.7rem;
@@ -99,72 +99,12 @@ const Calendar = () => {
     }
   };
 
-  // 외부 데이터의 내용을 날짜에 출력하기
-  // axios.get("todos") 리턴결과
-  // const todoApi = [
-  //   {
-  //     pk: 0,
-  //     petId: "1",
-  //     title: "유치원",
-  //     content: "내용 1",
-  //     startDate: "2024-05-31",
-  //     startTime: "17:21",
-  //   },
-  //   {
-  //     pk: 1,
-  //     petId: "1",
-  //     title: "동물병원 가기",
-  //     content: "내용 2",
-  //     startDate: "2024-06-06",
-  //     startTime: "11:20",
-  //   },
-  //   {
-  //     pk: 2,
-  //     petId: "2",
-  //     title: "산책가기",
-  //     content: "내용 3",
-  //     startDate: "2024-06-15",
-  //     startTime: "08:16",
-  //   },
-  //   {
-  //     pk: 3,
-  //     petId: "3",
-  //     title: "애견호텔",
-  //     content: "내용 4",
-  //     startDate: "2024-06-27",
-  //     startTime: "21:40",
-  //   },
-  //   {
-  //     pk: 4,
-  //     petId: "3",
-  //     title: "예방접종2차",
-  //     content: "내용 5",
-  //     startDate: "2024-06-27",
-  //     startTime: "23:10",
-  //   },
-  //   {
-  //     pk: 5,
-  //     petId: "3",
-  //     title: "자전거타기",
-  //     content: "내용 6",
-  //     startDate: "2024-06-27",
-  //     startTime: "21:40",
-  //   },
-  // ];
-  // const [allData, setAllData] = useState([]);
-  // useEffect(() => {
-  //   setAllData(todoApi);
-
-  //   return () => {};
-  // }, []);
-
   // 내용 출력하기
   const tileContent = ({ date }) => {
     const checkDay = moment(date).format("YYYY-MM-DD");
     const dayResult = allData.filter(
       item => moment(item.startDate).format("YYYY-MM-DD") === checkDay,
     );
-    // const dayResult = allData.filter(item => checkDay === item.startDate); //날짜형식이 안맞아서
     if (dayResult.length > 0) {
       return (
         <div>

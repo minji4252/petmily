@@ -17,19 +17,21 @@ import {
 } from "../common/Button";
 import useModal from "../../hooks/UseModal";
 import DetailModal from "./DetailModal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { RiArrowRightWideFill } from "react-icons/ri";
-import ConfirmationModal from "./ConfirmationModal"; // 확인 모달 컴포넌트 추가
+import ConfirmationModal from "./ConfirmationModal";
+import axios from "axios";
 
 const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
   const [detailmodalMode, setDetailModalMode] = useState("add");
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false); // 삭제 확인 모달 상태 추가
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const modalRef = useRef(null);
 
   useEffect(() => {
-    // 라디오버튼 - 첫 번째 일정 기본 선택
     if (clickInfo && clickInfo.length > 0) {
+      console.log(clickInfo[0]);
       setSelectedEvent(clickInfo[0]);
     }
   }, [clickInfo]);
@@ -54,9 +56,21 @@ const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
     }
   };
 
-  const handleDelete = e => {
+  const handleDelete = async e => {
     e.preventDefault();
-    setIsDeleteConfirmOpen(true);
+    if (!selectedEvent) return;
+
+    try {
+      const response = await axios.delete(
+        `/api/calendar?calendar_id=${selectedEvent.pk}`,
+      );
+      console.log(response.data);
+      setIsDeleteConfirmOpen(true);
+      setSelectedEvent(null);
+      // 여기서 onConfirm
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const confirmDelete = () => {
@@ -70,7 +84,7 @@ const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
 
   return (
     <>
-      <SimpleModalStyle>
+      <SimpleModalStyle ref={modalRef}>
         <ModalTitle>{titleDate}</ModalTitle>
         <button className="close-btn" type="button" onClick={onClose}>
           <IoClose />
@@ -88,10 +102,10 @@ const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
                     onChange={() => setSelectedEvent(event)}
                   />
                   <span className="radio_icon"></span>
-
+                  <p>{moment(event.startTime, "HH:mm:ss").format("HH:mm")} </p>
+                  <p> {event.petId}</p>
                   <p>
-                    {event.startTime} {event.petId}
-                    <RiArrowRightWideFill /> {event.title}
+                    <RiArrowRightWideFill /> <span>{event.title}</span>
                   </p>
                 </label>
                 <ActionButton

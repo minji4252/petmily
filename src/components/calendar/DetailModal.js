@@ -14,6 +14,7 @@ import {
 import { CancelButton, SubmitButton } from "../common/Button";
 import axios from "axios";
 import ReactDOM from "react-dom";
+import moment from "moment";
 
 const DetailModal = ({
   isOpen,
@@ -26,6 +27,7 @@ const DetailModal = ({
   initialTitle,
   initialPetId,
   initialContent,
+  userId, // 사용자 ID를 props로 전달받음
   readOnly = false,
 }) => {
   if (!isOpen) return null;
@@ -34,7 +36,7 @@ const DetailModal = ({
     initialDateValue || getCurrentDate(),
   );
   const [timeValue, setTimeValue] = useState(
-    initialTimeValue || getCurrentTime(),
+    formatTime(initialTimeValue || getCurrentTime()),
   );
   const [scheduleTitle, setScheduleTitle] = useState(initialTitle || "");
   const [selected, setSelected] = useState(initialPetId || "none");
@@ -59,14 +61,15 @@ const DetailModal = ({
       return;
     }
     try {
-      const res = await axios.post("http://localhost:5000/todos", {
-        startDate: dateValue,
-        startTime: timeValue,
-        title: scheduleTitle,
+      const formattedTime = `${timeValue}:00`; // 시간 형식을 맞춤
+      const res = await axios.post("/api/calendar", {
+        userId: 12, // 사용자 ID 임시 추가
         petId: selected,
+        title: scheduleTitle,
         content: scheduleMemo,
+        startDate: dateValue,
+        startTime: formattedTime,
       });
-
       const status = res.status.toString().charAt(0);
       if (status === "2") {
         alert("일정 등록 성공");
@@ -78,10 +81,6 @@ const DetailModal = ({
       console.error(error);
       alert("일정 등록 실패");
     }
-
-    alert(
-      `정보: ${dateValue}, ${timeValue}, ${scheduleTitle}, ${selected}, ${scheduleMemo} `,
-    );
   };
 
   // 오늘 날짜를 반환하는 함수
@@ -99,6 +98,10 @@ const DetailModal = ({
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
     return `${hours}:${minutes}`;
+  }
+
+  function formatTime(time) {
+    return moment(time, "HH:mm:ss").format("HH:mm");
   }
 
   // 심플 모달의 위치에 상관없이 독립적으로 렌더링
@@ -133,7 +136,7 @@ const DetailModal = ({
                 name="settime"
                 required
                 value={timeValue}
-                onChange={e => setTimeValue(e.target.value)}
+                onChange={e => setTimeValue(formatTime(e.target.value))}
                 readOnly={readOnly}
                 disabled={readOnly}
               />
@@ -182,7 +185,6 @@ const DetailModal = ({
                 id="schedulememo"
                 name="schedulememo"
                 placeholder="일정 내용을 작성해 주세요"
-                required
                 value={scheduleMemo}
                 onChange={e => setScheduleMemo(e.target.value)}
                 readOnly={readOnly}

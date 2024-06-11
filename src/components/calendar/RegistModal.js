@@ -22,6 +22,7 @@ import {
 } from "../../styles/calendar/RegistModalStyles";
 import { CancelButton, SubmitButton } from "../common/Button";
 import axios from "axios";
+import { registerPet } from "../../api/pet/apipetadmin";
 
 const icons = [
   { id: 1, src: icon1 },
@@ -52,7 +53,7 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/todos", {
+      await registerPet({
         user_id: petName,
         pet_name: petName,
         pet_category: petKind,
@@ -60,20 +61,11 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
         pet_icon: selectedIcon,
         pet_back_color: selectedColor,
       });
-
-      const status = res.status.toString().charAt(0);
-      if (status === "2") {
-        alert("일정 등록 성공");
-        onConfirm();
-      } else {
-        console.log("API 오류");
-      }
+      alert("등록 성공");
+      onConfirm();
     } catch (error) {
-      console.error(error);
-      alert("일정 등록 실패");
+      console.log(error);
     }
-    alert(`정보: ${petName}, ${petKind}, ${selectedIcon}, ${selectedColor}`);
-    onConfirm();
   };
 
   return (

@@ -68,8 +68,17 @@ export const ModalItem = styled.div`
     max-width: 100%;
   }
 
+  p > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    white-space: nowrap;
+    max-width: 60px;
+    width: 60px;
+    /* 임시 */
+  }
+
   p > svg {
-    width: 100%;
     color: ${colorSystem.signature2};
   }
 
