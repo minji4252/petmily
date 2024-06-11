@@ -49,11 +49,12 @@
 }
 
 .todo-left {
+  position: relative;
   width: 100%;
   max-width: 440px;
   min-height: 800px;
   display: flex;
-  gap: 55px;
+  gap: 20px;
   align-items: center;
   flex: 1 0 0;
   flex-direction: column;
@@ -74,10 +75,18 @@
   align-items: center;
   flex-direction: column;
 }
+.clear-box {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
 
 .todo-left-clear {
-  width: 100%;
+  width: auto;
   height: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
   font-size: 20px;
   font-weight: 600;
   color: #e13838;
@@ -137,7 +146,6 @@
 
 .todo-right {
   position: relative;
-
   width: 100%;
   max-width: 440px;
   min-height: 800px;
@@ -152,49 +160,13 @@
   border-radius: 13px;
 }
 
-.todo-right-title-box {
-  position: relative;
+.todo-right-date {
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-}
-
-.todo-right-dummy-box {
-  width: 1px;
-  height: 1px;
-}
-
-.todo-right-date {
-  position: absolute;
-  left: 50%;
   font-size: 40px;
   font-weight: 700;
   color: #694e42;
-  transform: translateX(-50%);
-}
-
-.todo-right-setting-box {
-  position: absolute;
-  top: 0;
-  right: 0;
-  display: none;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-}
-
-.todo-right-setting-box p {
-  font-size: 20px;
-  font-weight: 500;
-  color: #694e42;
-  text-align: end;
-}
-
-.todo-right-setting-icon {
-  width: 24px;
-  height: 24px;
 }
 
 .todo-right-title {
@@ -347,33 +319,88 @@
 }
 
 .modifybox {
-  display: none;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  display: none;
   padding: 125px 50px;
   background: rgba(0, 0, 0, 0.5);
+  border-radius: 13px;
 }
 .modifybox.open {
   display: flex;
-  flex-flow: column;
-  align-items: center;
   gap: 30px;
+  align-items: center;
+  flex-flow: column;
+}
+
+.mb-menu {
+  display: none;
+  justify-content: start;
+  cursor: pointer;
+}
+
+.mb-menumodal {
+  display: none;
+}
+
+.open-todolist {
+  margin-bottom: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #694e42;
+  cursor: pointer;
+}
+
+.open-successlist {
+  font-size: 20px;
+  font-weight: 600;
+  color: #694e42;
+  cursor: pointer;
+}
+
+.close-menu {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.svg-box {
+  width: 100%;
+  display: flex;
+  justify-content: start;
 }
 
 @media all and (max-width: 768px) {
   .todo-main {
+    display: flex;
+    align-items: center;
     justify-content: center;
+    flex-direction: column;
   }
   .todo-left {
     min-width: 440px;
-    display: none;
-    margin: 0 50px;
+    display: flex;
+    padding: 40px 50px;
   }
   .todo-right {
     min-width: 440px;
-    margin: 0 50px;
+    display: none;
+    padding: 40px 50px;
+  }
+  .mb-menu {
+    display: flex;
+  }
+  .mb-menumodal {
+    padding: 20px 20px;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    background: #fff;
   }
 }
