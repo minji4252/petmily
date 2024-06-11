@@ -36,7 +36,8 @@
 .join-in-title {
   margin-top: 20px;
   display: flex;
-  align-items: start;
+  align-items: end;
+  justify-content: space-between;
   margin-bottom: 0 !important;
 }
 
@@ -99,4 +100,18 @@ form {
   float: right;
   background-color: transparent;
   color: #a47e6d;
+}
+
+.email-check {
+  display: flex;
+  width: auto !important;
+  height: auto !important;
+  margin-top: 0 !important;
+  padding: 10px;
+  border: none;
+  background-color: #a47e6d;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
 }
