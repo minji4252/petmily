@@ -4,7 +4,7 @@ import mypetImage from "../../images/mypet.png";
 
 export const CalendarMain = styled.main`
   width: 100%;
-  max-width: 1120px;
+  max-width: 1200px;
   display: flex;
   margin: 170px auto 190px auto;
 
@@ -15,7 +15,7 @@ export const CalendarMain = styled.main`
 
 export const BoxStyle = styled.div`
   width: 100%;
-  height: 210px;
+  height: 260px;
   border-radius: 32px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
   background-color: rgb(255, 255, 255);
@@ -107,7 +107,6 @@ export const RadioText = styled.div`
 
 export const CalAddition = styled.div`
   width: 65%;
-  /* max-width: 250px; */
   margin: 0 30px;
 
   .pet-img {
@@ -121,10 +120,13 @@ export const CalAddition = styled.div`
     display: flex;
     align-items: center;
     position: relative;
+    height: 330px;
   }
 
   button {
     width: 100%;
+    height: 40px;
+    font-size: 0.9rem;
   }
 `;
 
@@ -162,7 +164,7 @@ export const PetIcon = styled.div`
 `;
 
 export const CalRight = styled.div`
-  width: 57%;
+  width: 62%;
   margin-top: 25px;
 
   @media all and (max-width: 768px) {

@@ -40,12 +40,6 @@ const Index = () => {
     setIsVisible(!isVisible);
   };
 
-  const [showScheduleAdd, setShowScheduleAdd] = useState(true);
-
-  const closeScheduleAdd = () => {
-    setShowScheduleAdd(false);
-  };
-
   return (
     <CalendarMain>
       <CalLeft>
@@ -82,28 +76,14 @@ const Index = () => {
             <PetIcon></PetIcon>
           </PetSelect>
           <BoxStyle className="pet-img"></BoxStyle>
-          {showScheduleAdd && (
-            <BoxStyle className="schedule-add">
-              <button
-                className="close-btn"
-                type="button"
-                onClick={closeScheduleAdd}
-              >
-                <IoClose />
-              </button>
-              <SubmitButton label="일정 추가" onClick={handleSchedule} />
-            </BoxStyle>
-          )}
+          <BoxStyle className="schedule-add">
+            <SubmitButton label="일정 추가" onClick={handleSchedule} />
+          </BoxStyle>
         </CalAddition>
       </CalLeft>
       <CalRight>
         <Calendar />
       </CalRight>
-      {/* <DetailModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        onConfirm={confirmAction}
-      /> */}
 
       <DetailModal
         isOpen={isModalOpen}
