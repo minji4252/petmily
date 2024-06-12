@@ -63,6 +63,40 @@ export const PetImgRegist = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  > label {
+    display: inline-block;
+    text-align: center;
+    color: ${colorSystem.white};
+    vertical-align: middle;
+    font-size: 0.7rem;
+    background-color: ${colorSystem.signature1};
+    cursor: pointer;
+    height: 30px;
+    margin-left: 10px;
+    width: 20%;
+    border-radius: 50px;
+    line-height: 30px;
+  }
+
+  .one {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+  }
+
+  .upload-name {
+    display: inline-block;
+    height: 30px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid ${colorSystem.signature1};
+    width: 50%;
+    color: ${colorSystem.g500};
+  }
 `;
 
 // 아이콘 & 배경색 선택

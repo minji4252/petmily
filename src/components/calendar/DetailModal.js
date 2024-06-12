@@ -22,13 +22,14 @@ const DetailModal = ({
   onConfirm,
   title,
   submitButtonLabel,
-  initialDateValue, // 추가된 날짜 관련 props
+  initialDateValue,
   initialTimeValue,
   initialTitle,
   initialPetId,
   initialContent,
-  userId, // 사용자 ID를 props로 전달받음
+  userId,
   readOnly = false,
+  setCalendarId,
 }) => {
   if (!isOpen) return null;
 
@@ -42,7 +43,6 @@ const DetailModal = ({
   const [selected, setSelected] = useState(initialPetId || "none");
   const [scheduleMemo, setScheduleMemo] = useState(initialContent || "");
 
-  //백엔드 데이터
   const selectList = [
     { value: "none", name: "선택하세요" },
     { value: "1", name: "루이" },
@@ -61,18 +61,20 @@ const DetailModal = ({
       return;
     }
     try {
-      const formattedTime = `${timeValue}:00`; // 시간 형식을 맞춤
+      const formattedTime = `${timeValue}:00`;
       const res = await axios.post("/api/calendar", {
-        userId: 12, // 사용자 ID 임시 추가
+        userId: 12,
         petId: selected,
         title: scheduleTitle,
         content: scheduleMemo,
         startDate: dateValue,
         startTime: formattedTime,
       });
-      const status = res.status.toString().charAt(0);
-      if (status === "2") {
+      if (res.status.toString().charAt(0) === "2") {
         alert("일정 등록 성공");
+        const calendarId = res.data.data.calendarId;
+        console.log("Calendar ID:", calendarId);
+        setCalendarId(calendarId); // 캘린더 ID 저장
         onConfirm();
       } else {
         console.log("API 오류");
@@ -83,7 +85,6 @@ const DetailModal = ({
     }
   };
 
-  // 오늘 날짜를 반환하는 함수
   function getCurrentDate() {
     const date = new Date();
     const year = date.getFullYear();
@@ -92,7 +93,6 @@ const DetailModal = ({
     return `${year}-${month}-${day}`;
   }
 
-  // 현재 시간을 반환하는 함수
   function getCurrentTime() {
     const date = new Date();
     const hours = String(date.getHours()).padStart(2, "0");
@@ -104,7 +104,6 @@ const DetailModal = ({
     return moment(time, "HH:mm:ss").format("HH:mm");
   }
 
-  // 심플 모달의 위치에 상관없이 독립적으로 렌더링
   return ReactDOM.createPortal(
     <DetailWrapStyle className="box-style">
       <button className="close-btn" type="button" onClick={onClose}>
@@ -167,13 +166,11 @@ const DetailModal = ({
                 onChange={handleSelect}
                 disabled={readOnly}
               >
-                {selectList.map(item => {
-                  return (
-                    <option value={item.value} key={item.value}>
-                      {item.name}
-                    </option>
-                  );
-                })}
+                {selectList.map(item => (
+                  <option value={item.value} key={item.value}>
+                    {item.name}
+                  </option>
+                ))}
               </select>
             </Label>
           </FormLeft>

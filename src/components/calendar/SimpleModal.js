@@ -23,18 +23,24 @@ import ConfirmationModal from "./ConfirmationModal";
 import axios from "axios";
 
 const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
-  const [detailmodalMode, setDetailModalMode] = useState("add");
+  const [detailModalMode, setDetailModalMode] = useState("add");
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const [calendarId, setCalendarId] = useState(null);
   const modalRef = useRef(null);
 
   useEffect(() => {
     if (clickInfo && clickInfo.length > 0) {
-      console.log(clickInfo[0]);
       setSelectedEvent(clickInfo[0]);
     }
   }, [clickInfo]);
+
+  console.log("심플모달");
+
+  useEffect(() => {
+    console.log("여기", calendarId);
+  }, [calendarId]);
 
   const handleSchedule = (e, mode, event = null) => {
     e.preventDefault();
@@ -52,31 +58,34 @@ const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
         initialPetId: event ? event.petId : "",
         initialContent: event ? event.content : "",
         readOnly: mode === "view",
+        setCalendarId: setCalendarId,
       });
     }
   };
 
-  const handleDelete = async e => {
-    e.preventDefault();
-    if (!selectedEvent) return;
+  const handleDelete = async () => {
+    console.log(calendarId);
+    if (!calendarId) return;
 
     try {
       const response = await axios.delete(
-        `/api/calendar?calendar_id=${selectedEvent.pk}`,
+        `/api/calendar?calendar_id=${calendarId}`,
       );
-      console.log(response.data);
-      setIsDeleteConfirmOpen(true);
-      setSelectedEvent(null);
-      // 여기서 onConfirm
+      if (response.status === 200) {
+        alert("일정이 삭제되었습니다.");
+        setIsDeleteConfirmOpen(false);
+        setSelectedEvent(null);
+        onConfirm();
+      } else {
+        console.log("삭제 실패:", response.data);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   const confirmDelete = () => {
-    // 여기에 삭제 로직 추가
-    setIsDeleteConfirmOpen(false);
-    setSelectedEvent(null);
+    handleDelete();
   };
 
   if (!isOpen) return null;
@@ -92,7 +101,7 @@ const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
         <ModalLine />
         <ModalList>
           {clickInfo && clickInfo.length > 0 ? (
-            clickInfo.map((event, index) => (
+            clickInfo.map(event => (
               <ModalItem key={event.pk}>
                 <label className="radio_label">
                   <input
@@ -102,8 +111,8 @@ const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
                     onChange={() => setSelectedEvent(event)}
                   />
                   <span className="radio_icon"></span>
-                  <p>{moment(event.startTime, "HH:mm:ss").format("HH:mm")} </p>
-                  <p> {event.petId}</p>
+                  <p>{moment(event.startTime, "HH:mm:ss").format("HH:mm")}</p>
+                  <p>{event.petId}</p>
                   <p>
                     <RiArrowRightWideFill /> <span>{event.title}</span>
                   </p>
@@ -135,7 +144,10 @@ const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
                   )
                 }
               />
-              <DelectButton label="삭제" onClick={handleDelete} />
+              <DelectButton
+                label="삭제"
+                onClick={() => setIsDeleteConfirmOpen(true)}
+              />
             </>
           )}
           {!clickInfo || clickInfo.length === 0 ? (
@@ -149,16 +161,16 @@ const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
           onClose={closeModal}
           onConfirm={confirmAction}
           title={
-            detailmodalMode === "add"
+            detailModalMode === "add"
               ? "일정 추가하기"
-              : detailmodalMode === "edit"
+              : detailModalMode === "edit"
                 ? "일정 수정하기"
                 : "일정 상세보기"
           }
           submitButtonLabel={
-            detailmodalMode === "add"
+            detailModalMode === "add"
               ? "등록하기"
-              : detailmodalMode === "edit"
+              : detailModalMode === "edit"
                 ? "수정하기"
                 : "확인하기"
           }
@@ -167,7 +179,8 @@ const SimpleModal = ({ isOpen, onClose, onConfirm, clickDay, clickInfo }) => {
           initialTitle={selectedEvent ? selectedEvent.title : ""}
           initialPetId={selectedEvent ? selectedEvent.petId : ""}
           initialContent={selectedEvent ? selectedEvent.content : ""}
-          readOnly={detailmodalMode === "view"}
+          readOnly={detailModalMode === "view"}
+          setCalendarId={setCalendarId}
         />
       )}
       {isDeleteConfirmOpen && (

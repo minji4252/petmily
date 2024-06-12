@@ -21,7 +21,6 @@ import {
   WrapStyle,
 } from "../../styles/calendar/RegistModalStyles";
 import { CancelButton, SubmitButton } from "../common/Button";
-import axios from "axios";
 import { registerPet } from "../../api/pet/apipetadmin";
 
 const icons = [
@@ -47,20 +46,57 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
 
   const [petName, setPetName] = useState("");
   const [petKind, setPetKind] = useState("");
+  const [image, setImage] = useState(null);
   const [selectedIcon, setSelectedIcon] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
 
+  // const handleSubmit = async event => {
+  //   event.preventDefault();
+  //   const formData = new FormData();
+  //   formData.append("user_id", petName);
+  //   formData.append("pet_name", petName);
+  //   formData.append("pet_category", petKind);
+  //   formData.append("pet_icon", selectedIcon);
+  //   formData.append("pet_back_color", selectedColor);
+  //   if (image) {
+  //     formData.append("pet_image", image);
+  //   }
+
+  //   try {
+  //     await registerPet(formData);
+  //     alert("등록 성공");
+  //     onConfirm();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const handleSubmit = async event => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append("user_id", petName); // 사용자 ID는 필요에 따라 추가합니다
+    formData.append("pet_name", petName);
+    formData.append("pet_category", petKind);
+    formData.append("pet_icon", selectedIcon);
+    formData.append("pet_back_color", selectedColor);
+    if (image) {
+      formData.append("pet_image", image);
+    }
+
+    // FormData를 일반 객체로 변환하여 쉽게 검사할 수 있도록 합니다
+    const data = {};
+    formData.forEach((value, key) => {
+      if (key === "pet_image") {
+        data[key] = value.name; // 파일 이름을 표시합니다
+      } else {
+        data[key] = value;
+      }
+    });
+
+    console.log(data);
+
     try {
-      await registerPet({
-        user_id: petName,
-        pet_name: petName,
-        pet_category: petKind,
-        pet_image: petName,
-        pet_icon: selectedIcon,
-        pet_back_color: selectedColor,
-      });
+      await registerPet(formData);
       alert("등록 성공");
       onConfirm();
     } catch (error) {
@@ -80,7 +116,6 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
           <InputStyle
             id="pet-name"
             type="text"
-            name="petname"
             placeholder="이름을 입력하세요"
             required
             autoComplete="off"
@@ -93,7 +128,6 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
           <InputStyle
             id="pet-kind"
             type="text"
-            name="petkind"
             placeholder="반려동물 종류를 입력하세요"
             required
             autoComplete="off"
@@ -103,7 +137,20 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
         </label>
         <p>사진 등록</p>
         <PetImgRegist className="box-style">
-          <SubmitButton type="button" label="사진 첨부"></SubmitButton>
+          <input
+            className="upload-name"
+            value="첨부파일"
+            placeholder="첨부파일"
+          />
+          <label htmlFor="file">파일찾기</label>
+          <input
+            className="one"
+            type="file"
+            accept="image/*"
+            onChange={e => setImage(e.target.files[0])}
+            required
+            id="file"
+          />
         </PetImgRegist>
         <p>아이콘 선택</p>
         <SelectedStyle className="box-style">
@@ -136,12 +183,8 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
           ))}
         </SelectedStyle>
         <FormBtn>
-          <CancelButton
-            type="button"
-            label="취소하기"
-            onClick={onClose}
-          ></CancelButton>
-          <SubmitButton type="submit" label="등록하기"></SubmitButton>
+          <CancelButton type="button" label="취소하기" onClick={onClose} />
+          <SubmitButton type="submit" label="등록하기" />
         </FormBtn>
       </form>
     </WrapStyle>
