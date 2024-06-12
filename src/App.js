@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -11,16 +11,12 @@ import JoinPage from "./pages/member/JoinPage";
 import LoginPage from "./pages/member/LoginPage";
 
 function App() {
+  const [isUser, setIsUser] = useState("");
+
   return (
     <BrowserRouter>
       <div className="wrap">
-        <Header>
-          {/* {isLogin ? (
-            <div>회원수정/로그아웃</div>
-          ) : (
-            <div>회원가입/회원로그인</div>
-          )} */}
-        </Header>
+        <Header isUser={isUser} setIsUser={setIsUser}></Header>
 
         <Routes>
           <Route path="/" element={<MainPage></MainPage>}></Route>
@@ -42,7 +38,7 @@ function App() {
           </Route>
 
           <Route path="/login">
-            <Route index element={<LoginPage />}></Route>
+            <Route index element={<LoginPage setIsUser={setIsUser} />}></Route>
           </Route>
 
           <Route path="*" element={<NotfoundPage></NotfoundPage>}></Route>

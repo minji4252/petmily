@@ -10,7 +10,7 @@ const WrapStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vw;
+  height: 100vw;
 `;
 
 const Container = styled.div`
@@ -86,10 +86,10 @@ const JoinBtn = styled.button`
   cursor: pointer;
 `;
 
-const LoginPage = () => {
+const LoginPage = ({ setIsUser }) => {
   const navigate = useNavigate();
-  const [userId, setUserId] = useState("");
-  const [userPass, setUserPass] = useState("");
+  const [userId, setUserId] = useState("alswl1364@naver.com");
+  const [userPass, setUserPass] = useState("rlaalswl1!");
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -98,6 +98,10 @@ const LoginPage = () => {
       alert(result.resultMsg);
       return;
     }
+    // navigate("/");
+    // 로그인 성공
+    localStorage.setItem("userid", userId);
+    setIsUser(userId);
     navigate("/");
   };
 

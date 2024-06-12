@@ -22,7 +22,7 @@ const PetAdmin = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
 
   const handleRegister = e => {
-    e.preventDefault();
+    // e.preventDefault();
     openModal({
       onConfirm: () => {
         closeModal();

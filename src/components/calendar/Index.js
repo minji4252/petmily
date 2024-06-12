@@ -26,7 +26,7 @@ const Index = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
 
   const handleSchedule = e => {
-    e.preventDefault();
+    // e.preventDefault();
     openModal({
       onConfirm: () => {
         closeModal();

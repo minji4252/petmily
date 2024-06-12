@@ -4,7 +4,7 @@ import "../../styles/reset.css";
 import { Link } from "react-router-dom";
 import petmilyLogo from "../../images/petmily-header.png";
 
-const Header = () => {
+const Header = ({ isUser, setIsUser }) => {
   return (
     <header className="header">
       <div className="nav-inner">
@@ -29,12 +29,21 @@ const Header = () => {
           </li>
         </ul>
         <ul className="navi-list-2">
-          <li>
-            <Link to="/login">로그인</Link>
-          </li>
-          <li>
-            <Link to="/join">회원가입</Link>
-          </li>
+          {isUser !== "" ? (
+            <>
+              <li>{isUser}님</li>
+              <li>로그아웃</li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/login">로그인</Link>
+              </li>
+              <li>
+                <Link to="/join">회원가입</Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </header>

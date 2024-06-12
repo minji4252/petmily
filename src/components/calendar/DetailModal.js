@@ -1,6 +1,10 @@
-import { useState } from "react";
+import axios from "axios";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { IoClose } from "react-icons/io5";
 import {
+  DetailWrapStyle,
   FormBtn,
   FormItem,
   FormLeft,
@@ -9,12 +13,8 @@ import {
   Label,
   PetImgRegist,
   ScheduleTitle,
-  DetailWrapStyle,
 } from "../../styles/calendar/DetailModalStyles.js";
 import { CancelButton, SubmitButton } from "../common/Button";
-import axios from "axios";
-import ReactDOM from "react-dom";
-import moment from "moment";
 
 const DetailModal = ({
   isOpen,
@@ -27,9 +27,11 @@ const DetailModal = ({
   initialTitle,
   initialPetId,
   initialContent,
+  initialCalendarId,
   userId,
   readOnly = false,
-  setCalendarId,
+  eventId,
+  detailModalMode,
 }) => {
   if (!isOpen) return null;
 
@@ -42,6 +44,7 @@ const DetailModal = ({
   const [scheduleTitle, setScheduleTitle] = useState(initialTitle || "");
   const [selected, setSelected] = useState(initialPetId || "none");
   const [scheduleMemo, setScheduleMemo] = useState(initialContent || "");
+  // const [scheduleId, setScheduleId] = useState(initialCalendarId || "");
 
   const selectList = [
     { value: "none", name: "선택하세요" },
@@ -50,20 +53,27 @@ const DetailModal = ({
     { value: "3", name: "코코" },
   ];
 
-  const handleSelect = e => {
-    setSelected(e.target.value);
-  };
+  const handleSelect = e => setSelected(e.target.value);
 
   const handleSubmit = async event => {
-    event.preventDefault();
     if (readOnly) {
       onClose();
       return;
     }
+
+    if (detailModalMode === "edit") {
+      event.preventDefault();
+      await handleEdit();
+    } else {
+      await handleAdd();
+    }
+  };
+
+  const handleAdd = async () => {
     try {
       const formattedTime = `${timeValue}:00`;
       const res = await axios.post("/api/calendar", {
-        userId: 12,
+        userId: 12, //임시
         petId: selected,
         title: scheduleTitle,
         content: scheduleMemo,
@@ -71,17 +81,42 @@ const DetailModal = ({
         startTime: formattedTime,
       });
       if (res.status.toString().charAt(0) === "2") {
+        // setScheduleId(res.data.data.calendarId); //수정할때 쓰임
         alert("일정 등록 성공");
-        const calendarId = res.data.data.calendarId;
-        console.log("Calendar ID:", calendarId);
-        setCalendarId(calendarId); // 캘린더 ID 저장
         onConfirm();
       } else {
         console.log("API 오류");
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
       alert("일정 등록 실패");
+    }
+  };
+
+  const handleEdit = async () => {
+    try {
+      const formattedTime = `${timeValue}:00`;
+      const res = await axios.patch("/api/calendar", {
+        calendarId: initialCalendarId,
+        userId: 13, //임시
+        petId: selected,
+        title: scheduleTitle,
+        content: scheduleMemo,
+        startDate: dateValue,
+        startTime: formattedTime,
+      });
+      if (res.data.code === "NP") {
+        alert(res.data.message);
+      }
+      if (res.status.toString().charAt(0) === "2") {
+        alert("일정 수정 성공");
+        onConfirm();
+      } else {
+        console.log("API 오류");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("일정 수정 실패");
     }
   };
 
@@ -192,8 +227,8 @@ const DetailModal = ({
         </FormItem>
         {!readOnly && (
           <FormBtn>
-            <CancelButton type="button" label="취소하기" onClick={onClose} />
             <SubmitButton type="submit" label={submitButtonLabel} />
+            <CancelButton type="button" label="취소하기" onClick={onClose} />
           </FormBtn>
         )}
         {readOnly && (
