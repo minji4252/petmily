@@ -4,8 +4,26 @@ import "../styles/common.css";
 import "../styles/main.css";
 import "../styles/reset.css";
 import "../../src/styles/TodoList/left.css";
+import { useEffect, useState } from "react";
+import { getUpcoming } from "../api/apimain";
 
 function MainTodo() {
+  const [upcomingItems, setUpcomingItems] = useState([]);
+
+  useEffect(() => {
+    const fetchUpcomingItems = async () => {
+      try {
+        const data = await getUpcoming();
+        console.log(data);
+        setUpcomingItems(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUpcomingItems();
+  }, []);
+
   return (
     <section className="main-sec-2">
       <div className="main-sec-2-inner">
@@ -39,9 +57,15 @@ function MainTodo() {
           </div>
           <div className="main-todo-sync">
             <div className="main-todolist">
-              <div className="main-t-item">테스트지롱</div>
-              <div className="main-t-item">테스트지롱</div>
-              <div className="main-t-item">테스트지롱</div>
+              {upcomingItems.length > 0 ? (
+                upcomingItems.map((item, index) => (
+                  <div key={index} className="main-t-item">
+                    {item}
+                  </div>
+                ))
+              ) : (
+                <div className="main-t-item">다가오는 일정이 없습니다.</div>
+              )}
             </div>
           </div>
         </div>

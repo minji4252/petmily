@@ -112,6 +112,26 @@
   display: none !important;
 }
 
+/* 사이즈 수정 */
+.main-calendar-sync .react-calendar__month-view__days {
+  /* padding: 0 71px !important; */
+}
+
+.main-calendar-sync .react-calendar__tile {
+  height: 40px !important;
+}
+
+.main-calendar-sync .react-calendar__navigation {
+  margin-bottom: 0.2rem !important;
+}
+
+.main-calendar-sync .css-1otyz82 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  text-indent: -10000px;
+}
+
 /* 캘린더 임포트 스타일 - 반응형*/
 @media all and (max-width: 940px) {
   .main-calendar-sync .react-calendar {
@@ -132,11 +152,16 @@
   }
 
   .main-calendar-sync .react-calendar__tile {
-    padding: 16px 0px !important;
+    padding: 43px 0px !important;
   }
   .main-calendar-sync .react-calendar__month-view__days {
     padding: 0 71px !important;
     font-size: 23px !important;
+  }
+
+  .main-calendar-sync .css-1otyz82 {
+    width: 12px;
+    height: 12px;
   }
 }
 @media all and (max-width: 871px) {
@@ -144,9 +169,28 @@
     height: 91.91vw !important;
   }
 }
+@media all and (max-width: 853px) {
+  .main-calendar-sync .react-calendar__tile {
+    padding: 37px 0px !important;
+  }
+  .main-calendar-sync .css-1otyz82 {
+    width: 9px;
+    height: 9px;
+  }
+}
+
 @media all and (max-width: 818px) {
   .main-calendar-sync .react-calendar {
     height: 91.61vw !important;
+  }
+}
+@media all and (max-width: 804px) {
+  .main-calendar-sync .react-calendar__tile {
+    padding: 34px 0px !important;
+  }
+  .main-calendar-sync .css-1otyz82 {
+    width: 8px;
+    height: 8px;
   }
 }
 
@@ -190,7 +234,7 @@
   height: 388px;
   background-color: blueviolet;
 
-  background-color: hotpink;
+  background-color: #fefbf8;
   border: 21px solid #f3ccb6;
   border-radius: 30px;
 }
@@ -216,7 +260,7 @@
 }
 
 .main-logos-i {
-  width: 66px;
+  width: 54px;
 }
 
 .mas-icon-1,
@@ -277,7 +321,7 @@
   height: 388px;
 
   background-color: #b1998b;
-  border: 21px solid #cbb1a2;
+  /* border: 21px solid #cbb1a2; 그냥 삭제함 */
   border-radius: 30px;
 }
 
@@ -309,40 +353,40 @@
 
 /* 반려동물 관리 아이콘들 */
 .mas-icon-1 {
-  width: 80px;
-  height: 80px;
+  width: 68px;
+  height: 68px;
   background-color: #a47e6d;
   border-radius: 50%;
 }
 .mas-icon-2 {
-  width: 80px;
-  height: 80px;
+  width: 68px;
+  height: 68px;
   background-color: #e87b4a;
   border-radius: 50%;
 }
 .mas-icon-3 {
-  width: 80px;
-  height: 80px;
+  width: 68px;
+  height: 68px;
   background-color: #73aaea;
   border-radius: 50%;
 }
 .mas-icon-4 {
-  width: 80px;
-  height: 80px;
+  width: 68px;
+  height: 68px;
   background-color: #72b881;
   border-radius: 50%;
   padding: 0 15px;
 }
 .mas-icon-5 {
-  width: 80px;
-  height: 80px;
+  width: 68px;
+  height: 68px;
   background-color: #bcd233;
   border-radius: 50%;
 }
 
 .mas-icon-6 {
-  width: 80px;
-  height: 80px;
+  width: 68px;
+  height: 68px;
   background-color: #f5acac;
   border-radius: 50%;
 }
@@ -399,6 +443,15 @@
   background-size: cover;
   height: 30.63vw;
   max-height: 288px;
+}
+/* 메인 동물 친구들 사진불러오기 */
+.m-a-pics {
+  width: 100%;
+  height: 388px;
+  background: url("../images/ranpic1.jpg") no-repeat center;
+  background-size: cover;
+
+  border-radius: 30px;
 }
 
 /* 반응형 */
@@ -530,6 +583,11 @@
 }
 
 /* Todo-list CSS */
+.main-todo-sync {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .main-t-item {
   /* width: 100%;
   height: auto;
@@ -537,13 +595,32 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 20px; */
-  border-bottom: 1px solid #795a4b;
+  border-bottom: 2px solid #795a4b;
+
   height: 70px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
 }
 
 .main-todolist {
   display: flex;
   flex-direction: column;
   padding: 0 60px;
+  color: #694e42;
+  padding-bottom: 24px;
+}
+
+/* Todo-list CSS 반응형 */
+@media all and (max-width: 940px) {
+  .main-t-item {
+    font-size: 26px;
+    height: 110px;
+    border-bottom: 3px solid #795a4b;
+  }
+  .main-todolist {
+    padding-bottom: 43px;
+  }
 }

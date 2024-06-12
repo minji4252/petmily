@@ -7,8 +7,29 @@ import mainpeticon3 from "../images/팻아이콘3.png";
 import mainpeticon4 from "../images/팻아이콘4.png";
 import mainpeticon5 from "../images/팻아이콘5.png";
 import mainpeticon6 from "../images/팻아이콘6.png";
+import { useEffect, useState } from "react";
+import { getMainpet } from "../api/apimain";
+import { Link } from "react-router-dom";
 
 const MainUpload = () => {
+  const [randomImage, setRandomImage] = useState("");
+
+  useEffect(() => {
+    const fetchMainpet = async () => {
+      try {
+        const images = await getMainpet();
+        if (images.length > 0) {
+          const randomIndex = Math.floor(Math.random() * images.length);
+          setRandomImage(images[randomIndex]);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMainpet();
+  }, []);
+
   return (
     <section className="main-sec-3">
       <div className="main-sec-3-inner">
@@ -18,9 +39,9 @@ const MainUpload = () => {
               나의 반려동물 관리
             </a>
             <span>
-              <a href="#" className="main-plus-i">
+              <Link to="/petadmin" className="main-plus-i">
                 <i className="xi-plus-square"></i>
-              </a>
+              </Link>
             </span>
           </div>
 
@@ -81,7 +102,17 @@ const MainUpload = () => {
             </a>
           </div>
           <div className="main-animal-pics-sync">
-            <p className="maps-text">동물을 등록해주세요</p>
+            {randomImage ? (
+              <div
+                className="m-a-pics"
+                style={{
+                  background: `url(${randomImage}) no-repeat center`,
+                  backgroundSize: "cover",
+                }}
+              ></div>
+            ) : (
+              <p className="maps-text">동물을 등록해주세요</p>
+            )}
           </div>
         </div>
       </div>
