@@ -1,28 +1,34 @@
-import { useState } from "react";
 import "../../styles/TodoList/left.css";
 
-const TodoInsert = ({ onInsert, setTodoInsert }) => {
-  const [value, setValue] = useState("");
-
+const TodoInsert = ({ onInsert, setTodoInsert, todoInsert }) => {
   const onSubmit = event => {
-    onInsert(value);
+    onInsert(todoInsert);
 
     // submit 이벤트는 브라우저에서 새로고침 발생시킴
     // 이를 방지하기 위해 아래 함수 호출
+
     event.preventDefault();
-    setValue("");
+
+    setTodoInsert("");
   };
 
   return (
-    <form className="todo-right-create-box" onSubmit={onSubmit}>
+    <form className="todo-right-create-box">
       <input
         className="todo-right-create-input"
         placeholder="할 일을 입력하세요."
+        value={todoInsert}
         onChange={e => {
           setTodoInsert(e.target.value);
         }}
       />
-      <button className="create-button" type="submit">
+      <button
+        className="create-button"
+        type="submit"
+        onClick={event => {
+          onSubmit(event);
+        }}
+      >
         <svg
           className="todo-right-create-icon"
           xmlns="http://www.w3.org/2000/svg"
