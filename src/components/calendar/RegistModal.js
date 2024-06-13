@@ -72,7 +72,7 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
   // };
 
   const handleSubmit = async event => {
-    event.preventDefault();
+    // event.preventDefault();
     const formData = new FormData();
     formData.append("user_id", petName); // 사용자 ID는 필요에 따라 추가합니다
     formData.append("pet_name", petName);

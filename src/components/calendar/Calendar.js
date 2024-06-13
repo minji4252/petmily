@@ -36,9 +36,6 @@ const ModalWrapper = styled.div`
 
 const Title = styled.h2`
   background-color: #ffd9d9;
-  /* white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; */
   max-width: 100%;
   padding: 0 5px;
   font-size: 0.7rem;
@@ -48,37 +45,29 @@ const Calendar = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [modalPosition, setModalPosition] = useState({});
   const [clickDay, setClickDay] = useState("");
-  const [clickInfo, setClickInfo] = useState([]);
+  const [findEventDay, setFindEventDay] = useState(null);
   const [allData, setAllData] = useState([]);
 
-  // 달력 전체 데이터를 불러오는 API 함수
-  const getData = async () => {
-    try {
-      const response = await axios.get("/api/calendar/user_id?user_id=12");
-      console.log(response.data.data);
-      setAllData(response.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // 컴포넌트가 마운트될 때 데이터 불러오기
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await axios.get("/api/calendar/user_id?user_id=12");
+        setAllData(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getData();
-    return () => {};
   }, []);
 
-  // 날짜 클릭시 모달창 띄우기
   const onClickDay = (value, event) => {
     const checkDay = moment(value).format("YYYY-MM-DD");
-    setClickDay(checkDay);
-
-    // 필터링하여 해당 날짜의 일정만 가져오기
-    // const dayEvents = allData.filter(item => checkDay === item.startDate); //날짜형식이 안맞아서
-    const dayEvents = allData.filter(
+    const findeEvent = allData.find(
       item => moment(item.startDate).format("YYYY-MM-DD") === checkDay,
     );
-    setClickInfo(dayEvents);
+
+    setFindEventDay(findeEvent);
+    setClickDay(checkDay);
 
     const target = event.target.closest(".react-calendar__tile");
     if (target) {
@@ -90,16 +79,12 @@ const Calendar = () => {
       const y = rect.top + rect.height - calendarRect.top + 10;
       setModalPosition({ top: `${y}px`, left: `${x}px` });
 
-      event.preventDefault();
       openModal({
-        onConfirm: () => {
-          closeModal();
-        },
+        onConfirm: closeModal,
       });
     }
   };
 
-  // 내용 출력하기
   const tileContent = ({ date }) => {
     const checkDay = moment(date).format("YYYY-MM-DD");
     const dayResult = allData.filter(
@@ -108,9 +93,9 @@ const Calendar = () => {
     if (dayResult.length > 0) {
       return (
         <div>
-          {dayResult.slice(0, 2).map(event => (
-            <Title key={event.pk} style={{ backgroundColor: "#ffd9d9" }}>
-              {event.title}
+          {dayResult.slice(0, 2).map(item => (
+            <Title key={item.pk} style={{ backgroundColor: "#ffd9d9" }}>
+              {item.title}
             </Title>
           ))}
           {dayResult.length > 2 && (
@@ -131,11 +116,6 @@ const Calendar = () => {
     }
   };
 
-  // 일정 삭제
-  // const scheduleDelete = _pk => {
-  //   alert(`삭제해요. 스케쥴 번호 ${_pk}`);
-  // };
-
   return (
     <StyledCalendarWrapper>
       <ReactCalendar
@@ -149,15 +129,17 @@ const Calendar = () => {
         tileContent={tileContent}
         onClickDay={onClickDay}
       />
-      <ModalWrapper top={modalPosition.top} left={modalPosition.left}>
-        <SimpleModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          onConfirm={confirmAction}
-          clickDay={clickDay}
-          clickInfo={clickInfo}
-        />
-      </ModalWrapper>
+      {isModalOpen && (
+        <ModalWrapper top={modalPosition.top} left={modalPosition.left}>
+          <SimpleModal
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            onConfirm={confirmAction}
+            clickDay={clickDay}
+            findEventDay={findEventDay}
+          />
+        </ModalWrapper>
+      )}
     </StyledCalendarWrapper>
   );
 };
