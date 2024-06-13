@@ -51,8 +51,9 @@ const Calendar = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get("/api/calendar/user_id?user_id=12");
+        const response = await axios.get("/api/calendar/user_id?user_id=1");
         setAllData(response.data.data);
+        // console.log(response.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -93,8 +94,8 @@ const Calendar = () => {
     if (dayResult.length > 0) {
       return (
         <div>
-          {dayResult.slice(0, 2).map(item => (
-            <Title key={item.pk} style={{ backgroundColor: "#ffd9d9" }}>
+          {dayResult.slice(0, 2).map((item, index) => (
+            <Title key={index} style={{ backgroundColor: "#ffd9d9" }}>
               {item.title}
             </Title>
           ))}
