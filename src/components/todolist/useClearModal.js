@@ -25,7 +25,7 @@ const useClearModal = ({ todos, setTodos }) => {
 
   const clearYes = () => {
     setClearModalOpen(false);
-    const filteredItems = todos.filter(todo => todo.checked);
+    const filteredItems = todos.filter(todo => todo.isCompleted);
     setTodos(filteredItems); // 상태 업데이트
     if (clearModalRef.current) {
       clearModalRef.current.classList.remove("open");

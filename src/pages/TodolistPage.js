@@ -1,54 +1,39 @@
 import { useEffect, useRef, useState } from "react";
+import { deleteTodoList, getTodoList, postTodoInsert } from "../api/todolist";
+import Clear from "../components/todolist/Clear";
+import MobileMenu from "../components/todolist/MobileMenu";
 import TodoLeft from "../components/todolist/TodoLeft";
 import TodoRight from "../components/todolist/TodoRight";
 import TodoTemplate from "../components/todolist/TodoTemple";
-import "../styles/TodoList/left.css";
-import Clear from "../components/todolist/Clear";
 import useClearModal from "../components/todolist/useClearModal";
 import useModifyModal from "../components/todolist/useModifyModal.js";
-import useModal from "../hooks/UseModal";
-import MobileMenu from "../components/todolist/MobileMenu";
-
-const initState = [
-  {
-    id: 1,
-    text: "반갑습니다",
-    checked: true,
-  },
-  {
-    id: 2,
-    text: "이건",
-    checked: true,
-  },
-  {
-    id: 3,
-    text: "기본 리스트들입니다",
-    checked: true,
-  },
-];
+import "../styles/TodoList/left.css";
 
 const TodolistPage = () => {
-  const [todos, setTodos] = useState(initState);
+  const [todos, setTodos] = useState([]);
+  const [todoInsert, setTodoInsert] = useState("");
   const mobileMenu = useRef(null);
   const todoListRight = useRef(null);
   const todoListLeft = useRef(null);
-
-  // id는 고유한 값이어야 한다.
-  const nextId = useRef(4);
+  const [checked, setChecked] = useState(false);
 
   /* todos 배열에 새 객체 추가*/
 
-  const onInsert = text => {
-    if (text == "") {
+  const onInsert = async () => {
+    if (todoInsert == "") {
       alert("공백은 넣을 수 없습니다.");
     } else {
       const todo = {
-        id: nextId.current,
-        text,
-        checked: true,
+        listId: todos.listId,
+        content: todoInsert,
+        isCompleted: checked,
       };
       setTodos(todos.concat(todo));
-      nextId.current += 1;
+      const requestData = {
+        userId: "12",
+        content: todoInsert,
+      };
+      await postTodoInsert(requestData);
     }
   };
 
@@ -63,15 +48,20 @@ const TodolistPage = () => {
   };
 
   // 삭제 기능
-  const onRemove = id => {
-    setTodos(todos.filter(todo => todo.id !== id));
+  const onRemove = async listId => {
+    setTodos(todos.filter(todo => todo.listId !== listId));
+    console.log(listId);
+
+    await deleteTodoList(listId);
   };
 
   // 토글 기능
-  const onToggle = id => {
+  const onToggle = listId => {
     setTodos(
       todos.map(todo =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+        todo.listId === listId
+          ? { ...todo, isCompleted: !todo.isCompleted }
+          : todo,
       ),
     );
   };
@@ -79,7 +69,14 @@ const TodolistPage = () => {
   const openMobileMenu = () => {
     mobileMenu.current.style.display = "flex";
   };
+
+  const todoListInit = async () => {
+    const result = await getTodoList();
+    setTodos(result);
+  };
   useEffect(() => {
+    // 초기 목록 가져오기
+    todoListInit();
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         if (mobileMenu.current) {
@@ -134,6 +131,7 @@ const TodolistPage = () => {
         onToggle={onToggle}
       ></TodoLeft>
       <TodoRight
+        setTodoInsert={setTodoInsert}
         todoListRight={todoListRight}
         openMobileMenu={openMobileMenu}
         modifyInsert={modifyInsert}

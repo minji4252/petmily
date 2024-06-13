@@ -1,11 +1,11 @@
 const SuccessItem = ({ todo, onRemove, onToggle }) => {
-  const { id, text, checked } = todo;
+  const { listId, content, isCompleted } = todo;
 
-  return !checked ? (
+  return isCompleted ? (
     <div className="todo-left-detail">
       <div className="todo-left-detail-box">
         <svg
-          onClick={() => onToggle(id)}
+          onClick={() => onToggle(listId)}
           type="checkbox"
           id="checkbox"
           className="todo-right-detail-left-icon"
@@ -23,12 +23,12 @@ const SuccessItem = ({ todo, onRemove, onToggle }) => {
         </svg>
         <div className="todo-left-detail-textbox">
           <p>05.26 완료</p>
-          <h4>{text}</h4>
+          <h4>{content}</h4>
         </div>
       </div>
       <div className="todo-left-detail-delete">
         <svg
-          onClick={() => onRemove(id)}
+          onClick={() => onRemove(listId)}
           xmlns="http://www.w3.org/2000/svg"
           width="18"
           height="18"

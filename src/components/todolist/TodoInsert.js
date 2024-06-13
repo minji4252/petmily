@@ -1,12 +1,8 @@
 import { useState } from "react";
 import "../../styles/TodoList/left.css";
 
-const TodoInsert = ({ onInsert }) => {
+const TodoInsert = ({ onInsert, setTodoInsert }) => {
   const [value, setValue] = useState("");
-
-  const onChange = event => {
-    setValue(event.target.value);
-  };
 
   const onSubmit = event => {
     onInsert(value);
@@ -22,8 +18,9 @@ const TodoInsert = ({ onInsert }) => {
       <input
         className="todo-right-create-input"
         placeholder="할 일을 입력하세요."
-        onChange={onChange}
-        value={value}
+        onChange={e => {
+          setTodoInsert(e.target.value);
+        }}
       />
       <button className="create-button" type="submit">
         <svg
