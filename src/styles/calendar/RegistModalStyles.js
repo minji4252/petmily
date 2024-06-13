@@ -5,10 +5,10 @@ import "../../styles/reset.css";
 
 // 공통
 export const WrapStyle = styled.div`
-  max-width: 490px;
+  max-width: 530px;
   width: 100%;
-  height: 720px;
-  padding: 80px 100px 0px 100px;
+  height: 850px;
+  padding: 80px 80px 0px 80px;
   border-radius: 13px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
   background-color: rgb(255, 255, 255);
@@ -16,12 +16,12 @@ export const WrapStyle = styled.div`
   position: fixed;
   left: 50%;
   transform: translate(-50%, -50%);
-  top: 50%;
+  top: 52%;
   z-index: 9999;
 
   form p {
-    font-size: 12px;
-    margin-top: 20px;
+    font-size: 0.9rem;
+    margin-top: 13px;
     margin-bottom: 5px;
   }
 
@@ -43,15 +43,18 @@ export const PetRegistTitle = styled.h1`
 
 // 반려동물 이름 & 종류
 export const InputStyle = styled.input`
-  background-color: #fff;
-  width: 200px;
-  height: 27px;
+  background-color: ${colorSystem.white};
+  width: 250px;
+  height: 35px;
   border-radius: 50px;
   border: 1px solid #cbd5e1;
-  padding: 8px;
+  padding: 9px;
+  margin-top: 5px;
+  padding-left: 20px;
 
   &::placeholder {
-    font-size: 10px;
+    /* padding-left: 10px; */
+    font-size: 0.75rem;
     color: ${colorSystem.placeholder};
   }
 `;
@@ -80,22 +83,34 @@ export const PetImgRegist = styled.div`
   }
 
   .one {
-    position: absolute;
+    /* position: absolute;
     width: 0;
     height: 0;
     padding: 0;
     overflow: hidden;
-    border: 0;
+    border: 0; */
   }
 
   .upload-name {
-    display: inline-block;
+    /* display: inline-block;
     height: 30px;
     padding: 0 10px;
     vertical-align: middle;
     border: 1px solid ${colorSystem.signature1};
     width: 50%;
-    color: ${colorSystem.g500};
+    color: ${colorSystem.g500}; */
+  }
+`;
+
+export const ImgPreview = styled.div`
+  /* width: 150px; */
+  height: 130px;
+  padding: 10px;
+
+  > img {
+    width: 200px;
+    height: 100%;
+    border-radius: 10px;
   }
 `;
 
@@ -105,10 +120,10 @@ export const SelectedStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 18px;
 
   & img {
-    width: 30px;
+    width: 35px;
   }
 
   & input {
@@ -116,14 +131,14 @@ export const SelectedStyle = styled.div`
   }
 
   & input:checked + img {
-    border: 2px solid ${colorSystem.signature2};
+    border: 4px solid ${colorSystem.signature2};
     border-radius: 50%;
   }
 `;
 
 // 버튼
 export const FormBtn = styled.div`
-  margin-top: 30px;
+  margin-top: 40px;
   display: flex;
   gap: 20px;
   justify-content: center;

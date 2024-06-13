@@ -18,6 +18,8 @@ const TodoRight = ({
   openMobileMenu,
   todoListRight,
   setTodoInsert,
+  todoInsert,
+  setModifyInsert,
 }) => {
   return (
     <div className="todo-right" ref={todoListRight}>
@@ -48,6 +50,7 @@ const TodoRight = ({
 
       <p className="todo-right-title">오늘의 할 일</p>
       <TodoInsert
+        todoInsert={todoInsert}
         onInsert={onInsert}
         setTodoInsert={setTodoInsert}
       ></TodoInsert>
@@ -64,6 +67,7 @@ const TodoRight = ({
         modifyModalRef={modifyModalRef}
         modifyYes={modifyYes}
         modifyNo={modifyNo}
+        setModifyInsert={setModifyInsert}
       ></ModifyModal>
     </div>
   );

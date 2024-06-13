@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { deleteTodoList, getTodoList, postTodoInsert } from "../api/todolist";
+import {
+  deleteTodoList,
+  getTodoList,
+  postTodoInsert,
+  toggleTodolist,
+} from "../api/todolist";
 import Clear from "../components/todolist/Clear";
 import MobileMenu from "../components/todolist/MobileMenu";
 import TodoLeft from "../components/todolist/TodoLeft";
@@ -16,28 +21,39 @@ const TodolistPage = () => {
   const todoListRight = useRef(null);
   const todoListLeft = useRef(null);
   const [checked, setChecked] = useState(false);
+  const [modifyInsert, setModifyInsert] = useState("");
 
   /* todos 배열에 새 객체 추가*/
 
   const onInsert = async () => {
+    setChecked(false);
     if (todoInsert == "") {
       alert("공백은 넣을 수 없습니다.");
+      return;
     } else {
-      const todo = {
-        listId: todos.listId,
-        content: todoInsert,
-        isCompleted: checked,
-      };
-      setTodos(todos.concat(todo));
       const requestData = {
         userId: "12",
         content: todoInsert,
       };
-      await postTodoInsert(requestData);
+      const result = await postTodoInsert(requestData);
+      if (result) {
+        const todo = {
+          listId: result.listId,
+          content: todoInsert,
+          isCompleted: checked,
+        };
+        setTodos(todos.concat(todo));
+      } else {
+        console.log("에러입니다");
+      }
     }
   };
 
-  const modifyInsert = (id, newText) => {
+  useEffect(() => {
+    console.log(todos);
+  }, [todos]);
+
+  const onModifyInsert = (id, newText) => {
     // id에 해당하는 할 일을 찾아서 텍스트를 수정
     const modifiedTodos = todos.map(todo => {
       if (todo.id === id) {
@@ -53,10 +69,11 @@ const TodolistPage = () => {
     console.log(listId);
 
     await deleteTodoList(listId);
+    console.log(listId);
   };
 
   // 토글 기능
-  const onToggle = listId => {
+  const onToggle = async listId => {
     setTodos(
       todos.map(todo =>
         todo.listId === listId
@@ -64,6 +81,11 @@ const TodolistPage = () => {
           : todo,
       ),
     );
+
+    const result = await toggleTodolist(listId);
+    if (result) {
+      console.log(result.listId);
+    }
   };
 
   const openMobileMenu = () => {
@@ -116,7 +138,6 @@ const TodolistPage = () => {
 
   const { openModifyModal, modifyModalRef, modifyYes, modifyNo } =
     useModifyModal({
-      modifyInsert,
       todos,
     });
 
@@ -131,6 +152,8 @@ const TodolistPage = () => {
         onToggle={onToggle}
       ></TodoLeft>
       <TodoRight
+        setModifyInsert={setModifyInsert}
+        todoInsert={todoInsert}
         setTodoInsert={setTodoInsert}
         todoListRight={todoListRight}
         openMobileMenu={openMobileMenu}

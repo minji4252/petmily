@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { deleteAllTodoList } from "../../api/todolist";
 
 const useClearModal = ({ todos, setTodos }) => {
   const [clearModalOpen, setClearModalOpen] = useState(false);
@@ -25,11 +26,13 @@ const useClearModal = ({ todos, setTodos }) => {
 
   const clearYes = () => {
     setClearModalOpen(false);
-    const filteredItems = todos.filter(todo => todo.isCompleted);
+    const filteredItems = todos.filter(todo => !todo.isCompleted);
+
     setTodos(filteredItems); // 상태 업데이트
     if (clearModalRef.current) {
       clearModalRef.current.classList.remove("open");
     }
+    deleteAllTodoList();
   };
 
   const clearNo = () => {

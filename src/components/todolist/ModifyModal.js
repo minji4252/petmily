@@ -4,6 +4,7 @@ const ModifyModal = ({
   modifyNo,
   modifyInsert,
   modifyValue,
+  setModifyInsert,
 }) => {
   return (
     <div className="modifybox" ref={modifyModalRef}>
@@ -12,7 +13,7 @@ const ModifyModal = ({
           className="todo-right-create-input"
           placeholder="할 일을 입력하세요."
           value={modifyValue}
-          onChange={modifyInsert()}
+          onChange={e => setModifyInsert()}
         />
       </form>
       <button className="delete-button yes" onClick={modifyYes}>

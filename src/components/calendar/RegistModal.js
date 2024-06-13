@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import color1 from "../../images/c-1.png";
@@ -14,6 +15,7 @@ import icon5 from "../../images/icon-5.png";
 import icon6 from "../../images/icon-6.png";
 import {
   FormBtn,
+  ImgPreview,
   InputStyle,
   PetImgRegist,
   PetRegistTitle,
@@ -21,7 +23,6 @@ import {
   WrapStyle,
 } from "../../styles/calendar/RegistModalStyles";
 import { CancelButton, SubmitButton } from "../common/Button";
-import { registerPet } from "../../api/pet/apipetadmin";
 
 const icons = [
   { id: 1, src: icon1 },
@@ -44,61 +45,61 @@ const colors = [
 const RegistModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
+  const [userId, setUserId] = useState(12);
   const [petName, setPetName] = useState("");
-  const [petKind, setPetKind] = useState("");
-  const [image, setImage] = useState(null);
-  const [selectedIcon, setSelectedIcon] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
+  const [petCategory, setPetCategory] = useState("");
+  const [petIcon, setPetIcon] = useState("");
+  const [petBackColor, setPetBackColor] = useState("");
 
-  // const handleSubmit = async event => {
-  //   event.preventDefault();
-  //   const formData = new FormData();
-  //   formData.append("user_id", petName);
-  //   formData.append("pet_name", petName);
-  //   formData.append("pet_category", petKind);
-  //   formData.append("pet_icon", selectedIcon);
-  //   formData.append("pet_back_color", selectedColor);
-  //   if (image) {
-  //     formData.append("pet_image", image);
-  //   }
+  // 이미지 미리보기를 할 변수
+  const [previewImg, setPreviewPreImg] = useState("");
+  // 이미지 파일
+  const [petImg, setPetImg] = useState(null);
 
-  //   try {
-  //     await registerPet(formData);
-  //     alert("등록 성공");
-  //     onConfirm();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleFile = e => {
+    const tempFile = e.target.files[0];
+    const tempUrl = URL.createObjectURL(tempFile);
+    setPreviewPreImg(tempUrl);
+    setPetImg(tempFile);
+  };
 
-  const handleSubmit = async event => {
-    // event.preventDefault();
-    const formData = new FormData();
-    formData.append("user_id", petName); // 사용자 ID는 필요에 따라 추가합니다
-    formData.append("pet_name", petName);
-    formData.append("pet_category", petKind);
-    formData.append("pet_icon", selectedIcon);
-    formData.append("pet_back_color", selectedColor);
-    if (image) {
-      formData.append("pet_image", image);
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (!petName) {
+      alert("반려동물 이름을 입력하세요");
+      return;
+    }
+    if (!petCategory) {
+      alert("반려동물 종류를 입력하세요");
+      return;
     }
 
-    // FormData를 일반 객체로 변환하여 쉽게 검사할 수 있도록 합니다
-    const data = {};
-    formData.forEach((value, key) => {
-      if (key === "pet_image") {
-        data[key] = value.name; // 파일 이름을 표시합니다
-      } else {
-        data[key] = value;
-      }
+    const formData = new FormData();
+
+    const infoData = JSON.stringify({
+      userId: userId,
+      petName: petName,
+      petCategory: petCategory,
+      petIcon: petIcon,
+      petBackColor: petBackColor,
     });
 
-    console.log(data);
+    const dto = new Blob([infoData], { type: "application/json" });
 
+    // formData에 데이터 추가
+    formData.append("p", dto);
+    formData.append("petImage", petImg);
+
+    // 서버에 formData에전송
+    postPetImage(formData);
+  };
+
+  const postPetImage = async data => {
     try {
-      await registerPet(formData);
-      alert("등록 성공");
-      onConfirm();
+      const header = { headers: { "Content-Type": "multipart/form-data" } };
+      const response = await axios.post("/api/pet", data, header);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -110,48 +111,56 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
       <button className="close-btn" type="button" onClick={onClose}>
         <IoClose />
       </button>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="pet-name">
+      <form
+        onSubmit={e => {
+          handleSubmit(e);
+        }}
+      >
+        <label htmlFor="petname">
           <p>반려동물 이름</p>
           <InputStyle
-            id="pet-name"
+            id="petname"
             type="text"
             placeholder="이름을 입력하세요"
-            required
             autoComplete="off"
             value={petName}
             onChange={e => setPetName(e.target.value)}
           />
         </label>
-        <label htmlFor="pet-kind">
+        <label htmlFor="petkind">
           <p>반려동물 종류</p>
           <InputStyle
-            id="pet-kind"
+            id="petkind"
             type="text"
             placeholder="반려동물 종류를 입력하세요"
-            required
             autoComplete="off"
-            value={petKind}
-            onChange={e => setPetKind(e.target.value)}
+            value={petCategory}
+            onChange={e => setPetCategory(e.target.value)}
           />
         </label>
+
         <p>사진 등록</p>
         <PetImgRegist className="box-style">
-          <input
-            className="upload-name"
+          {/* <input
+            className="uploadname"
             value="첨부파일"
             placeholder="첨부파일"
-          />
-          <label htmlFor="file">파일찾기</label>
+          /> */}
+          {/* <label htmlFor="file">파일찾기</label> */}
+          <ImgPreview>
+            {previewImg && <img src={previewImg} alt="미리보기 이미지" />}
+          </ImgPreview>
           <input
             className="one"
-            type="file"
-            accept="image/*"
-            onChange={e => setImage(e.target.files[0])}
-            required
             id="file"
+            type="file"
+            accept="image/png, image/gif, image/jpeg"
+            onChange={e => {
+              handleFile(e);
+            }}
           />
         </PetImgRegist>
+
         <p>아이콘 선택</p>
         <SelectedStyle className="box-style">
           {icons.map(icon => (
@@ -160,7 +169,7 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
                 type="radio"
                 name="icon"
                 value={icon.id}
-                onChange={e => setSelectedIcon(e.target.value)}
+                onChange={e => setPetIcon(e.target.value)}
                 required
               />
               <img src={icon.src} alt={`Icon ${icon.id}`} />
@@ -175,7 +184,7 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
                 type="radio"
                 name="color"
                 value={color.value}
-                onChange={e => setSelectedColor(e.target.value)}
+                onChange={e => setPetBackColor(e.target.value)}
                 required
               />
               <img src={color.src} alt={`Color ${color.value}`} />

@@ -46,7 +46,6 @@ export const TitleLine = styled.div`
 
 export const AdminItemStyle = styled.div`
   display: flex;
-  /* flex-direction: column; */
   align-items: flex-start;
   justify-content: center;
 `;
@@ -66,6 +65,7 @@ export const AdminItem = styled.div`
     display: flex;
     align-items: left;
     margin-bottom: 20px;
+    cursor: pointer;
   }
 
   .radio_icon::before {
