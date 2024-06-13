@@ -125,11 +125,11 @@
   margin-bottom: 0.2rem !important;
 }
 
-.main-calendar-sync .css-1otyz82 {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  text-indent: -10000px;
+.main-calendar-sync h2 {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  text-indent: -10000px !important;
 }
 
 /* 캘린더 임포트 스타일 - 반응형*/
@@ -159,9 +159,9 @@
     font-size: 23px !important;
   }
 
-  .main-calendar-sync .css-1otyz82 {
-    width: 12px;
-    height: 12px;
+  .main-calendar-sync h2 {
+    width: 12px !important;
+    height: 12px !important;
   }
 }
 @media all and (max-width: 871px) {
@@ -173,9 +173,9 @@
   .main-calendar-sync .react-calendar__tile {
     padding: 37px 0px !important;
   }
-  .main-calendar-sync .css-1otyz82 {
-    width: 9px;
-    height: 9px;
+  .main-calendar-sync h2 {
+    width: 9px !important;
+    height: 9px !important;
   }
 }
 
@@ -188,9 +188,9 @@
   .main-calendar-sync .react-calendar__tile {
     padding: 34px 0px !important;
   }
-  .main-calendar-sync .css-1otyz82 {
-    width: 8px;
-    height: 8px;
+  .main-calendar-sync h2 {
+    width: 8px !important;
+    height: 8px !important;
   }
 }
 
