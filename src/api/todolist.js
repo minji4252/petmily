@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getTodoList = async () => {
   try {
-    const rqData = "/api/todolist?user_id=12";
+    const rqData = "/api/todolist?user_id=1";
     const response = await axios.get(rqData);
     return response.data.data;
   } catch (error) {
@@ -36,7 +36,7 @@ export const deleteTodoList = async listId => {
 
 export const deleteAllTodoList = async () => {
   try {
-    const rqData = "/api/todolist/all-delete?user_id=12";
+    const rqData = "/api/todolist/all-delete?user_id=1";
     console.log(rqData);
     await axios.delete(rqData);
   } catch (error) {

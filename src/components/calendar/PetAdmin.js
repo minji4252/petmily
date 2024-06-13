@@ -37,7 +37,7 @@ const PetAdmin = () => {
   // 반려동물 목록을 불러오는 api함수
   const fetchPetData = async () => {
     try {
-      const response = await axios.get("/api/pet?user_id=12");
+      const response = await axios.get("/api/pet?user_id=1");
       console.log("불러온데이터:", response.data.data);
       return response.data.data;
     } catch (error) {
@@ -93,8 +93,8 @@ const PetAdmin = () => {
             </AdminTitle>
             <AdminItemStyle>
               <AdminItem>
-                {petData.map(item => (
-                  <label className="radio_label" key={item.id}>
+                {petData.map((item, index) => (
+                  <label className="radio_label" key={index}>
                     <input
                       type="radio"
                       name="itemcheck"

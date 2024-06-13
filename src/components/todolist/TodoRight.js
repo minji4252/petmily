@@ -1,3 +1,4 @@
+import moment from "moment";
 import "../../styles/TodoList/left.css";
 import "../../styles/common.css";
 import ModifyModal from "./ModifyModal";
@@ -21,6 +22,8 @@ const TodoRight = ({
   todoInsert,
   setModifyInsert,
 }) => {
+  const today = moment().format("MM.DD");
+
   return (
     <div className="todo-right" ref={todoListRight}>
       <div className="svg-box">
@@ -46,7 +49,7 @@ const TodoRight = ({
           </defs>
         </svg>
       </div>
-      <div className="todo-right-date">05.24</div>
+      <div className="todo-right-date">{today}</div>
 
       <p className="todo-right-title">오늘의 할 일</p>
       <TodoInsert

@@ -4,7 +4,7 @@
   align-items: flex-start;
   justify-content: space-between;
   margin-top: 100px;
-  padding: 30px 0;
+  padding: 120px 0 150px 0;
   font: "Pretendard-Regular";
 }
 
@@ -60,7 +60,7 @@
   flex-direction: column;
   padding: 39px 50px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
-  background-color: rgb(255, 255, 255);
+  background-color: #eeeae7;
   border-radius: 13px;
 }
 
@@ -87,7 +87,7 @@
   display: flex;
   align-items: center;
   justify-content: end;
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 600;
   color: #e13838;
   text-align: right;
@@ -98,7 +98,7 @@
   align-self: stretch;
   font-size: 20px;
   font-weight: 600;
-  color: #694e42;
+  color: #795a4b;
 }
 
 .todo-left-detail {
@@ -136,6 +136,7 @@
   font-size: 20px;
   color: rgba(135, 110, 99, 0.5);
   text-decoration: line-through;
+  font-weight: 600;
 }
 
 .todo-left-detail-delete {
@@ -153,7 +154,7 @@
   gap: 20px;
   flex: 1 0 0;
   flex-direction: column;
-  padding: 40px 50px;
+  padding: 30px 50px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
   background: #fff7ef;
   background-color: rgb(255, 255, 255);
@@ -166,13 +167,15 @@
   justify-content: center;
   font-size: 40px;
   font-weight: 700;
-  color: #694e42;
+  color: #a47e6d;
+  margin-bottom: 25px;
+  letter-spacing: 3px;
 }
 
 .todo-right-title {
   font-size: 20px;
   font-weight: 600;
-  color: #694e42;
+  color: #795a4b;
 }
 
 .todo-right-create-box {
@@ -199,6 +202,7 @@
 }
 .todo-right-create-input::placeholder {
   color: #cfbbb2;
+  font-size: 0.9rem;
 }
 
 .todo-right-box {
@@ -226,6 +230,7 @@
   color: rgba(135, 110, 99, 0.5);
   text-decoration: none;
   word-break: break-all;
+  font-weight: 600;
 }
 
 .todo-right-detail-right {
@@ -316,6 +321,13 @@
 .create-button {
   outline: none;
   all: unset;
+}
+
+.create-button svg {
+  width: 25px;
+  height: 22px;
+  margin-top: 4px;
+  color: #795a4b;
 }
 
 .modifybox {
