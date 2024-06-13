@@ -10,7 +10,7 @@ const WrapStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vw;
+  height: 100vh;
 `;
 
 const Container = styled.div`

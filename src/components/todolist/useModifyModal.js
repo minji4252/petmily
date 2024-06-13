@@ -22,15 +22,6 @@ const useModifyModal = ({ todos }) => {
     }
   };
 
-  const modifyYes = text => {
-    setModifyModalOpen(false);
-
-    console.log(todos);
-    if (modifyModalRef.current) {
-      modifyModalRef.current.classList.remove("open");
-    }
-  };
-
   const modifyNo = () => {
     setModifyModalOpen(false);
     if (modifyModalRef.current) {
@@ -41,7 +32,6 @@ const useModifyModal = ({ todos }) => {
     modifyModalOpen,
     openModifyModal,
     modifyModalRef,
-    modifyYes,
     modifyNo,
   };
 };
