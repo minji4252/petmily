@@ -19,7 +19,7 @@ import useModal from "../../hooks/UseModal";
 import DetailModal from "./DetailModal";
 import { useState, useEffect, useRef } from "react";
 import { RiArrowRightWideFill } from "react-icons/ri";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmationModal from "../common/ConfirmationModal";
 import axios from "axios";
 
 const SimpleModal = ({

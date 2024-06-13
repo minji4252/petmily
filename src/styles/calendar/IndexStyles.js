@@ -145,22 +145,12 @@ export const PetSelect = styled.button`
   }
 `;
 
-export const PetIcon = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 999px;
-  background-color: ${colorSystem.primary};
-  margin-bottom: 17px;
+export const ClickTxt = styled.span`
   cursor: pointer;
-
-  & :hover {
-    width: 30px;
-    height: 30px;
-    border-radius: 999px;
-    margin-bottom: 17px;
-    cursor: pointer;
-    background-color: pink;
-  }
+  font-size: 1.2rem;
+  padding-top: 2px;
+  font-family: "SUIT-Regular" !important;
+  color: ${colorSystem.g800};
 `;
 
 export const CalRight = styled.div`

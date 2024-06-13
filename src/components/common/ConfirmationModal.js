@@ -1,6 +1,6 @@
 import React from "react";
 import { ModalBtn, ModalLine } from "../../styles/calendar/SimpleModalStyles";
-import { SubmitButton, CancelButton } from "../common/Button";
+import { SubmitButton, CancelButton } from "./Button";
 import { colorSystem } from "../../styles/color";
 import styled from "@emotion/styled";
 

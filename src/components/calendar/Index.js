@@ -10,6 +10,7 @@ import {
   CalLeft,
   CalRight,
   CalendarMain,
+  ClickTxt,
   ManageItem,
   PetIcon,
   PetManage,
@@ -73,7 +74,7 @@ const Index = () => {
         <CalAddition>
           <PetSelect onClick={ManageVisible}>
             <PiCaretLeftBold />
-            <PetIcon></PetIcon>
+            <ClickTxt>click!</ClickTxt>
           </PetSelect>
           <BoxStyle className="pet-img"></BoxStyle>
           <BoxStyle className="schedule-add">
