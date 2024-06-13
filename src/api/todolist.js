@@ -15,8 +15,7 @@ export const postTodoInsert = async data => {
     const rqData = "/api/todolist";
     const response = await axios.post(rqData, data);
     if (response.data.code === "SU") {
-      console.log("등록완료");
-      return "회원가입 성공";
+      return response.data.data;
     } else {
       return response.data;
     }
@@ -29,13 +28,28 @@ export const deleteTodoList = async listId => {
   try {
     const rqData = `/api/todolist?list_id=${listId}`;
     console.log(rqData);
-    const response = await axios.delete(rqData);
-    if (response.data.code === "SU") {
-      console.log("등록완료");
-      return "회원가입 성공";
-    } else {
-      return response.data;
-    }
+    await axios.delete(rqData);
+  } catch (error) {
+    console.log("error");
+  }
+};
+
+export const deleteAllTodoList = async () => {
+  try {
+    const rqData = "/api/todolist/all-delete?user_id=12";
+    console.log(rqData);
+    await axios.delete(rqData);
+  } catch (error) {
+    console.log("error");
+  }
+};
+
+export const toggleTodolist = async listId => {
+  try {
+    const rqData = `/api/todolist/is-completed?list_id=${listId}`;
+    console.log(rqData);
+    const response = await axios.patch(rqData);
+    return response.data.data;
   } catch (error) {
     console.log("error");
   }

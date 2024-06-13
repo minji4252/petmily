@@ -1,6 +1,5 @@
 const TodoListItem = ({ todo, onRemove, onToggle, openModifyModal }) => {
   const { listId, content, isCompleted } = todo;
-
   return (
     <div className="to-do-list">
       {!isCompleted ? (
