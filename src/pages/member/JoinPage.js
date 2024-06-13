@@ -1,74 +1,124 @@
-import { Route, useNavigate } from "react-router-dom";
-import "../../styles/join.css";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { postCheckEmail, postJoin } from "../../api/user/apijoin";
+import "../../styles/join.css";
 
 const JoinPage = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPass, setUserPass] = useState("");
   const [userPass2, setUserPass2] = useState("");
   const [userName, setUserName] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [userEmailCheck, setUserEmailCheck] = useState("");
+  const [userEmailCheckCode, setUserEmailCheckCode] = useState("");
+  const [emailCheck, setEmailCheck] = useState(false);
+  const [userEmailCheckCodeSuccess, setUserEmailCheckCodeSuccess] =
+    useState(false);
+
+  //  state: 에러 상태 추가  //
+  const [errors, setErrors] = useState({
+    userEmail: false,
+    userPass: false,
+    userPass2: false,
+    userName: false,
+  });
 
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/;
   const nameRegex = /^[가-힣a-zA-Z]*$/;
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setEmailCheck(false);
+    setUserEmailCheckCodeSuccess(false);
+  }, []);
 
   const navigate = useNavigate();
+
   const joinMember = async event => {
-    // form 태그에서 submit 을 하면 웹브라우저 갱신
-    // 갱신하면 초기화 되므로 막아줌. (기본기능막기)
     event.preventDefault();
 
-    if (
-      regex.test(userEmail) &&
-      passRegex.test(userPass) &&
-      userPass2 === userPass &&
-      nameRegex.test(userName) &&
-      (userName !== "") === true
-    ) {
-      setSuccess(true);
-    } else {
-      setSuccess(false);
-      alert("형식에 맞지 않습니다 확인해주세요");
+    // const isFormValid =
+    //   regex.test(userEmail) &&
+    //   passRegex.test(userPass) &&
+    //   userPass2 === userPass &&
+    //   nameRegex.test(userName) &&
+    //   userName !== "" &&
+    //   userEmailCheckCodeSuccess;
+
+    const newErrors = {
+      userEmail: !regex.test(userEmail),
+      userPass: !passRegex.test(userPass),
+      userPass2: userPass !== userPass2,
+      userName: !nameRegex.test(userName) || userName === "",
+    };
+
+    setErrors(newErrors);
+
+    const isFormValid =
+      Object.values(newErrors).every(error => !error) &&
+      userEmailCheckCodeSuccess;
+
+    if (!isFormValid) {
       return;
     }
-    if (success === true) {
-      // 아래의 데이터를 API 로 보낸다.
-      const requestData = {
-        email: userEmail,
-        password: userPass,
-        checkPassword: userPass2,
-        nickname: userName,
-      };
-      const result = await postJoin(requestData);
-      console.log(result);
-      if (result.code !== "SU") {
-        alert(result.message);
-        return;
-      }
-      alert("회원가입 성공");
-      navigate("/login");
-    }
-  };
-  const checkEmail = async event => {
-    event.preventDefault();
+
     const requestData = {
       email: userEmail,
       password: userPass,
       checkPassword: userPass2,
       nickname: userName,
     };
-    const result = await postCheckEmail(requestData);
-    if (regex.test(userEmail)) {
-      return "성공했습니다";
-    } else {
-      return "이메일 형식에 맞지 않습니다.";
+
+    const result = await postJoin(requestData);
+    console.log(result);
+
+    if (result.code !== "SU") {
+      alert(result.message);
+      return;
     }
+
+    alert("회원가입 성공");
+    navigate("/login");
   };
+
+  const checkEmail = async event => {
+    event.preventDefault();
+    setUserEmailCheck("");
+
+    if (!regex.test(userEmail)) {
+      alert("이메일 형식에 맞지 않습니다.");
+      setEmailCheck(false);
+      return;
+    }
+
+    const requestData = { email: userEmail };
+    const result = await postCheckEmail(requestData);
+
+    setUserEmailCheckCode(result.data.emailCheckCode);
+    console.log(result.data.emailCheckCode);
+
+    if (result.code !== "SU") {
+      setEmailCheck(false);
+      alert(result.message);
+      return;
+    }
+
+    setEmailCheck(true);
+  };
+
+  const checkEmailSuccess = event => {
+    event.preventDefault();
+
+    if (userEmailCheck === userEmailCheckCode) {
+      alert("인증완료");
+      setUserEmailCheckCodeSuccess(true);
+      setEmailCheck(false);
+      return;
+    }
+
+    alert("인증 코드와 다릅니다.");
+    setUserEmailCheckCodeSuccess(false);
+  };
+
   return (
     <div className="join-wrap">
       <div className="container">
@@ -94,50 +144,91 @@ const JoinPage = () => {
         <form className="login-form" action="#" method="post">
           <h2 className="join-in-title">
             이메일
-            <button
-              type="submit"
-              className="email-check"
-              onClick={event => {
-                checkEmail(event);
-              }}
-            >
-              인증
-            </button>
+            {userEmailCheckCodeSuccess ? null : (
+              <button
+                type="button"
+                className="email-check"
+                onClick={checkEmail}
+              >
+                인증
+              </button>
+            )}
           </h2>
           <input
             type="email"
             id="userid"
             value={userEmail}
-            onChange={event => {
-              // console.log(event.target);
-              setUserEmail(event.target.value);
-            }}
+            onChange={event => setUserEmail(event.target.value)}
             placeholder="이메일"
+            disabled={userEmailCheckCodeSuccess}
             required
           />
-
-          {!userEmail ? (
+          {/* {!userEmail ? (
             <p className="check-email error-pont">이메일을 입력해 주세요.</p>
           ) : regex.test(userEmail) ? null : (
             <p className="check-passwordO error-pont">
               이메일 형식에 맞지 않습니다.
             </p>
+          )} */}
+
+          {/* 에러 메시지 처리 */}
+          {errors.userEmail && (
+            <p className="check-email error-pont">
+              이메일 형식에 맞지 않습니다.
+            </p>
           )}
 
+          {!emailCheck ? null : (
+            <div className="email-checkmodal">
+              <h2 className="join-in-title">이메일 인증 코드</h2>
+              <input
+                type="text"
+                id="emailCheck"
+                value={userEmailCheck}
+                onChange={event => setUserEmailCheck(event.target.value)}
+                placeholder="이메일 인증 코드를 입력하세요"
+                required
+              />
+              <div className="button-form">
+                <button
+                  type="button"
+                  className="email-check"
+                  onClick={event => checkEmailSuccess(event)}
+                >
+                  인증
+                </button>
+                <button
+                  type="button"
+                  className="email-check"
+                  onClick={() => {
+                    setEmailCheck(false);
+                    setUserEmailCheck("");
+                  }}
+                >
+                  닫기
+                </button>
+              </div>
+            </div>
+          )}
           <h2 className="join-in-title">비밀번호</h2>
           <input
             type="password"
             id="pass"
             value={userPass}
-            onChange={event => {
-              setUserPass(event.target.value);
-            }}
+            onChange={event => setUserPass(event.target.value)}
             placeholder="비밀번호를 입력하세요"
             required
           />
-          {!userPass ? (
+          {/* {!userPass ? (
             <p className="check-email error-pont">비밀번호를 입력해 주세요</p>
           ) : passRegex.test(userPass) ? null : (
+            <p className="check-passwordO error-pont">
+              비밀번호는 영문, 숫자 포함하여 8~16자리로 입력하세요.
+            </p>
+          )} */}
+
+          {/* 에러 메시지 처리 */}
+          {errors.userPass && (
             <p className="check-passwordO error-pont">
               비밀번호는 영문, 숫자 포함하여 8~16자리로 입력하세요.
             </p>
@@ -148,14 +239,20 @@ const JoinPage = () => {
             type="password"
             id="pass2"
             value={userPass2}
-            onChange={event => {
-              setUserPass2(event.target.value);
-            }}
+            onChange={event => setUserPass2(event.target.value)}
             placeholder="비밀번호 확인"
+            required
           />
-          {!userPass2 ? (
+          {/* {!userPass2 ? (
             <p className="check-email error-pont">비밀번호를 입력해 주세요</p>
           ) : userPass === userPass2 ? null : (
+            <p className="check-passwordO error-pont">
+              비밀번호가 같지 않습니다.
+            </p>
+          )} */}
+
+          {/* 에러 메시지 처리 */}
+          {errors.userPass2 && (
             <p className="check-passwordO error-pont">
               비밀번호가 같지 않습니다.
             </p>
@@ -163,30 +260,19 @@ const JoinPage = () => {
 
           <h2 className="join-in-title">닉네임</h2>
           <input
-            type="name"
+            type="text"
             id="username"
             value={userName}
-            onChange={event => {
-              setUserName(event.target.value);
-            }}
+            onChange={event => setUserName(event.target.value)}
             placeholder="닉네임을 입력하세요"
             required
           />
-          {!userName ? (
-            <p className="check-email error-pont">닉네임을 입력해 주세요</p>
-          ) : nameRegex.test(userName) ? null : (
+          {errors.userName && (
             <p className="check-passwordO error-pont">
               한글, 영문만 입력 가능합니다.
             </p>
           )}
-
-          <button
-            type="submit"
-            className="bt-submit"
-            onClick={event => {
-              joinMember(event);
-            }}
-          >
+          <button type="button" className="bt-submit" onClick={joinMember}>
             회원가입
           </button>
         </form>

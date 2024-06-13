@@ -1,14 +1,14 @@
 const TodoListItem = ({ todo, onRemove, onToggle, openModifyModal }) => {
-  const { id, text, checked } = todo;
+  const { listId, content, isCompleted } = todo;
 
   return (
     <div className="to-do-list">
-      {checked ? (
+      {!isCompleted ? (
         <div className="todo-right-box">
           <div className="todo-right-detail-left">
-            {checked ? (
+            {!isCompleted ? (
               <svg
-                onClick={() => onToggle(id)}
+                onClick={() => onToggle(listId)}
                 type="checkbox"
                 id="checkbox"
                 className="todo-right-detail-left-icon-empty"
@@ -28,7 +28,7 @@ const TodoListItem = ({ todo, onRemove, onToggle, openModifyModal }) => {
               </svg>
             ) : (
               <svg
-                onClick={() => onToggle(id)}
+                onClick={() => onToggle(listId)}
                 type="checkbox"
                 id="checkbox"
                 className="todo-right-detail-left-icon"
@@ -52,19 +52,19 @@ const TodoListItem = ({ todo, onRemove, onToggle, openModifyModal }) => {
               </svg>
             )}
 
-            {checked ? (
+            {!isCompleted ? (
               <span
                 className="todo-right-detail-text"
                 style={{ wordBreak: "break-all" }}
               >
-                {text}
+                {content}
               </span>
             ) : (
               <span
                 className="todo-right-detail-text"
                 style={{ textDecoration: "line-through" }}
               >
-                {text}
+                {content}
               </span>
             )}
           </div>
@@ -90,7 +90,7 @@ const TodoListItem = ({ todo, onRemove, onToggle, openModifyModal }) => {
             </svg>
 
             <svg
-              onClick={() => onRemove(id)}
+              onClick={() => onRemove(listId)}
               className="todo-right-detail-right-delete"
               xmlns="http://www.w3.org/2000/svg"
               width="18"

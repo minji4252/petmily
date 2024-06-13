@@ -6,7 +6,7 @@ const TodoList = ({ todos, onRemove, onToggle, openModifyModal }) => {
     <div className="TodoList">
       {todos.map(todo => (
         <TodoListItem
-          key={todo.id}
+          key={todo.listId}
           todo={todo}
           onRemove={onRemove}
           onToggle={onToggle}
