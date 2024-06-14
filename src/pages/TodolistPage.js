@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import {
   deleteTodoList,
   getTodoList,
+  modifyTodoList,
   postTodoInsert,
-  toggleTodolist,
+  toggleTodoList,
 } from "../api/todolist";
 import Clear from "../components/todolist/Clear";
 import MobileMenu from "../components/todolist/MobileMenu";
@@ -22,6 +23,7 @@ const TodolistPage = () => {
   const todoListLeft = useRef(null);
   const [checked, setChecked] = useState(false);
   const [modifyInsert, setModifyInsert] = useState("");
+  const [modifyId, setModifyId] = useState("");
 
   /* todos 배열에 새 객체 추가*/
 
@@ -49,18 +51,44 @@ const TodolistPage = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(todos);
-  }, [todos]);
+  // 수정 기능
+  const onModifyInsert = listId => {
+    setModifyId(listId);
+    const numericListId = Number(listId);
+    const foundItem = todos.find(item => item.listId === numericListId);
+    if (foundItem) {
+      setModifyInsert(foundItem.content);
+    }
+  };
 
-  const onModifyInsert = (id, newText) => {
-    // id에 해당하는 할 일을 찾아서 텍스트를 수정
-    const modifiedTodos = todos.map(todo => {
-      if (todo.id === id) {
-        return { ...todo, text: newText };
+  const modifyYes = e => {
+    e.preventDefault();
+    console.log(modifyId);
+    console.log(modifyInsert);
+    const data = {
+      listId: modifyId,
+      content: modifyInsert,
+    };
+
+    const updatedTodos = todos.map(item => {
+      if (item.listId === modifyId) {
+        // 해당 항목을 찾아서 새로운 객체를 반환하여 content를 업데이트한다
+        return {
+          ...item,
+          content: modifyInsert,
+        };
       }
-      return todo;
+      return item; // 변경할 필요가 없는 경우 원래 객체를 그대로 반환한다
     });
+
+    setTodos(updatedTodos); // 수정된 배열을 상태로 설정한다
+
+    modifyTodoList(data);
+    if (modifyModalRef.current) {
+      modifyModalRef.current.classList.remove("open");
+    } else {
+      console.error("modifyModalRef.current is not defined.");
+    }
   };
 
   // 삭제 기능
@@ -82,7 +110,7 @@ const TodolistPage = () => {
       ),
     );
 
-    const result = await toggleTodolist(listId);
+    const result = await toggleTodoList(listId);
     if (result) {
       console.log(result.listId);
     }
@@ -136,10 +164,9 @@ const TodolistPage = () => {
   const { clearModalOpen, openClearModal, clearNo, clearYes, clearModalRef } =
     useClearModal({ todos, setTodos });
 
-  const { openModifyModal, modifyModalRef, modifyYes, modifyNo } =
-    useModifyModal({
-      todos,
-    });
+  const { openModifyModal, modifyModalRef, modifyNo } = useModifyModal({
+    todos,
+  });
 
   return (
     <TodoTemplate>
@@ -152,6 +179,7 @@ const TodolistPage = () => {
         onToggle={onToggle}
       ></TodoLeft>
       <TodoRight
+        onModifyInsert={onModifyInsert}
         setModifyInsert={setModifyInsert}
         todoInsert={todoInsert}
         setTodoInsert={setTodoInsert}

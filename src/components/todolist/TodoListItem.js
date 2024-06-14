@@ -1,4 +1,10 @@
-const TodoListItem = ({ todo, onRemove, onToggle, openModifyModal }) => {
+const TodoListItem = ({
+  todo,
+  onRemove,
+  onToggle,
+  openModifyModal,
+  onModifyInsert,
+}) => {
   const { listId, content, isCompleted } = todo;
   return (
     <div className="to-do-list">
@@ -78,6 +84,7 @@ const TodoListItem = ({ todo, onRemove, onToggle, openModifyModal }) => {
               fill="none"
               onClick={() => {
                 openModifyModal();
+                onModifyInsert(listId);
               }}
             >
               <path

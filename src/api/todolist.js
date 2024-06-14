@@ -44,11 +44,22 @@ export const deleteAllTodoList = async () => {
   }
 };
 
-export const toggleTodolist = async listId => {
+export const toggleTodoList = async listId => {
   try {
     const rqData = `/api/todolist/is-completed?list_id=${listId}`;
     console.log(rqData);
     const response = await axios.patch(rqData);
+    return response.data.data;
+  } catch (error) {
+    console.log("error");
+  }
+};
+
+export const modifyTodoList = async data => {
+  try {
+    const rqData = `/api/todolist`;
+    console.log(rqData);
+    const response = await axios.patch(rqData, data);
     return response.data.data;
   } catch (error) {
     console.log("error");

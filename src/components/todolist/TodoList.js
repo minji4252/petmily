@@ -2,7 +2,13 @@ import { useEffect } from "react";
 import "../../styles/TodoList/left.css";
 import TodoListItem from "./TodoListItem";
 
-const TodoList = ({ todos, onRemove, onToggle, openModifyModal }) => {
+const TodoList = ({
+  todos,
+  onRemove,
+  onToggle,
+  openModifyModal,
+  onModifyInsert,
+}) => {
   return (
     <div className="TodoList">
       {todos.map(todo => (
@@ -12,6 +18,7 @@ const TodoList = ({ todos, onRemove, onToggle, openModifyModal }) => {
           onRemove={onRemove}
           onToggle={onToggle}
           openModifyModal={openModifyModal}
+          onModifyInsert={onModifyInsert}
         />
       ))}
     </div>

@@ -21,6 +21,7 @@ const TodoRight = ({
   setTodoInsert,
   todoInsert,
   setModifyInsert,
+  onModifyInsert,
 }) => {
   const today = moment().format("MM.DD");
 
@@ -62,15 +63,18 @@ const TodoRight = ({
         todos={todos}
         onRemove={onRemove}
         onToggle={onToggle}
+        onModifyInsert={onModifyInsert}
       />
 
       <ModifyModal
+        todos={todos}
         modifyValue={modifyValue}
         modifyInsert={modifyInsert}
         modifyModalRef={modifyModalRef}
         modifyYes={modifyYes}
         modifyNo={modifyNo}
         setModifyInsert={setModifyInsert}
+        onModifyInsert={onModifyInsert}
       ></ModifyModal>
     </div>
   );

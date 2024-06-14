@@ -321,6 +321,7 @@
 .create-button {
   outline: none;
   all: unset;
+  cursor: pointer;
 }
 
 .create-button svg {
