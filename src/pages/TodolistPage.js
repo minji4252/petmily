@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import {
   deleteTodoList,
   getTodoList,
@@ -14,6 +14,8 @@ import TodoTemplate from "../components/todolist/TodoTemple";
 import useClearModal from "../components/todolist/useClearModal";
 import useModifyModal from "../components/todolist/useModifyModal.js";
 import "../styles/TodoList/left.css";
+import { userInfoContext } from "../contexts/locationContext";
+import { useNavigate } from "react-router-dom";
 
 const TodolistPage = () => {
   const [todos, setTodos] = useState([]);
@@ -24,6 +26,13 @@ const TodolistPage = () => {
   const [checked, setChecked] = useState(false);
   const [modifyInsert, setModifyInsert] = useState("");
   const [modifyId, setModifyId] = useState("");
+  const [checkedDate, setCheckedDate] = useState("");
+  const [realDate, setRealDate] = useState("");
+
+  const navigate = useNavigate();
+
+  const { isLogIn, setIsLogIn, isUserPk, setIsUserPk } =
+    useContext(userInfoContext);
 
   /* todos 배열에 새 객체 추가*/
 
@@ -34,7 +43,7 @@ const TodolistPage = () => {
       return;
     } else {
       const requestData = {
-        userId: "1",
+        userId: sessionStorage.getItem("userPk"),
         content: todoInsert,
       };
       const result = await postTodoInsert(requestData);
@@ -112,7 +121,14 @@ const TodolistPage = () => {
 
     const result = await toggleTodoList(listId);
     if (result) {
-      console.log(result.listId);
+      console.log(result.headers.date);
+      setCheckedDate(result.headers.date);
+      const formatDate = dateString => {
+        const date = new Date(dateString);
+        const options = { month: "long", day: "numeric" };
+        return date.toLocaleDateString("ko-KR", options);
+      };
+      setRealDate(formatDate(checkedDate));
     }
   };
 
@@ -133,6 +149,12 @@ const TodolistPage = () => {
           mobileMenu.current.style.display = "none";
           todoListRight.current.style.display = "flex";
           todoListLeft.current.style.display = "flex";
+        }
+      }
+      if (window.innerWidth <= 768) {
+        if (mobileMenu.current) {
+          todoListRight.current.style.display = "flex";
+          todoListLeft.current.style.display = "none";
         }
       }
     };
@@ -168,44 +190,53 @@ const TodolistPage = () => {
     todos,
   });
 
+  const logedid = sessionStorage.getItem("userPk");
+
   return (
     <TodoTemplate>
-      <TodoLeft
-        openMobileMenu={openMobileMenu}
-        todoListLeft={todoListLeft}
-        openClearModal={openClearModal}
-        todos={todos}
-        onRemove={onRemove}
-        onToggle={onToggle}
-      ></TodoLeft>
-      <TodoRight
-        onModifyInsert={onModifyInsert}
-        setModifyInsert={setModifyInsert}
-        todoInsert={todoInsert}
-        setTodoInsert={setTodoInsert}
-        todoListRight={todoListRight}
-        openMobileMenu={openMobileMenu}
-        modifyInsert={modifyInsert}
-        modifyModalRef={modifyModalRef}
-        onInsert={onInsert}
-        todos={todos}
-        onRemove={onRemove}
-        onToggle={onToggle}
-        openModifyModal={openModifyModal}
-        modifyYes={modifyYes}
-        modifyNo={modifyNo}
-      ></TodoRight>
-      <Clear
-        clearModalRef={clearModalRef}
-        clearNo={clearNo}
-        clearYes={clearYes}
-      ></Clear>
-      <MobileMenu
-        mobileMenu={mobileMenu}
-        closeMobileMenu={closeMobileMenu}
-        clickTodoList={clickTodoList}
-        clickSuccessList={clickSuccessList}
-      ></MobileMenu>
+      {sessionStorage.getItem("userPk") ? (
+        <>
+          <TodoLeft
+            realDate={realDate}
+            openMobileMenu={openMobileMenu}
+            todoListLeft={todoListLeft}
+            openClearModal={openClearModal}
+            todos={todos}
+            onRemove={onRemove}
+            onToggle={onToggle}
+          ></TodoLeft>
+          <TodoRight
+            onModifyInsert={onModifyInsert}
+            setModifyInsert={setModifyInsert}
+            todoInsert={todoInsert}
+            setTodoInsert={setTodoInsert}
+            todoListRight={todoListRight}
+            openMobileMenu={openMobileMenu}
+            modifyInsert={modifyInsert}
+            modifyModalRef={modifyModalRef}
+            onInsert={onInsert}
+            todos={todos}
+            onRemove={onRemove}
+            onToggle={onToggle}
+            openModifyModal={openModifyModal}
+            modifyYes={modifyYes}
+            modifyNo={modifyNo}
+          ></TodoRight>
+          <Clear
+            clearModalRef={clearModalRef}
+            clearNo={clearNo}
+            clearYes={clearYes}
+          ></Clear>
+          <MobileMenu
+            mobileMenu={mobileMenu}
+            closeMobileMenu={closeMobileMenu}
+            clickTodoList={clickTodoList}
+            clickSuccessList={clickSuccessList}
+          ></MobileMenu>
+        </>
+      ) : (
+        navigate("/login")
+      )}
     </TodoTemplate>
   );
 };

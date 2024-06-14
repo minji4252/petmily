@@ -1,6 +1,6 @@
 import SuccessItem from "./SuccessItem";
 
-const Success = ({ todos, onRemove, onToggle }) => {
+const Success = ({ todos, onRemove, onToggle, realDate }) => {
   return (
     <div className="TodoList">
       {todos.map(todo => (
@@ -9,6 +9,7 @@ const Success = ({ todos, onRemove, onToggle }) => {
           todo={todo}
           onToggle={onToggle}
           onRemove={onRemove}
+          realDate={realDate}
         />
       ))}
     </div>

@@ -1,4 +1,4 @@
-import PetAdmin from "../components/petadmin/PetAdmin";
+import PetAdmin from "../components/calendar/PetAdmin";
 
 const PetAdminPage = () => {
   return (

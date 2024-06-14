@@ -9,42 +9,48 @@ import PetAdminPage from "./pages/PetAdminPage";
 import NotfoundPage from "./pages/NotfoundPage";
 import JoinPage from "./pages/member/JoinPage";
 import LoginPage from "./pages/member/LoginPage";
+import { UserInfoProvider } from "./contexts/locationContext";
 
 function App() {
   const [isUser, setIsUser] = useState("");
 
   return (
     <BrowserRouter>
-      <div className="wrap">
-        <Header isUser={isUser} setIsUser={setIsUser}></Header>
+      <UserInfoProvider>
+        <div className="wrap">
+          <Header isUser={isUser} setIsUser={setIsUser}></Header>
 
-        <Routes>
-          <Route path="/" element={<MainPage></MainPage>}></Route>
+          <Routes>
+            <Route path="/" element={<MainPage></MainPage>}></Route>
 
-          <Route path="/todolist">
-            <Route index element={<TodolistPage />}></Route>
-          </Route>
+            <Route path="/todolist">
+              <Route index element={<TodolistPage />}></Route>
+            </Route>
 
-          <Route path="/calendar">
-            <Route index element={<CalendarPage />}></Route>
-          </Route>
+            <Route path="/calendar">
+              <Route index element={<CalendarPage />}></Route>
+            </Route>
 
-          <Route path="/petadmin">
-            <Route index element={<PetAdminPage />}></Route>
-          </Route>
+            <Route path="/petadmin">
+              <Route index element={<PetAdminPage />}></Route>
+            </Route>
 
-          <Route path="/join">
-            <Route index element={<JoinPage />}></Route>
-          </Route>
+            <Route path="/join">
+              <Route index element={<JoinPage />}></Route>
+            </Route>
 
-          <Route path="/login">
-            <Route index element={<LoginPage setIsUser={setIsUser} />}></Route>
-          </Route>
+            <Route path="/login">
+              <Route
+                index
+                element={<LoginPage setIsUser={setIsUser} />}
+              ></Route>
+            </Route>
 
-          <Route path="*" element={<NotfoundPage></NotfoundPage>}></Route>
-        </Routes>
-        <Footer></Footer>
-      </div>
+            <Route path="*" element={<NotfoundPage></NotfoundPage>}></Route>
+          </Routes>
+          <Footer></Footer>
+        </div>
+      </UserInfoProvider>
     </BrowserRouter>
   );
 }

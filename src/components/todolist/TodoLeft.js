@@ -7,6 +7,7 @@ const TodoLeft = ({
   openClearModal,
   todoListLeft,
   openMobileMenu,
+  realDate,
 }) => {
   return (
     <div className="todo-left" ref={todoListLeft}>
@@ -48,6 +49,7 @@ const TodoLeft = ({
       <p className="todo-left-title">완료된 할 일</p>
       <div className="todo-left-box">
         <Success
+          realDate={realDate}
           todos={todos}
           onRemove={onRemove}
           onToggle={onToggle}

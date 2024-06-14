@@ -23,6 +23,7 @@ export const StyledCalendarWrapper = styled.div`
     border-radius: 32px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
     background-color: rgb(255, 255, 255);
+    /* margin-right: 30px; */
   }
 `;
 
@@ -34,24 +35,27 @@ const ModalWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-  background-color: ${props => props.backgroundColor || "#fff"};
+  background-color: #ffd9d9;
   max-width: 100%;
   padding: 0 5px;
   font-size: 0.7rem;
 `;
 
-const Calendar = ({ petData }) => {
+const Calendar = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [modalPosition, setModalPosition] = useState({});
   const [clickDay, setClickDay] = useState("");
   const [findEventDay, setFindEventDay] = useState(null);
   const [allData, setAllData] = useState([]);
 
-  // 캘린더 데이터 불러오는 API 함수
+  const userPk = sessionStorage.getItem("userPk");
+
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get("/api/calendar/user_id?user_id=1");
+        const response = await axios.get(
+          `/api/calendar/user_id?user_id=${userPk}`,
+        );
         setAllData(response.data.data);
         // console.log(response.data.data);
       } catch (error) {
@@ -63,11 +67,11 @@ const Calendar = ({ petData }) => {
 
   const onClickDay = (value, event) => {
     const checkDay = moment(value).format("YYYY-MM-DD");
-    const findEvent = allData.find(
+    const findeEvent = allData.find(
       item => moment(item.startDate).format("YYYY-MM-DD") === checkDay,
     );
 
-    setFindEventDay(findEvent);
+    setFindEventDay(findeEvent);
     setClickDay(checkDay);
 
     const target = event.target.closest(".react-calendar__tile");
@@ -86,29 +90,6 @@ const Calendar = ({ petData }) => {
     }
   };
 
-  const getBackgroundColor = petId => {
-    const pet = petData.find(pet => pet.petId === petId);
-    if (pet) {
-      switch (pet.petBackColor) {
-        case "red":
-          return "#FFD9D9";
-        case "blue":
-          return "#D2F0FF";
-        case "green":
-          return "#DBFFD2";
-        case "violet":
-          return "#E4DAFF";
-        case "gray":
-          return "#EAEAEA";
-        case "orange":
-          return "#FEE6C9";
-        default:
-          return "#FFD9D9";
-      }
-    }
-    return "#FFD9D9";
-  };
-
   const tileContent = ({ date }) => {
     const checkDay = moment(date).format("YYYY-MM-DD");
     const dayResult = allData.filter(
@@ -118,7 +99,7 @@ const Calendar = ({ petData }) => {
       return (
         <div>
           {dayResult.slice(0, 2).map((item, index) => (
-            <Title key={index} backgroundColor={getBackgroundColor(item.petId)}>
+            <Title key={index} style={{ backgroundColor: "#ffd9d9" }}>
               {item.title}
             </Title>
           ))}
