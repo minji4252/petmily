@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postSignIn } from "../../api/user/apiuser";
 import milyicon from "../../images/mily-icon.png";
+import { Link } from "react-router-dom";
 
 const WrapStyle = styled.div`
   margin: 0;
@@ -151,8 +152,9 @@ const LoginPage = ({ children, setIsUser }) => {
             로그인
           </button>
         </LoginForm>
-
-        <JoinBtn type="submit">회원가입</JoinBtn>
+        <Link to="/join">
+          <JoinBtn type="submit">회원가입</JoinBtn>
+        </Link>
       </Container>
       {children}
     </WrapStyle>

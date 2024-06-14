@@ -40,7 +40,9 @@ const PetAdmin = () => {
 
   const fetchPetData = async () => {
     try {
-      const response = await axios.get("/api/pet?user_id=1");
+      const userPk = sessionStorage.getItem("userPk");
+      const response = await axios.get(`/api/pet?user_id=${userPk}`);
+      console.log("불러온데이터:", response.data.data);
       return response.data.data;
     } catch (error) {
       console.log(error);
