@@ -46,13 +46,6 @@ const DetailModal = ({
   const [selected, setSelected] = useState(initialPetId || "none");
   const [scheduleMemo, setScheduleMemo] = useState(initialContent || "");
 
-  const selectList = [
-    { value: "none", name: "선택하세요" },
-    { value: "1", name: "루이" },
-    { value: "2", name: "데이지" },
-    { value: "3", name: "코코" },
-  ];
-
   const handleSelect = e => setSelected(e.target.value);
 
   const handleSubmit = async event => {
