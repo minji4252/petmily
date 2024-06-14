@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
-import milyicon from "../../images/mily-icon.png";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postSignIn } from "../../api/user/apiuser";
+import { userInfoContext } from "../../contexts/locationContext";
+import milyicon from "../../images/mily-icon.png";
 
 const WrapStyle = styled.div`
   margin: 0;
@@ -86,22 +87,27 @@ const JoinBtn = styled.button`
   cursor: pointer;
 `;
 
-const LoginPage = ({ setIsUser }) => {
+const LoginPage = ({ children, setIsUser }) => {
+  const { isLogIn, setIsLogIn, isUserPk, setIsUserPk } =
+    useContext(userInfoContext);
+
   const navigate = useNavigate();
-  const [userId, setUserId] = useState("alswl1364@naver.com");
-  const [userPass, setUserPass] = useState("rlaalswl1!");
+  const [userId, setUserId] = useState("");
+  const [userPass, setUserPass] = useState("");
 
   const handleSubmit = async e => {
     e.preventDefault();
     const result = await postSignIn({ userId, userPass });
-    if (result.statusCode !== 2) {
-      alert(result.resultMsg);
+    if (result.code !== "SU") {
+      alert(result.message);
+      setIsLogIn(false);
       return;
     }
     // navigate("/");
     // 로그인 성공
-    localStorage.setItem("userid", userId);
     setIsUser(userId);
+    sessionStorage.setItem("userPk", result.data.userId);
+
     navigate("/");
   };
 
@@ -153,6 +159,7 @@ const LoginPage = ({ setIsUser }) => {
 
         <JoinBtn type="submit">회원가입</JoinBtn>
       </Container>
+      {children}
     </WrapStyle>
   );
 };

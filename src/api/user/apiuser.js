@@ -7,8 +7,8 @@ import axios from "axios";
 export const postSignIn = async ({ userId, userPass }) => {
   try {
     const response = await axios.post("/api/user/sign-in", {
-      id: userId,
-      pwd: userPass,
+      email: userId,
+      password: userPass,
     });
     console.log(response.data);
     return response.data;

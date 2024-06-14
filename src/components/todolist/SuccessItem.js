@@ -1,4 +1,4 @@
-const SuccessItem = ({ todo, onRemove, onToggle }) => {
+const SuccessItem = ({ todo, onRemove, onToggle, realDate }) => {
   const { listId, content, isCompleted } = todo;
 
   return isCompleted ? (
@@ -22,7 +22,7 @@ const SuccessItem = ({ todo, onRemove, onToggle }) => {
           />
         </svg>
         <div className="todo-left-detail-textbox">
-          <p>05.26 완료</p>
+          <p>{realDate} 완료</p>
           <h4>{content}</h4>
         </div>
       </div>

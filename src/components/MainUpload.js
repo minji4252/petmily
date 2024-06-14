@@ -8,9 +8,8 @@ import mainpeticon4 from "../images/팻아이콘4.png";
 import mainpeticon5 from "../images/팻아이콘5.png";
 import mainpeticon6 from "../images/팻아이콘6.png";
 import { useEffect, useState } from "react";
-
-import { Link } from "react-router-dom";
 import { getMainpet } from "../api/apimain";
+import { Link } from "react-router-dom";
 
 const MainUpload = () => {
   const [randomImage, setRandomImage] = useState("");

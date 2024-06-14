@@ -28,7 +28,7 @@ const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [petData, setPetData] = useState([]);
 
-  // 펫정보 불러오기
+  // Fetch pet data
   const fetchPetData = async () => {
     try {
       const response = await axios.get("/api/pet?user_id=1");
@@ -95,7 +95,7 @@ const Index = () => {
         </CalAddition>
       </CalLeft>
       <CalRight>
-        <Calendar petData={petData} />
+        <Calendar />
       </CalRight>
 
       <DetailModal

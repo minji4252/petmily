@@ -1,8 +1,11 @@
 import axios from "axios";
 
+const userPk = sessionStorage.getItem("userPk");
+console.log(userPk);
+
 export const getTodoList = async () => {
   try {
-    const rqData = "/api/todolist?user_id=1";
+    const rqData = `/api/todolist?user_id=${userPk}`;
     const response = await axios.get(rqData);
     return response.data.data;
   } catch (error) {
@@ -36,7 +39,7 @@ export const deleteTodoList = async listId => {
 
 export const deleteAllTodoList = async () => {
   try {
-    const rqData = "/api/todolist/all-delete?user_id=1";
+    const rqData = `/api/todolist/all-delete?user_id=${userPk}`;
     console.log(rqData);
     await axios.delete(rqData);
   } catch (error) {
@@ -49,7 +52,7 @@ export const toggleTodoList = async listId => {
     const rqData = `/api/todolist/is-completed?list_id=${listId}`;
     console.log(rqData);
     const response = await axios.patch(rqData);
-    return response.data.data;
+    return response;
   } catch (error) {
     console.log("error");
   }

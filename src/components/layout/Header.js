@@ -3,8 +3,12 @@ import "../../styles/common.css";
 import "../../styles/reset.css";
 import { Link } from "react-router-dom";
 import petmilyLogo from "../../images/petmily-header.png";
+import { useContext } from "react";
+import { userInfoContext } from "../../contexts/locationContext";
 
 const Header = ({ isUser, setIsUser }) => {
+  const { isLogIn, setIsLogIn, isUserPk, setIsUserPk } =
+    useContext(userInfoContext);
   return (
     <header className="header">
       <div className="nav-inner">
@@ -29,9 +33,9 @@ const Header = ({ isUser, setIsUser }) => {
           </li>
         </ul>
         <ul className="navi-list-2">
-          {isUser !== "" ? (
+          {isLogIn !== "" ? (
             <>
-              <li>{isUser}님</li>
+              <li>{isLogIn}님</li>
               <li>로그아웃</li>
             </>
           ) : (
