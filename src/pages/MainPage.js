@@ -1,13 +1,25 @@
-import "../styles/common.css";
-import "../styles/notfoundpage.css";
-import "../styles/reset.css";
-import "../styles/main.css";
+import { useNavigate } from "react-router-dom";
 import MainRandom from "../components/MainRandom";
+import MainSlides from "../components/MainSlides";
 import MainTodo from "../components/MainTodo";
 import MainUpload from "../components/MainUpload";
-import MainSlides from "../components/MainSlides";
+import "../styles/common.css";
+import "../styles/main.css";
+import "../styles/notfoundpage.css";
+import "../styles/reset.css";
+import { useEffect, useState } from "react";
 
 const MainPage = () => {
+  const navigate = useNavigate();
+  const logedid = sessionStorage.getItem("userPk");
+
+  useEffect(() => {
+    if (!logedid) {
+      navigate("/login");
+    } else {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="wrap main-wrap">
       <main className="main">

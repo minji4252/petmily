@@ -1,8 +1,7 @@
 import styled from "@emotion/styled";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postSignIn } from "../../api/user/apiuser";
-import { userInfoContext } from "../../contexts/locationContext";
 import milyicon from "../../images/mily-icon.png";
 
 const WrapStyle = styled.div`
@@ -88,9 +87,6 @@ const JoinBtn = styled.button`
 `;
 
 const LoginPage = ({ children, setIsUser }) => {
-  const { isLogIn, setIsLogIn, isUserPk, setIsUserPk } =
-    useContext(userInfoContext);
-
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [userPass, setUserPass] = useState("");
@@ -100,7 +96,6 @@ const LoginPage = ({ children, setIsUser }) => {
     const result = await postSignIn({ userId, userPass });
     if (result.code !== "SU") {
       alert(result.message);
-      setIsLogIn(false);
       return;
     }
     // navigate("/");
