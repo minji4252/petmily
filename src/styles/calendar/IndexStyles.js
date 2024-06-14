@@ -27,12 +27,14 @@ export const CalLeft = styled.div`
 
   @media all and (max-width: 768px) {
     width: 100%;
+    height: 100%;
   }
 `;
 
 export const PetManage = styled.div`
   width: 35%;
   height: 100%;
+  /* margin-left: 30px; */
 
   .pet-manage {
     height: 100%;
@@ -41,7 +43,7 @@ export const PetManage = styled.div`
   }
 
   @media all and (max-width: 768px) {
-    height: 495px;
+    height: 655px;
     margin-left: 30px;
   }
 `;
@@ -143,6 +145,14 @@ export const PetSelect = styled.button`
     cursor: pointer;
     color: #777;
   }
+
+  > span {
+    font-size: 1.1rem;
+    color: ${colorSystem.g700};
+    font-family: "HSSanTokki20-Regular" !important;
+    margin-top: 2px;
+    cursor: pointer;
+  }
 `;
 
 export const PetIcon = styled.div`
@@ -166,6 +176,7 @@ export const PetIcon = styled.div`
 export const CalRight = styled.div`
   width: 62%;
   margin-top: 25px;
+  margin-right: 30px;
 
   @media all and (max-width: 768px) {
     width: 92%;

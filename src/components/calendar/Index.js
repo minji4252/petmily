@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import { IoClose } from "react-icons/io5";
 import { PiCaretLeftBold } from "react-icons/pi";
@@ -21,20 +21,36 @@ import "../../styles/common.css";
 import { SubmitButton } from "../common/Button";
 import Calendar from "./Calendar";
 import DetailModal from "./DetailModal";
+import axios from "axios";
 
 const Index = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
+  const [isVisible, setIsVisible] = useState(false);
+  const [petData, setPetData] = useState([]);
+
+  // Fetch pet data
+  const fetchPetData = async () => {
+    try {
+      const response = await axios.get("/api/pet?user_id=1");
+      console.log("불러온 데이터:", response.data.data);
+      setPetData(response.data.data);
+    } catch (error) {
+      console.log(error);
+      setPetData([]);
+    }
+  };
+
+  useEffect(() => {
+    fetchPetData();
+  }, []);
 
   const handleSchedule = e => {
-    // e.preventDefault();
     openModal({
       onConfirm: () => {
         closeModal();
       },
     });
   };
-
-  const [isVisible, setIsVisible] = useState(false);
 
   const ManageVisible = () => {
     setIsVisible(!isVisible);
@@ -53,27 +69,24 @@ const Index = () => {
             </button>
             <ManageItem>
               <label className="radio_label">
-                <input type="radio" name="itemcheck" value="itemcheck" />
+                <input type="radio" name="itemcheck" value="all" />
                 <span className="radio_icon"></span>
                 <RadioText>전체</RadioText>
               </label>
-              <label className="radio_label">
-                <input type="radio" name="itemcheck" value="itemcheck" />
-                <span className="radio_icon"></span>
-                <RadioText>루이</RadioText>
-              </label>
-              <label className="radio_label">
-                <input type="radio" name="itemcheck" value="itemcheck" />
-                <span className="radio_icon"></span>
-                <RadioText>코코</RadioText>
-              </label>
+              {petData.map((pet, index) => (
+                <label className="radio_label" key={index}>
+                  <input type="radio" name="itemcheck" value={pet.petName} />
+                  <span className="radio_icon"></span>
+                  <RadioText>{pet.petName}</RadioText>
+                </label>
+              ))}
             </ManageItem>
           </BoxStyle>
         </PetManage>
         <CalAddition>
           <PetSelect onClick={ManageVisible}>
             <PiCaretLeftBold />
-            <PetIcon></PetIcon>
+            <span>pick !</span>
           </PetSelect>
           <BoxStyle className="pet-img"></BoxStyle>
           <BoxStyle className="schedule-add">
@@ -91,6 +104,7 @@ const Index = () => {
         onConfirm={confirmAction}
         title="일정 추가하기"
         submitButtonLabel="등록하기"
+        petData={petData}
       />
     </CalendarMain>
   );

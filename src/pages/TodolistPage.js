@@ -32,7 +32,7 @@ const TodolistPage = () => {
       return;
     } else {
       const requestData = {
-        userId: "12",
+        userId: "1",
         content: todoInsert,
       };
       const result = await postTodoInsert(requestData);
