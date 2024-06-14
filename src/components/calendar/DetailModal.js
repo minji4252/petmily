@@ -70,10 +70,11 @@ const DetailModal = ({
   };
 
   const handleAdd = async () => {
+    const userPk = sessionStorage.getItem("userPk");
     try {
       const formattedTime = `${timeValue}:00`;
       const res = await axios.post("/api/calendar", {
-        userId: 1, //임시
+        userId: userPk, //임시
         petId: selected,
         title: scheduleTitle,
         content: scheduleMemo,
@@ -94,11 +95,12 @@ const DetailModal = ({
   };
 
   const handleEdit = async () => {
+    const userPk = sessionStorage.getItem("userPk");
     try {
       const formattedTime = `${timeValue}:00`;
       const res = await axios.patch("/api/calendar", {
         calendarId: initialCalendarId,
-        userId: 1, //임시
+        userId: userPk, //임시
         petId: selected,
         title: scheduleTitle,
         content: scheduleMemo,

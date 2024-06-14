@@ -34,10 +34,13 @@ const PetAdmin = () => {
     });
   };
 
+  const userPk = sessionStorage.getItem("userPk");
+
   // 반려동물 목록을 불러오는 api함수
   const fetchPetData = async () => {
     try {
-      const response = await axios.get("/api/pet?user_id=1");
+      const userPk = sessionStorage.getItem("userPk");
+      const response = await axios.get(`/api/pet?user_id=${userPk}`);
       console.log("불러온데이터:", response.data.data);
       return response.data.data;
     } catch (error) {
@@ -98,7 +101,7 @@ const PetAdmin = () => {
                     <input
                       type="radio"
                       name="itemcheck"
-                      value={item.id}
+                      value={item.petId}
                       onChange={handleRadioChange}
                     />
                     <span className="radio_icon"></span>

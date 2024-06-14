@@ -1,4 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   deleteTodoList,
   getTodoList,
@@ -14,8 +15,6 @@ import TodoTemplate from "../components/todolist/TodoTemple";
 import useClearModal from "../components/todolist/useClearModal";
 import useModifyModal from "../components/todolist/useModifyModal.js";
 import "../styles/TodoList/left.css";
-import { userInfoContext } from "../contexts/locationContext";
-import { useNavigate } from "react-router-dom";
 
 const TodolistPage = () => {
   const [todos, setTodos] = useState([]);
@@ -30,9 +29,6 @@ const TodolistPage = () => {
   const [realDate, setRealDate] = useState("");
 
   const navigate = useNavigate();
-
-  const { isLogIn, setIsLogIn, isUserPk, setIsUserPk } =
-    useContext(userInfoContext);
 
   /* todos 배열에 새 객체 추가*/
 
@@ -194,7 +190,7 @@ const TodolistPage = () => {
 
   return (
     <TodoTemplate>
-      {sessionStorage.getItem("userPk") ? (
+      {logedid ? (
         <>
           <TodoLeft
             realDate={realDate}

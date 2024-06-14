@@ -27,11 +27,12 @@ const Index = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [isVisible, setIsVisible] = useState(false);
   const [petData, setPetData] = useState([]);
+  const userPk = sessionStorage.getItem("userPk");
 
   // Fetch pet data
   const fetchPetData = async () => {
     try {
-      const response = await axios.get("/api/pet?user_id=1");
+      const response = await axios.get(`/api/pet?user_id=${userPk}`);
       console.log("불러온 데이터:", response.data.data);
       setPetData(response.data.data);
     } catch (error) {
