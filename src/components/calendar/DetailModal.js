@@ -32,6 +32,7 @@ const DetailModal = ({
   readOnly = false,
   eventId,
   detailModalMode,
+  petData,
 }) => {
   if (!isOpen) return null;
 
@@ -44,7 +45,6 @@ const DetailModal = ({
   const [scheduleTitle, setScheduleTitle] = useState(initialTitle || "");
   const [selected, setSelected] = useState(initialPetId || "none");
   const [scheduleMemo, setScheduleMemo] = useState(initialContent || "");
-  // const [scheduleId, setScheduleId] = useState(initialCalendarId || "");
 
   const selectList = [
     { value: "none", name: "선택하세요" },
@@ -73,7 +73,7 @@ const DetailModal = ({
     try {
       const formattedTime = `${timeValue}:00`;
       const res = await axios.post("/api/calendar", {
-        userId: 12, //임시
+        userId: 1, //임시
         petId: selected,
         title: scheduleTitle,
         content: scheduleMemo,
@@ -98,7 +98,7 @@ const DetailModal = ({
       const formattedTime = `${timeValue}:00`;
       const res = await axios.patch("/api/calendar", {
         calendarId: initialCalendarId,
-        userId: 13, //임시
+        userId: 1, //임시
         petId: selected,
         title: scheduleTitle,
         content: scheduleMemo,
@@ -201,9 +201,9 @@ const DetailModal = ({
                 onChange={handleSelect}
                 disabled={readOnly}
               >
-                {selectList.map(item => (
-                  <option value={item.value} key={item.value}>
-                    {item.name}
+                {petData.map(item => (
+                  <option value={item.petId} key={item.petId}>
+                    {item.petName}
                   </option>
                 ))}
               </select>

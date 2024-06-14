@@ -19,7 +19,7 @@ import {
 } from "../../styles/calendar/PetAdminStyles";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import ConfirmationModal from "./ConfirmationModal";
+import ConfirmModal from "../common/ConfirmModal";
 const PetAdmin = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [petData, setPetData] = useState([]);
@@ -125,7 +125,7 @@ const PetAdmin = () => {
           onClose={closeModal}
           onConfirm={confirmAction}
         />
-        <ConfirmationModal
+        <ConfirmModal
           isOpen={isDeleteModalOpen}
           onClose={closeDeleteModal}
           onConfirm={handleDelete}

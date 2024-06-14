@@ -23,7 +23,7 @@ export const StyledCalendarWrapper = styled.div`
     border-radius: 32px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
     background-color: rgb(255, 255, 255);
-    margin-right: 30px;
+    /* margin-right: 30px; */
   }
 `;
 

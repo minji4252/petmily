@@ -1,6 +1,10 @@
+import axios from "axios";
 import moment from "moment";
 import "moment/locale/ko";
+import { useEffect, useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { RiArrowRightWideFill } from "react-icons/ri";
+import useModal from "../../hooks/UseModal";
 import {
   ModalBtn,
   ModalItem,
@@ -15,12 +19,8 @@ import {
   DelectButton,
   SubmitButton,
 } from "../common/Button";
-import useModal from "../../hooks/UseModal";
+import ConfirmModal from "../common/ConfirmModal";
 import DetailModal from "./DetailModal";
-import { useState, useEffect, useRef } from "react";
-import { RiArrowRightWideFill } from "react-icons/ri";
-import ConfirmationModal from "./ConfirmationModal";
-import axios from "axios";
 
 const SimpleModal = ({
   isOpen,
@@ -183,7 +183,7 @@ const SimpleModal = ({
         />
       )}
       {isDeleteConfirmOpen && (
-        <ConfirmationModal
+        <ConfirmModal
           isOpen={isDeleteConfirmOpen}
           onClose={() => setIsDeleteConfirmOpen(false)}
           onConfirm={confirmDelete}
