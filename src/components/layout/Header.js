@@ -3,8 +3,27 @@ import petmilyLogo from "../../images/petmily-header.png";
 import "../../styles/common.css";
 import "../../styles/header.css";
 import "../../styles/reset.css";
+import { useEffect, useState } from "react";
 
-const Header = ({ isUser, setIsUser }) => {
+const Header = () => {
+  const [isUser, setIsUser] = useState("");
+
+  const userPk = sessionStorage.getItem("userPk");
+  useEffect(() => {
+    if (userPk) {
+      setIsUser(userPk);
+    } else {
+      setIsUser("");
+    }
+  }, [userPk]);
+
+  const handleLogout = () => {
+    // 로그아웃 로직 (예: sessionStorage에서 userPk 제거)
+    sessionStorage.removeItem("userPk");
+    setIsUser("");
+    // 필요한 경우 페이지를 새로고침하거나 리다이렉트
+  };
+
   return (
     <header className="header">
       <div className="nav-inner">
@@ -29,10 +48,12 @@ const Header = ({ isUser, setIsUser }) => {
           </li>
         </ul>
         <ul className="navi-list-2">
-          {isUser !== "" ? (
+          {isUser ? (
             <>
-              <li>{isUser}님</li>
-              <li>로그아웃</li>
+              <li>{isUser} 님</li>
+              <li onClick={handleLogout} style={{ cursor: "pointer" }}>
+                로그아웃
+              </li>
             </>
           ) : (
             <>
