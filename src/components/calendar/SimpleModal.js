@@ -21,6 +21,7 @@ import {
 } from "../common/Button";
 import ConfirmModal from "../common/ConfirmModal";
 import DetailModal from "./DetailModal";
+import AlertModal from "../common/AlertModal";
 
 const SimpleModal = ({
   isOpen,
@@ -32,6 +33,7 @@ const SimpleModal = ({
   const [detailModalMode, setDetailModalMode] = useState("add");
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const modalRef = useRef(null);
 
   const getData = async () => {
@@ -70,6 +72,7 @@ const SimpleModal = ({
     openDetailModal("view", findEventDay);
   };
 
+  // 일정을 삭제하는 API 함수
   const handleDelete = async () => {
     if (!findEventDay?.calendarId) return;
 
@@ -77,10 +80,9 @@ const SimpleModal = ({
       const response = await axios.delete(
         `/api/calendar?calendar_id=${findEventDay.calendarId}`,
       );
-      if (response.status === 200) {
-        alert("일정이 삭제되었습니다.");
+      if (response.status.toString().charAt(0) === "2") {
         setIsDeleteConfirmOpen(false);
-        onConfirm();
+        setIsAlertOpen(true); // 알림 모달을 열기
       } else {
         console.log("삭제 실패:", response.data);
       }
@@ -91,6 +93,11 @@ const SimpleModal = ({
 
   const confirmDelete = () => {
     handleDelete();
+  };
+
+  const handleAlertClose = () => {
+    setIsAlertOpen(false);
+    window.location.reload(); // 새로고침
   };
 
   useEffect(() => {
@@ -188,6 +195,13 @@ const SimpleModal = ({
           onClose={() => setIsDeleteConfirmOpen(false)}
           onConfirm={confirmDelete}
           message={`'${findEventDay?.title || ""}' 일정을 삭제하시겠습니까?`}
+        />
+      )}
+      {isAlertOpen && (
+        <AlertModal
+          isOpen={isAlertOpen}
+          onClose={handleAlertClose}
+          message="일정이 삭제되었습니다."
         />
       )}
     </>
