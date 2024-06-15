@@ -50,8 +50,11 @@ const Header = () => {
         <ul className="navi-list-2">
           {isUser ? (
             <>
-              <li>{isUser} 님</li>
-              <li onClick={handleLogout} style={{ cursor: "pointer" }}>
+              <li style={{ color: "#896555" }}>{isUser} 님</li>
+              <li
+                onClick={handleLogout}
+                style={{ cursor: "pointer", color: "#896555" }}
+              >
                 로그아웃
               </li>
             </>
