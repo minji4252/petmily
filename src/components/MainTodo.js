@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import Calendar from "../components/calendar/Calendar";
 import "../styles/common.css";
 import "../styles/main.css";
 import "../styles/reset.css";
 import "../../src/styles/TodoList/left.css";
 import { useEffect, useState } from "react";
 import { getUpcoming } from "../api/apimain";
+import Calendar from "react-calendar";
 
 function MainTodo() {
   const [upcomingItems, setUpcomingItems] = useState([]);

@@ -29,7 +29,8 @@ export const getUpcoming = async () => {
 // 메인 상단 랜덤 사진 불러오기
 export const getMainbanner = async () => {
   try {
-    const response = await axios.get(`api/mainBanner?p=1`);
+    const response = await axios.get("/api/mainbanner");
+    console.log(response);
     if (response.data && response.data.data) {
       return response.data.data.map(item => `/pic/main/${item.imageUrl}`);
     } else {
@@ -44,7 +45,7 @@ export const getMainbanner = async () => {
 // 메인 하단 이벤트 슬라이더 불러오기 (6/14)
 export const getEventbanner = async () => {
   try {
-    const response = await axios.get(`/api/eventBanner?page=1&size=4`);
+    const response = await axios.get("/api/eventbanner?page=1&size=4");
 
     if (response.data && response.data.data) {
       return response.data.data.map(item => `/pic/event/${item.imageUrl}`);
