@@ -39,6 +39,11 @@
   padding: 0px;
   box-sizing: border-box;
   font-family: "Pretendard-Regular", sans-serif !important;
+  caret-color: transparent;
+}
+/* input 태그에만 커서 깜빡임 주기 */
+input {
+  caret-color: auto;
 }
 /* a태그 파란글씨 없애고 밑줄 삭제 */
 a {

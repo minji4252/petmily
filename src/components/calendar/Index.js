@@ -27,13 +27,13 @@ const Index = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [isVisible, setIsVisible] = useState(false);
   const [petData, setPetData] = useState([]);
+  const [selectedPetImage, setSelectedPetImage] = useState("");
   const userPk = sessionStorage.getItem("userPk");
 
-  // Fetch pet data
   const fetchPetData = async () => {
     try {
       const response = await axios.get(`/api/pet?user_id=${userPk}`);
-      console.log("불러온 데이터:", response.data.data);
+      console.log("petData불러온 데이터:", response.data.data);
       setPetData(response.data.data);
     } catch (error) {
       console.log(error);
@@ -45,7 +45,14 @@ const Index = () => {
     fetchPetData();
   }, []);
 
-  const handleSchedule = e => {
+  const handleRadioChange = petId => {
+    const pet = petData.find(p => p.petId === petId);
+    if (pet) {
+      setSelectedPetImage(`/pic/pet/${pet.petId}/${pet.petImage}`);
+    }
+  };
+
+  const handleSchedule = () => {
     openModal({
       onConfirm: () => {
         closeModal();
@@ -70,13 +77,23 @@ const Index = () => {
             </button>
             <ManageItem>
               <label className="radio_label">
-                <input type="radio" name="itemcheck" value="all" />
+                <input
+                  type="radio"
+                  name="itemcheck"
+                  value="all"
+                  onChange={() => setSelectedPetImage("")}
+                />
                 <span className="radio_icon"></span>
                 <RadioText>전체</RadioText>
               </label>
-              {petData.map((pet, index) => (
-                <label className="radio_label" key={index}>
-                  <input type="radio" name="itemcheck" value={pet.petName} />
+              {petData.map(pet => (
+                <label className="radio_label" key={pet.petId}>
+                  <input
+                    type="radio"
+                    name="itemcheck"
+                    value={pet.petId}
+                    onChange={() => handleRadioChange(pet.petId)}
+                  />
                   <span className="radio_icon"></span>
                   <RadioText>{pet.petName}</RadioText>
                 </label>
@@ -89,16 +106,19 @@ const Index = () => {
             <PiCaretLeftBold />
             <span>pick !</span>
           </PetSelect>
-          <BoxStyle className="pet-img"></BoxStyle>
+          <BoxStyle className="pet-img">
+            {selectedPetImage && (
+              <img src={selectedPetImage} alt="Selected pet" />
+            )}
+          </BoxStyle>
           <BoxStyle className="schedule-add">
             <SubmitButton label="일정 추가" onClick={handleSchedule} />
           </BoxStyle>
         </CalAddition>
       </CalLeft>
       <CalRight>
-        <Calendar />
+        <Calendar petData={petData} />
       </CalRight>
-
       <DetailModal
         isOpen={isModalOpen}
         onClose={closeModal}
