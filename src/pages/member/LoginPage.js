@@ -104,7 +104,9 @@ const LoginPage = ({ children, setIsUser }) => {
     setIsUser(userId);
     sessionStorage.setItem("userPk", result.data.userId);
 
-    navigate("/");
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
   };
 
   return (
@@ -118,40 +120,42 @@ const LoginPage = ({ children, setIsUser }) => {
         <h2>펫밀리 로그인</h2>
         <LoginLine></LoginLine>
 
-        <LoginForm action="#" method="post">
-          <input
-            type="email"
-            placeholder="이메일"
-            value={userId}
-            id="userid"
-            onChange={e => {
-              setUserId(e.target.value);
-            }}
-            required
-            autoComplete="off"
-          />
+        <form>
+          <LoginForm action="#" method="post">
+            <input
+              type="email"
+              placeholder="이메일"
+              value={userId}
+              id="userid"
+              onChange={e => {
+                setUserId(e.target.value);
+              }}
+              required
+              autoComplete="off"
+            />
 
-          <input
-            type="password"
-            placeholder="비밀번호"
-            value={userPass}
-            id="pass"
-            onChange={e => {
-              setUserPass(e.target.value);
-            }}
-            required
-            autoComplete="off"
-          />
+            <input
+              type="password"
+              placeholder="비밀번호"
+              value={userPass}
+              id="pass"
+              onChange={e => {
+                setUserPass(e.target.value);
+              }}
+              required
+              autoComplete="off"
+            />
 
-          <button
-            type="submit"
-            onClick={e => {
-              handleSubmit(e);
-            }}
-          >
-            로그인
-          </button>
-        </LoginForm>
+            <button
+              type="submit"
+              onClick={e => {
+                handleSubmit(e);
+              }}
+            >
+              로그인
+            </button>
+          </LoginForm>
+        </form>
         <Link to="/join">
           <JoinBtn type="submit">회원가입</JoinBtn>
         </Link>

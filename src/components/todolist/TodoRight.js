@@ -6,16 +6,15 @@ import TodoInsert from "./TodoInsert";
 import TodoList from "./TodoList";
 
 const TodoRight = ({
-  onInsert,
-  todos,
-  onRemove,
-  onToggle,
   openModifyModal,
+  onToggle,
+  onRemove,
   modifyYes,
   modifyNo,
+  todos,
+  onInsert,
   modifyModalRef,
   modifyInsert,
-  modifyValue,
   openMobileMenu,
   todoListRight,
   setTodoInsert,
@@ -67,12 +66,10 @@ const TodoRight = ({
       />
 
       <ModifyModal
-        todos={todos}
-        modifyValue={modifyValue}
-        modifyInsert={modifyInsert}
-        modifyModalRef={modifyModalRef}
         modifyYes={modifyYes}
         modifyNo={modifyNo}
+        modifyInsert={modifyInsert}
+        modifyModalRef={modifyModalRef}
         setModifyInsert={setModifyInsert}
         onModifyInsert={onModifyInsert}
       ></ModifyModal>

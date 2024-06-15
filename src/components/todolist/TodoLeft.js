@@ -4,10 +4,10 @@ const TodoLeft = ({
   todos,
   onRemove,
   onToggle,
+  realDate,
   openClearModal,
   todoListLeft,
   openMobileMenu,
-  realDate,
 }) => {
   return (
     <div className="todo-left" ref={todoListLeft}>
