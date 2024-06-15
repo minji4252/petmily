@@ -132,6 +132,10 @@
   text-indent: -10000px !important;
 }
 
+.main-calendar-sync .react-calendar__navigation button {
+  justify-content: center;
+}
+
 /* 캘린더 임포트 스타일 - 반응형*/
 @media all and (max-width: 940px) {
   .main-calendar-sync .react-calendar {
@@ -210,12 +214,12 @@
 }
 
 .mrc-side-l {
-  color: #a47e6d;
+  color: #694e42;
 
   font-size: 20px;
 
   font-family: "Pretendard-Regular", sans-serif;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .mrc-side {
@@ -243,6 +247,10 @@
 }
 
 /* main-sec-3 부분 - 반려동물관리 */
+
+.animal-pics-box {
+  margin-top: 6px;
+}
 .maps-text {
   font-size: 21px;
   color: #fff;
@@ -272,8 +280,8 @@
 
 .animal-txt {
   font-size: 20px;
-  font-family: "Pretendard-Medium", sans-serif;
-  font-weight: 500;
+  font-family: "Pretendard-Regular", sans-serif;
+  font-weight: 600;
   color: #694e42;
 }
 
@@ -284,7 +292,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
   padding: 0 20px;
 }
 

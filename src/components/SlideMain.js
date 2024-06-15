@@ -1,23 +1,25 @@
-import React, { useRef, useState } from "react";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
 import { Autoplay, Navigation } from "swiper/modules";
-
-import b1 from "../images/b1.jpg";
-import b2 from "../images/b2.jpg";
-import b3 from "../images/b3.jpg";
-import b4 from "../images/b4.jpg";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 
 import "../styles/styles.css";
-
-// import required modules
+import { getEventbanner } from "../api/apimain";
 
 export default function SliderContainer() {
-  const items = [{ src: b1 }, { src: b2 }, { src: b3 }, { src: b4 }];
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const fetchEventBanners = async () => {
+      const banners = await getEventbanner();
+      setItems(banners);
+    };
+
+    fetchEventBanners();
+  }, []);
 
   return (
     <div className="swiper-box">
@@ -31,9 +33,9 @@ export default function SliderContainer() {
         className="mySwiper"
         loop={true}
       >
-        {items.map((item, idx) => (
+        {items.map((src, idx) => (
           <SwiperSlide key={idx}>
-            <img src={item.src} alt={`Slide ${idx + 1}`} />
+            <img src={src} alt={`Slide ${idx + 1}`} />
           </SwiperSlide>
         ))}
       </Swiper>
