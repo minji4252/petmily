@@ -120,11 +120,11 @@ const Calendar = ({ petData }) => {
     if (dayResult.length > 0) {
       return (
         <div>
-          {dayResult.slice(0, 2).map((item, index) => (
+          {/* {dayResult.slice(0, 2).map((item, index) => (
             <Title key={index} backgroundColor={getBackgroundColor(item.petId)}>
               {item.title}
             </Title>
-          ))}
+          ))} */}
           {dayResult.length > 2 && (
             <Title
               style={{
