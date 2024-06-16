@@ -20,7 +20,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ConfirmModal from "../common/ConfirmModal";
-import AlertModal from "../common/AlertModal";
+import AlertModal from "../common/AlertModal"; // Import the custom AlertModal component
 
 const PetAdmin = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
@@ -29,18 +29,19 @@ const PetAdmin = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const handleRegister = () => {
     openModal({
-      onConfirm: () => {
-        closeModal();
-      },
+      onConfirm: () => closeModal(),
     });
   };
 
   const fetchPetData = async () => {
     try {
-      const response = await axios.get("/api/pet?user_id=1");
+      const userPk = sessionStorage.getItem("userPk");
+      const response = await axios.get(`/api/pet?user_id=${userPk}`);
+      console.log("불러온데이터:", response.data.data);
       return response.data.data;
     } catch (error) {
       console.log(error);
@@ -52,42 +53,6 @@ const PetAdmin = () => {
     setSelectedPetId(event.target.value);
   };
 
-  const handleDelete = async () => {
-    if (!selectedPetId) {
-      alert("삭제할 반려동물을 선택하세요.");
-      return;
-    }
-
-    try {
-      const response = await axios.delete(`/api/pet?pet_id=${selectedPetId}`);
-
-      if (response.data.code === "SU") {
-        setPetData(prevData =>
-          prevData.filter(pet => pet.id !== selectedPetId),
-        );
-        setAlertMessage(response.data.message);
-        closeDeleteModal();
-        setIsAlertModalOpen(true);
-      }
-      if (response.data.code === "NU") {
-        setAlertMessage(response.data.message);
-        return;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const openDeleteModal = petId => {
-    setSelectedPetId(petId);
-    setIsDeleteModalOpen(true);
-  };
-
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false);
-    setSelectedPetId(null);
-  };
-
   useEffect(() => {
     const getPetData = async () => {
       const data = await fetchPetData();
@@ -95,6 +60,64 @@ const PetAdmin = () => {
     };
     getPetData();
   }, []);
+
+  const handleEdit = () => {
+    if (!selectedPetId) {
+      setAlertMessage("수정할 반려동물을 선택하세요");
+      setIsAlertModalOpen(true);
+      return;
+    }
+
+    const selectedPet = petData.find(pet => pet.petId === selectedPetId);
+    setIsEditMode(true);
+
+    openModal({
+      onConfirm: () => closeModal(),
+      petData: selectedPet,
+    });
+  };
+
+  const handleDelete = () => {
+    if (!selectedPetId) {
+      setAlertMessage("삭제할 반려동물을 선택하세요.");
+      setIsAlertModalOpen(true);
+    } else {
+      setIsDeleteModalOpen(true);
+    }
+  };
+
+  const confirmDelete = async () => {
+    try {
+      const response = await axios.delete(`/api/pet?pet_id=${selectedPetId}`);
+
+      if (response.data.code === "SU") {
+        setPetData(prevData =>
+          prevData.filter(pet => pet.petId !== selectedPetId),
+        );
+        setAlertMessage(response.data.message);
+        setIsAlertModalOpen(true);
+      } else {
+        setAlertMessage(response.data.message);
+        setIsAlertModalOpen(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    closeDeleteModal();
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setSelectedPetId(null);
+  };
+
+  const handleCloseAlertModal = () => {
+    if (alertMessage.includes("완료")) {
+      window.location.reload();
+    } else {
+      setIsAlertModalOpen(false);
+    }
+  };
 
   return (
     <AdminWrapStyle>
@@ -122,11 +145,8 @@ const PetAdmin = () => {
               </AdminItem>
             </AdminItemStyle>
             <AdminBtn>
-              <ActionButton label="수정" />
-              <DelectButton
-                label="삭제"
-                onClick={() => openDeleteModal(selectedPetId)}
-              />
+              <ActionButton label="수정" onClick={handleEdit} />
+              <DelectButton label="삭제" onClick={handleDelete} />
             </AdminBtn>
           </AdminLeft>
           <AddPetBtn>
@@ -135,22 +155,21 @@ const PetAdmin = () => {
           </AddPetBtn>
         </AdminStyle>
         <RegistModal
+          isEdit={isEditMode}
           isOpen={isModalOpen}
           onClose={closeModal}
           onConfirm={confirmAction}
+          petData={petData}
         />
         <ConfirmModal
           isOpen={isDeleteModalOpen}
           onClose={closeDeleteModal}
-          onConfirm={handleDelete}
+          onConfirm={confirmDelete}
           message="정말 삭제하시겠습니까?"
         />
         <AlertModal
           isOpen={isAlertModalOpen}
-          onClose={() => {
-            setIsAlertModalOpen(false);
-            window.location.reload();
-          }}
+          onClose={handleCloseAlertModal} // handleCloseAlertModal 사용
           message={alertMessage}
         />
       </div>

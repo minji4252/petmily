@@ -1,14 +1,33 @@
 import { Link } from "react-router-dom";
-import Calendar from "../components/calendar/Calendar";
 import "../styles/common.css";
 import "../styles/main.css";
 import "../styles/reset.css";
 import "../../src/styles/TodoList/left.css";
 import { useEffect, useState } from "react";
 import { getUpcoming } from "../api/apimain";
+import Calendar from "./calendar/Calendar";
+import axios from "axios";
+// import Calendar from "react-calendar";
 
 function MainTodo() {
   const [upcomingItems, setUpcomingItems] = useState([]);
+  const [petData, setPetData] = useState([]);
+  const userPk = sessionStorage.getItem("userPk");
+
+  const fetchPetData = async () => {
+    try {
+      const response = await axios.get(`/api/pet?user_id=${userPk}`);
+      console.log("petData불러온 데이터:", response.data.data);
+      setPetData(response.data.data);
+    } catch (error) {
+      console.log(error);
+      setPetData([]);
+    }
+  };
+
+  useEffect(() => {
+    fetchPetData();
+  }, []);
 
   useEffect(() => {
     const fetchUpcomingItems = async () => {
@@ -40,7 +59,7 @@ function MainTodo() {
           </div>
 
           <div className="main-calendar-sync">
-            <Calendar />
+            <Calendar petData={petData} />
           </div>
         </div>
 

@@ -2,25 +2,21 @@ import "../styles/main.css";
 import "../styles/common.css";
 import "../styles/reset.css";
 import { useEffect, useState } from "react";
-import ranpic1 from "../images/ranpic1.jpg";
-import ranpic2 from "../images/ranpic2.jpg";
-import ranpic3 from "../images/ranpic3.jpg";
-import ranpic4 from "../images/ranpic4.jpg";
-import ranpic5 from "../images/ranpic5.jpg";
-
-const images = [ranpic1, ranpic2, ranpic3, ranpic4, ranpic5];
-
-function getRandomImage() {
-  const randomIndex = Math.floor(Math.random() * images.length);
-  return images[randomIndex];
-}
+import { getMainbanner } from "../api/apimain";
 
 const MainRandom = () => {
   const [backgroundImage, setBackgroundImage] = useState("");
 
   useEffect(() => {
-    const randomImage = getRandomImage();
-    setBackgroundImage(randomImage);
+    const fetchRandomImage = async () => {
+      const images = await getMainbanner();
+      if (images.length > 0) {
+        const randomIndex = Math.floor(Math.random() * images.length);
+        setBackgroundImage(images[randomIndex]);
+      }
+    };
+
+    fetchRandomImage();
   }, []);
 
   return (

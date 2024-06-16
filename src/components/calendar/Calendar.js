@@ -23,7 +23,6 @@ export const StyledCalendarWrapper = styled.div`
     border-radius: 32px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
     background-color: rgb(255, 255, 255);
-    /* margin-right: 30px; */
   }
 `;
 
@@ -35,13 +34,13 @@ const ModalWrapper = styled.div`
 `;
 
 const Title = styled.h2`
-  background-color: #ffd9d9;
+  background-color: ${props => props.backgroundColor || "#fff"};
   max-width: 100%;
   padding: 0 5px;
   font-size: 0.7rem;
 `;
 
-const Calendar = () => {
+const Calendar = ({ petData }) => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [modalPosition, setModalPosition] = useState({});
   const [clickDay, setClickDay] = useState("");
@@ -67,11 +66,11 @@ const Calendar = () => {
 
   const onClickDay = (value, event) => {
     const checkDay = moment(value).format("YYYY-MM-DD");
-    const findeEvent = allData.find(
+    const findEvent = allData.find(
       item => moment(item.startDate).format("YYYY-MM-DD") === checkDay,
     );
 
-    setFindEventDay(findeEvent);
+    setFindEventDay(findEvent);
     setClickDay(checkDay);
 
     const target = event.target.closest(".react-calendar__tile");
@@ -90,6 +89,29 @@ const Calendar = () => {
     }
   };
 
+  const getBackgroundColor = petId => {
+    const pet = petData.find(pet => pet.petId === petId);
+    if (pet) {
+      switch (pet.petBackColor) {
+        case "red":
+          return "#FFD9D9";
+        case "blue":
+          return "#D2F0FF";
+        case "green":
+          return "#DBFFD2";
+        case "violet":
+          return "#E4DAFF";
+        case "gray":
+          return "#EAEAEA";
+        case "orange":
+          return "#FEE6C9";
+        default:
+          return "#FFD9D9";
+      }
+    }
+    return "#FFD9D9";
+  };
+
   const tileContent = ({ date }) => {
     const checkDay = moment(date).format("YYYY-MM-DD");
     const dayResult = allData.filter(
@@ -99,7 +121,7 @@ const Calendar = () => {
       return (
         <div>
           {dayResult.slice(0, 2).map((item, index) => (
-            <Title key={index} style={{ backgroundColor: "#ffd9d9" }}>
+            <Title key={index} backgroundColor={getBackgroundColor(item.petId)}>
               {item.title}
             </Title>
           ))}

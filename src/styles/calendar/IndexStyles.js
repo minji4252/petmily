@@ -112,9 +112,16 @@ export const CalAddition = styled.div`
   margin: 0 30px;
 
   .pet-img {
+    width: 100%;
     margin-bottom: 25px;
     background: url(${mypetImage}) no-repeat center;
     background-size: cover;
+  }
+
+  .pet-img > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 32px;
   }
 
   .schedule-add {
@@ -146,12 +153,9 @@ export const PetSelect = styled.button`
     color: #777;
   }
 
-  > span {
-    font-size: 1.1rem;
-    color: ${colorSystem.g700};
-    font-family: "HSSanTokki20-Regular" !important;
-    margin-top: 2px;
-    cursor: pointer;
+  > img {
+    width: 30px;
+    height: 30px;
   }
 `;
 

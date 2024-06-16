@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import PetAdmin from "../components/calendar/PetAdmin";
 import { useEffect } from "react";
+import PetAdmin from "../components/petadmin/PetAdmin";
 
 const PetAdminPage = () => {
   const navigate = useNavigate();

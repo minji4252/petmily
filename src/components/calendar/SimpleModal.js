@@ -21,6 +21,7 @@ import {
 } from "../common/Button";
 import ConfirmModal from "../common/ConfirmModal";
 import DetailModal from "./DetailModal";
+import AlertModal from "../common/AlertModal";
 
 const SimpleModal = ({
   isOpen,
@@ -32,13 +33,21 @@ const SimpleModal = ({
   const [detailModalMode, setDetailModalMode] = useState("add");
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const modalRef = useRef(null);
+  const [allData, setAllData] = useState([]);
 
   const getData = async () => {
+    if (!findEventDay) return;
+
     try {
       const response = await axios.get(
         `/api/calendar/calendar_id?calendar_id=${findEventDay.calendarId}`,
       );
+      setAllData(response.data.data);
+      console.log("심플모달의 allData는", response.data.data);
+      console.log("심플모달의 response.data", response.data);
+      console.log("심플모달의 findEventDay", findEventDay);
     } catch (error) {
       console.log(error);
     }
@@ -63,24 +72,23 @@ const SimpleModal = ({
   };
 
   const handleEditSchedule = () => {
-    openDetailModal("edit", findEventDay);
+    openDetailModal("edit", allData);
   };
 
   const handleViewSchedule = () => {
-    openDetailModal("view", findEventDay);
+    openDetailModal("view", allData);
   };
 
   const handleDelete = async () => {
-    if (!findEventDay?.calendarId) return;
+    if (!allData?.calendarId) return;
 
     try {
       const response = await axios.delete(
-        `/api/calendar?calendar_id=${findEventDay.calendarId}`,
+        `/api/calendar?calendar_id=${allData.calendarId}`,
       );
       if (response.status === 200) {
-        alert("일정이 삭제되었습니다.");
         setIsDeleteConfirmOpen(false);
-        onConfirm();
+        setIsAlertOpen(true);
       } else {
         console.log("삭제 실패:", response.data);
       }
@@ -93,14 +101,19 @@ const SimpleModal = ({
     handleDelete();
   };
 
-  useEffect(() => {
-    if (findEventDay) {
-      getData();
-    }
-  }, [findEventDay]);
+  const handleAlertClose = () => {
+    setIsAlertOpen(false);
+    window.location.reload(); // 페이지 새로고침
+  };
 
   if (!isOpen) return null;
   const titleDate = moment(clickDay).format("DD dddd");
+
+  useEffect(() => {
+    if (isOpen) {
+      getData();
+    }
+  }, [isOpen, findEventDay]);
 
   return (
     <>
@@ -116,7 +129,7 @@ const SimpleModal = ({
               <label className="radio_label">
                 <input
                   type="radio"
-                  name="findEventDay"
+                  name="allData"
                   checked={findEventDay.pk === findEventDay.pk}
                   onChange={() => {}}
                 />
@@ -141,7 +154,7 @@ const SimpleModal = ({
         </ModalList>
         <ModalBtn>
           <SubmitButton label="추가" onClick={handleAddSchedule} />
-          {findEventDay && (
+          {allData && (
             <>
               <ActionButton label="수정" onClick={handleEditSchedule} />
               <DelectButton
@@ -150,7 +163,7 @@ const SimpleModal = ({
               />
             </>
           )}
-          {!findEventDay && <CancelButton label="확인" onClick={onClose} />}
+          {!allData && <CancelButton label="확인" onClick={onClose} />}
         </ModalBtn>
       </SimpleModalStyle>
       {isModalOpen && (
@@ -173,11 +186,7 @@ const SimpleModal = ({
                 : "확인하기"
           }
           initialDateValue={clickDay}
-          initialTimeValue={findEventDay?.startTime}
-          initialTitle={findEventDay?.title}
-          initialPetId={findEventDay?.petId}
-          initialContent={findEventDay?.content}
-          initialCalendarId={findEventDay?.calendarId}
+          allData={allData}
           readOnly={detailModalMode === "view"}
           detailModalMode={detailModalMode}
         />
@@ -187,7 +196,14 @@ const SimpleModal = ({
           isOpen={isDeleteConfirmOpen}
           onClose={() => setIsDeleteConfirmOpen(false)}
           onConfirm={confirmDelete}
-          message={`'${findEventDay?.title || ""}' 일정을 삭제하시겠습니까?`}
+          message={`'${allData?.title || ""}' 일정을 삭제하시겠습니까?`}
+        />
+      )}
+      {isAlertOpen && (
+        <AlertModal
+          isOpen={isAlertOpen}
+          onClose={handleAlertClose}
+          message="삭제 완료 되었습니다."
         />
       )}
     </>
