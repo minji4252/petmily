@@ -3,7 +3,7 @@ import axios from "axios";
 const userPk = sessionStorage.getItem("userPk");
 console.log(userPk);
 
-export const getTodoList = async () => {
+export const getTodoList = async userPk => {
   try {
     const rqData = `/api/todolist?user_id=${userPk}`;
     const response = await axios.get(rqData);

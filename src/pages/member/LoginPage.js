@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postSignIn } from "../../api/user/apiuser";
 import milyicon from "../../images/mily-icon.png";
-import { Link } from "react-router-dom";
+import { getTodoList } from "../../api/todolist";
 
 const WrapStyle = styled.div`
   margin: 0;
@@ -103,7 +103,7 @@ const LoginPage = ({ children, setIsUser }) => {
     // 로그인 성공
     setIsUser(userId);
     sessionStorage.setItem("userPk", result.data.userId);
-
+    getTodoList();
     navigate("/");
   };
 
@@ -117,41 +117,42 @@ const LoginPage = ({ children, setIsUser }) => {
         </MilyImgGroup>
         <h2>펫밀리 로그인</h2>
         <LoginLine></LoginLine>
+        <form>
+          <LoginForm action="#" method="post">
+            <input
+              type="email"
+              placeholder="이메일"
+              value={userId}
+              id="userid"
+              onChange={e => {
+                setUserId(e.target.value);
+              }}
+              required
+              autoComplete="off"
+            />
 
-        <LoginForm action="#" method="post">
-          <input
-            type="email"
-            placeholder="이메일"
-            value={userId}
-            id="userid"
-            onChange={e => {
-              setUserId(e.target.value);
-            }}
-            required
-            autoComplete="off"
-          />
+            <input
+              type="password"
+              placeholder="비밀번호"
+              value={userPass}
+              id="pass"
+              onChange={e => {
+                setUserPass(e.target.value);
+              }}
+              required
+              autoComplete="off"
+            />
 
-          <input
-            type="password"
-            placeholder="비밀번호"
-            value={userPass}
-            id="pass"
-            onChange={e => {
-              setUserPass(e.target.value);
-            }}
-            required
-            autoComplete="off"
-          />
-
-          <button
-            type="submit"
-            onClick={e => {
-              handleSubmit(e);
-            }}
-          >
-            로그인
-          </button>
-        </LoginForm>
+            <button
+              type="submit"
+              onClick={e => {
+                handleSubmit(e);
+              }}
+            >
+              로그인
+            </button>
+          </LoginForm>
+        </form>
         <Link to="/join">
           <JoinBtn type="submit">회원가입</JoinBtn>
         </Link>
