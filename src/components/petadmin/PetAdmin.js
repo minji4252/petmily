@@ -30,6 +30,7 @@ const PetAdmin = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [isAlertModalOpen, setIsAlertOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [modifyPetData, setModifyPetData] = useState(null);
 
   const handleRegister = () => {
     openModal({
@@ -68,7 +69,9 @@ const PetAdmin = () => {
       return;
     }
 
-    const selectedPet = petData.find(pet => pet.petId === selectedPetId);
+    const selectedPet = petData.find(pet => pet.petId == selectedPetId);
+    setModifyPetData(selectedPet);
+
     setIsEditMode(true);
 
     openModal({
@@ -119,6 +122,8 @@ const PetAdmin = () => {
     }
   };
 
+  console.log(selectedPetId);
+
   return (
     <AdminWrapStyle>
       <div className="inner">
@@ -136,7 +141,9 @@ const PetAdmin = () => {
                       type="radio"
                       name="itemcheck"
                       value={item.petId}
-                      onChange={handleRadioChange}
+                      onChange={event => {
+                        handleRadioChange(event);
+                      }}
                     />
                     <span className="radio_icon"></span>
                     <RadioText>{item.petName}</RadioText>
@@ -155,6 +162,7 @@ const PetAdmin = () => {
           </AddPetBtn>
         </AdminStyle>
         <RegistModal
+          modifyPetData={modifyPetData}
           isEdit={isEditMode}
           isOpen={isModalOpen}
           onClose={closeModal}
