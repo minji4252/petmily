@@ -32,12 +32,15 @@ const ModalWrapper = styled.div`
   left: ${props => props.left || "50%"};
   transform: translate(-50%, 0%);
 `;
-
+const TitleStyle = styled.div`
+  width: 117%;
+`;
 const Title = styled.h2`
   background-color: ${props => props.backgroundColor || "#fff"};
   max-width: 100%;
   padding: 0 5px;
   font-size: 0.7rem;
+  width: 100%;
 `;
 
 const Calendar = ({ petData }) => {
@@ -46,6 +49,7 @@ const Calendar = ({ petData }) => {
   const [clickDay, setClickDay] = useState("");
   const [findEventDay, setFindEventDay] = useState(null);
   const [allData, setAllData] = useState([]);
+  const [dayEvents, setDayEvents] = useState([]);
 
   const userPk = sessionStorage.getItem("userPk");
 
@@ -66,11 +70,15 @@ const Calendar = ({ petData }) => {
 
   const onClickDay = (value, event) => {
     const checkDay = moment(value).format("YYYY-MM-DD");
-    const findEvent = allData.find(
+    const findEvents = allData.filter(
       item => moment(item.startDate).format("YYYY-MM-DD") === checkDay,
     );
 
-    setFindEventDay(findEvent);
+    console.log("findEvents[0]", findEvents[0]);
+    console.log("findEvents", findEvents);
+    console.log("checkDay", checkDay);
+    setFindEventDay(findEvents[0]);
+    setDayEvents(findEvents);
     setClickDay(checkDay);
 
     const target = event.target.closest(".react-calendar__tile");
@@ -119,7 +127,7 @@ const Calendar = ({ petData }) => {
     );
     if (dayResult.length > 0) {
       return (
-        <div>
+        <TitleStyle>
           {dayResult.slice(0, 2).map((item, index) => (
             <Title key={index} backgroundColor={getBackgroundColor(item.petId)}>
               {item.title}
@@ -132,13 +140,13 @@ const Calendar = ({ petData }) => {
                 color: "#015DE7",
                 textAlign: "right",
                 fontSize: "0.6rem",
-                padding: "0",
+                paddingRight: "1px",
               }}
             >
               view more
             </Title>
           )}
-        </div>
+        </TitleStyle>
       );
     }
   };
@@ -164,6 +172,8 @@ const Calendar = ({ petData }) => {
             onConfirm={confirmAction}
             clickDay={clickDay}
             findEventDay={findEventDay}
+            petData={petData}
+            dayEvents={dayEvents}
           />
         </ModalWrapper>
       )}

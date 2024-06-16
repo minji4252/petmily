@@ -28,7 +28,7 @@ const PetAdmin = () => {
   const [selectedPetId, setSelectedPetId] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+  const [isAlertModalOpen, setIsAlertOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
 
   const handleRegister = () => {
@@ -64,7 +64,7 @@ const PetAdmin = () => {
   const handleEdit = () => {
     if (!selectedPetId) {
       setAlertMessage("수정할 반려동물을 선택하세요");
-      setIsAlertModalOpen(true);
+      setIsAlertOpen(true);
       return;
     }
 
@@ -80,7 +80,7 @@ const PetAdmin = () => {
   const handleDelete = () => {
     if (!selectedPetId) {
       setAlertMessage("삭제할 반려동물을 선택하세요.");
-      setIsAlertModalOpen(true);
+      setIsAlertOpen(true);
     } else {
       setIsDeleteModalOpen(true);
     }
@@ -95,10 +95,10 @@ const PetAdmin = () => {
           prevData.filter(pet => pet.petId !== selectedPetId),
         );
         setAlertMessage(response.data.message);
-        setIsAlertModalOpen(true);
+        setIsAlertOpen(true);
       } else {
         setAlertMessage(response.data.message);
-        setIsAlertModalOpen(true);
+        setIsAlertOpen(true);
       }
     } catch (error) {
       console.log(error);
@@ -115,7 +115,7 @@ const PetAdmin = () => {
     if (alertMessage.includes("완료")) {
       window.location.reload();
     } else {
-      setIsAlertModalOpen(false);
+      setIsAlertOpen(false);
     }
   };
 
@@ -169,7 +169,7 @@ const PetAdmin = () => {
         />
         <AlertModal
           isOpen={isAlertModalOpen}
-          onClose={handleCloseAlertModal} // handleCloseAlertModal 사용
+          onClose={handleCloseAlertModal}
           message={alertMessage}
         />
       </div>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { postSignIn } from "../../api/user/apiuser";
 import milyicon from "../../images/mily-icon.png";
 import { Link } from "react-router-dom";
+import { SyncLoader } from "react-spinners";
 
 const WrapStyle = styled.div`
   margin: 0;
@@ -12,6 +13,7 @@ const WrapStyle = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  position: relative;
 `;
 
 const Container = styled.div`
@@ -87,28 +89,45 @@ const JoinBtn = styled.button`
   cursor: pointer;
 `;
 
+const SpinnerOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(254, 251, 248, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const LoginPage = ({ children, setIsUser }) => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState("");
   const [userPass, setUserPass] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
     const result = await postSignIn({ userId, userPass });
+    setLoading(false);
     if (result.code !== "SU") {
       alert(result.message);
       return;
     }
-    // navigate("/");
-    // 로그인 성공
     setIsUser(userId);
     sessionStorage.setItem("userPk", result.data.userId);
-
     navigate("/");
   };
 
   return (
     <WrapStyle>
+      {loading && (
+        <SpinnerOverlay>
+          <SyncLoader color="#896555" size={20} />
+        </SpinnerOverlay>
+      )}
       <Container>
         <MilyImgGroup>
           <img src={milyicon} alt="펫밀리" />
@@ -143,12 +162,7 @@ const LoginPage = ({ children, setIsUser }) => {
             autoComplete="off"
           />
 
-          <button
-            type="submit"
-            onClick={e => {
-              handleSubmit(e);
-            }}
-          >
+          <button type="submit" onClick={handleSubmit} disabled={loading}>
             로그인
           </button>
         </LoginForm>

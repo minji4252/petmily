@@ -15,7 +15,7 @@ import {
   ScheduleTitle,
 } from "../../styles/calendar/DetailModalStyles.js";
 import { CancelButton, SubmitButton } from "../common/Button";
-import AlertModal from "../common/AlertModal"; // AlertModal을 불러옵니다.
+import AlertModal from "../common/AlertModal";
 
 const DetailModal = ({
   isOpen,
@@ -24,39 +24,56 @@ const DetailModal = ({
   title,
   submitButtonLabel,
   initialDateValue,
-  allData,
   readOnly = false,
   detailModalMode,
   petData,
+  findEventDay, // findEventDay 객체를 받아옴
 }) => {
   if (!isOpen) return null;
-
-  useEffect(() => {
-    if (isOpen) {
-      console.log("Received petData in DetailModal:", petData);
-    }
-  }, [isOpen, petData]);
 
   const [dateValue, setDateValue] = useState(
     initialDateValue || getCurrentDate(),
   );
-  const [timeValue, setTimeValue] = useState(
-    formatTime(allData?.startTime || getCurrentTime()),
-  );
-  const [scheduleTitle, setScheduleTitle] = useState(allData?.title || "");
-  const [selected, setSelected] = useState([]);
-  // const [selected, setSelected] = useState(
-  //   petData.length > 0 ? petData[0].petId : "",
-  // );
-  const [scheduleMemo, setScheduleMemo] = useState(allData?.content || "");
+  const [timeValue, setTimeValue] = useState(getCurrentTime());
+  const [scheduleTitle, setScheduleTitle] = useState("");
+  const [selected, setSelected] = useState("");
+  const [scheduleMemo, setScheduleMemo] = useState("");
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
-    if (!allData?.petId && allData?.length > 0) {
-      setSelected(allData[0].petId);
+    if (isOpen && findEventDay?.calendarId) {
+      if (detailModalMode === "edit" || detailModalMode === "view") {
+        fetchCalendarData(findEventDay.calendarId);
+      } else {
+        setDateValue(initialDateValue || getCurrentDate());
+        setTimeValue(getCurrentTime());
+        setScheduleTitle("");
+        setScheduleMemo("");
+        setSelected("");
+      }
     }
-  }, [allData?.petId, allData]);
+  }, [isOpen, findEventDay, detailModalMode, initialDateValue]);
+
+  const fetchCalendarData = async id => {
+    try {
+      const res = await axios.get(
+        `/api/calendar/calendar_id?calendar_id=${id}`,
+      );
+      if (res.data.code === "SU") {
+        const data = res.data.data;
+        setDateValue(data.startDate.split("T")[0]);
+        setTimeValue(formatTime(data.startTime));
+        setScheduleTitle(data.title);
+        setScheduleMemo(data.content);
+        setSelected(data.petId);
+      } else {
+        console.log("API 오류");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSelect = e => {
     setSelected(e.target.value);
@@ -66,6 +83,17 @@ const DetailModal = ({
     event.preventDefault();
     if (readOnly) {
       onClose();
+      return;
+    }
+
+    if (!scheduleTitle) {
+      setAlertMessage("일정 제목을 입력하세요");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!selected) {
+      setAlertMessage("반려동물을 선택하세요");
+      setIsAlertOpen(true);
       return;
     }
 
@@ -89,7 +117,7 @@ const DetailModal = ({
         startTime: formattedTime,
       });
       if (res.data.code === "SU") {
-        setAlertMessage("일정을 등록하였습니다");
+        setAlertMessage("일정 등록이 완료되었습니다");
         setIsAlertOpen(true);
       } else {
         console.log("API 오류");
@@ -105,7 +133,7 @@ const DetailModal = ({
     try {
       const formattedTime = `${timeValue}:00`;
       const res = await axios.patch("/api/calendar", {
-        calendarId: allData?.calendarId,
+        calendarId: findEventDay.calendarId,
         userId: userPk,
         petId: selected,
         title: scheduleTitle,
@@ -144,11 +172,13 @@ const DetailModal = ({
     return moment(time, "HH:mm:ss").format("HH:mm");
   }
 
-  useEffect(() => {
-    if (isOpen) {
-      console.log("Received petData in DetailModal22:", petData);
+  const handleCloseAlertModal = () => {
+    if (alertMessage.includes("완료")) {
+      window.location.reload();
+    } else {
+      setIsAlertOpen(false);
     }
-  }, [isOpen, petData]);
+  };
 
   return ReactDOM.createPortal(
     <DetailWrapStyle className="box-style">
@@ -165,7 +195,6 @@ const DetailModal = ({
                 id="setdate"
                 type="date"
                 name="setdate"
-                required
                 value={dateValue}
                 onChange={e => setDateValue(e.target.value)}
                 readOnly={readOnly}
@@ -179,7 +208,6 @@ const DetailModal = ({
                 id="settime"
                 type="time"
                 name="settime"
-                required
                 value={timeValue}
                 onChange={e => setTimeValue(formatTime(e.target.value))}
                 readOnly={readOnly}
@@ -194,7 +222,6 @@ const DetailModal = ({
                 type="text"
                 name="scheduletitle"
                 placeholder="일정을 입력하세요"
-                required
                 autoComplete="off"
                 value={scheduleTitle}
                 onChange={e => setScheduleTitle(e.target.value)}
@@ -212,6 +239,9 @@ const DetailModal = ({
                 onChange={handleSelect}
                 disabled={readOnly}
               >
+                <option value="" disabled>
+                  반려동물을 선택해주세요
+                </option>
                 {petData?.map(item => (
                   <option value={item.petId} key={item.petId}>
                     {item.petName}
@@ -254,12 +284,7 @@ const DetailModal = ({
       </form>
       <AlertModal
         isOpen={isAlertOpen}
-        onClose={() => {
-          {
-            setIsAlertOpen(false);
-            window.location.reload();
-          }
-        }}
+        onClose={handleCloseAlertModal}
         message={alertMessage}
       />
     </DetailWrapStyle>,

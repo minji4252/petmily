@@ -26,39 +26,36 @@ import AlertModal from "../common/AlertModal";
 const SimpleModal = ({
   isOpen,
   onClose,
-  onConfirm,
   clickDay,
   findEventDay,
+  petData,
+  dayEvents,
 }) => {
   const [detailModalMode, setDetailModalMode] = useState("add");
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const modalRef = useRef(null);
-  const [allData, setAllData] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const getData = async () => {
-    if (!findEventDay) return;
-
-    try {
-      const response = await axios.get(
-        `/api/calendar/calendar_id?calendar_id=${findEventDay.calendarId}`,
+  useEffect(() => {
+    if (isOpen && dayEvents && dayEvents.length > 0) {
+      const event = dayEvents.find(event =>
+        moment(event.startDate).isSame(clickDay, "day"),
       );
-      setAllData(response.data.data);
-      console.log("심플모달의 allData는", response.data.data);
-      console.log("심플모달의 response.data", response.data);
-      console.log("심플모달의 findEventDay", findEventDay);
-    } catch (error) {
-      console.log(error);
+      if (event) {
+        setSelectedEvent(event);
+      }
     }
-  };
+  }, [isOpen, clickDay, dayEvents]);
 
   const openDetailModal = (mode, item = null) => {
     setDetailModalMode(mode);
     openModal({
       onConfirm: () => closeModal(),
       initialDateValue: clickDay,
-      initialTimeValue: item?.startTime || "",
+      initialTimeValue:
+        mode === "add" ? getCurrentTime() : item?.startTime || "",
       initialTitle: item?.title || "",
       initialPetId: item?.petId || "",
       initialContent: item?.content || "",
@@ -71,26 +68,26 @@ const SimpleModal = ({
     openDetailModal("add");
   };
 
-  const handleEditSchedule = () => {
-    openDetailModal("edit", allData);
+  const handleEditSchedule = e => {
+    setSelectedEvent(e);
+    openDetailModal("edit", e);
   };
 
-  const handleViewSchedule = () => {
-    openDetailModal("view", allData);
+  const handleViewSchedule = e => {
+    setSelectedEvent(e);
+    openDetailModal("view", e);
   };
 
   const handleDelete = async () => {
-    if (!allData?.calendarId) return;
+    if (!selectedEvent?.calendarId) return;
 
     try {
       const response = await axios.delete(
-        `/api/calendar?calendar_id=${allData.calendarId}`,
+        `/api/calendar?calendar_id=${selectedEvent.calendarId}`,
       );
-      if (response.status === 200) {
+      if (response.status.toString().charAt(0) === "2") {
         setIsDeleteConfirmOpen(false);
         setIsAlertOpen(true);
-      } else {
-        console.log("삭제 실패:", response.data);
       }
     } catch (error) {
       console.log(error);
@@ -103,17 +100,22 @@ const SimpleModal = ({
 
   const handleAlertClose = () => {
     setIsAlertOpen(false);
-    window.location.reload(); // 페이지 새로고침
+    window.location.reload();
   };
+
+  function getCurrentTime() {
+    const date = new Date();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
 
   if (!isOpen) return null;
   const titleDate = moment(clickDay).format("DD dddd");
 
   useEffect(() => {
-    if (isOpen) {
-      getData();
-    }
-  }, [isOpen, findEventDay]);
+    console.log("Selected event:", selectedEvent);
+  }, [selectedEvent]);
 
   return (
     <>
@@ -124,28 +126,33 @@ const SimpleModal = ({
         </button>
         <ModalLine />
         <ModalList>
-          {findEventDay ? (
-            <ModalItem key={findEventDay.pk}>
-              <label className="radio_label">
-                <input
-                  type="radio"
-                  name="allData"
-                  checked={findEventDay.pk === findEventDay.pk}
-                  onChange={() => {}}
+          {dayEvents && dayEvents.length > 0 ? (
+            dayEvents.map((item, index) => (
+              <ModalItem key={index}>
+                <label className="radio_label">
+                  <input
+                    type="radio"
+                    name="allData"
+                    checked={item.pk === selectedEvent?.pk}
+                    onChange={() => setSelectedEvent(item)}
+                  />
+                  <span className="radio_icon"></span>
+                  <p>
+                    {moment(item.startTime, "HH:mm:ss").isValid()
+                      ? moment(item.startTime, "HH:mm:ss").format("HH:mm")
+                      : "Invalid time"}
+                  </p>
+                  <p>{item.petName}</p>
+                  <p>
+                    <RiArrowRightWideFill /> <span>{item.title}</span>
+                  </p>
+                </label>
+                <ActionButton
+                  label="더보기"
+                  onClick={() => handleViewSchedule(item)}
                 />
-                <span className="radio_icon"></span>
-                <p>
-                  {moment(findEventDay.startTime, "HH:mm:ss").isValid()
-                    ? moment(findEventDay.startTime, "HH:mm:ss").format("HH:mm")
-                    : "Invalid time"}
-                </p>
-                <p>{findEventDay.petName}</p>
-                <p>
-                  <RiArrowRightWideFill /> <span>{findEventDay.title}</span>
-                </p>
-              </label>
-              <ActionButton label="더보기" onClick={handleViewSchedule} />
-            </ModalItem>
+              </ModalItem>
+            ))
           ) : (
             <ModalItem>
               <p>일정이 없습니다</p>
@@ -153,17 +160,24 @@ const SimpleModal = ({
           )}
         </ModalList>
         <ModalBtn>
-          <SubmitButton label="추가" onClick={handleAddSchedule} />
-          {allData && (
+          {dayEvents && dayEvents.length === 0 ? (
             <>
-              <ActionButton label="수정" onClick={handleEditSchedule} />
+              <SubmitButton label="추가" onClick={handleAddSchedule} />
+              <CancelButton label="확인" onClick={onClose} />
+            </>
+          ) : (
+            <>
+              <SubmitButton label="추가" onClick={handleAddSchedule} />
+              <ActionButton
+                label="수정"
+                onClick={() => handleEditSchedule(selectedEvent)}
+              />
               <DelectButton
                 label="삭제"
                 onClick={() => setIsDeleteConfirmOpen(true)}
               />
             </>
           )}
-          {!allData && <CancelButton label="확인" onClick={onClose} />}
         </ModalBtn>
       </SimpleModalStyle>
       {isModalOpen && (
@@ -186,9 +200,10 @@ const SimpleModal = ({
                 : "확인하기"
           }
           initialDateValue={clickDay}
-          allData={allData}
+          findEventDay={findEventDay}
           readOnly={detailModalMode === "view"}
           detailModalMode={detailModalMode}
+          petData={petData}
         />
       )}
       {isDeleteConfirmOpen && (
@@ -196,7 +211,7 @@ const SimpleModal = ({
           isOpen={isDeleteConfirmOpen}
           onClose={() => setIsDeleteConfirmOpen(false)}
           onConfirm={confirmDelete}
-          message={`'${allData?.title || ""}' 일정을 삭제하시겠습니까?`}
+          message={`'${selectedEvent?.title || ""}' 일정을 삭제하시겠습니까?`}
         />
       )}
       {isAlertOpen && (
