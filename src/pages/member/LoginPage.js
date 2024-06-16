@@ -111,6 +111,7 @@ const LoginPage = ({ children, setIsUser }) => {
     e.preventDefault();
     setLoading(true);
     const result = await postSignIn({ userId, userPass });
+    console.log(result);
     setLoading(false);
     if (result.code !== "SU") {
       alert(result.message);
@@ -118,6 +119,7 @@ const LoginPage = ({ children, setIsUser }) => {
     }
     setIsUser(userId);
     sessionStorage.setItem("userPk", result.data.userId);
+
     navigate("/");
   };
 

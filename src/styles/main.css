@@ -132,6 +132,7 @@
   height: 10px !important;
   border-radius: 50% !important;
   text-indent: -10000px !important;
+  margin-left: 9px !important;
 }
 
 .main-calendar-sync .react-calendar__navigation button {
@@ -166,8 +167,12 @@
   }
 
   .main-calendar-sync h2 {
-    width: 12px !important;
-    height: 12px !important;
+    /* width: 12px !important;
+    
+    margin-left: 51px !important; */
+    border-radius: 0 !important;
+    width: 100% !important;
+    height: 11px !important;
   }
 
   .main-calendar-sync .react-calendar__navigation__label {
@@ -184,8 +189,9 @@
     padding: 37px 0px !important;
   }
   .main-calendar-sync h2 {
-    width: 9px !important;
-    height: 9px !important;
+    /* width: 9px !important;
+    */
+    height: 8px !important;
   }
 }
 
@@ -199,7 +205,7 @@
     padding: 34px 0px !important;
   }
   .main-calendar-sync h2 {
-    width: 8px !important;
+    /* width: 8px !important; */
     height: 8px !important;
   }
 

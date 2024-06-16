@@ -57,9 +57,9 @@ const Header = () => {
         <ul className="navi-list-2">
           {isUser ? (
             <>
-              <li style={{ color: "#896555", cursor: "default" }}>
+              {/* <li style={{ color: "#896555", cursor: "default" }}>
                 {isUser} 님
-              </li>
+              </li> */}
               <li
                 onClick={handleLogout}
                 style={{

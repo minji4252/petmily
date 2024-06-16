@@ -98,9 +98,9 @@ const MainUpload = () => {
 
         <div className="animal-pics-box">
           <div className="m-r-animal">
-            <Link to="/petadmin" className="animal-txt">
+            <a href="javascript:void(0);" className="animal-txt">
               동물 친구들
-            </Link>
+            </a>
           </div>
           <div className="main-animal-pics-sync">
             {randomImage ? (
