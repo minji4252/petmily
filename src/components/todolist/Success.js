@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import SuccessItem from "./SuccessItem";
 
 const Success = ({ todos, onRemove, onToggle, realDate }) => {
+  useEffect(() => {}, [todos]);
   return (
     <div className="TodoList">
       {todos.map(todo => (

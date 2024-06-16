@@ -92,15 +92,13 @@ const JoinPage = () => {
 
     const requestData = { email: userEmail };
     const result = await postCheckEmail(requestData);
-    console.log(result);
+    setUserEmailCheckCode(result.data.emailCheckCode);
+    console.log(result.data.emailCheckCode);
 
     if (result.code !== "SU") {
       setEmailCheck(false);
       alert(result.message);
       return;
-    } else {
-      setEmailCheck(true);
-      alert(result.message);
     }
 
     setEmailCheck(true);
