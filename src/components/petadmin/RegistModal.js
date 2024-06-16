@@ -65,9 +65,8 @@ const updatePetData = async (petId, data) => {
   }
 };
 
-const RegistModal = ({ isOpen, onClose, isEdit, petData }) => {
+const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
   if (!isOpen) return null;
-
   const [petName, setPetName] = useState(petData?.petName || "");
   const [petCategory, setPetCategory] = useState(petData?.petCategory || "");
   const [petIcon, setPetIcon] = useState(petData?.petIcon || "");
@@ -79,11 +78,11 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData }) => {
   console.log("지금은", petData);
 
   useEffect(() => {
-    setPetName(petData?.petName || "");
-    setPetCategory(petData?.petCategory || "");
-    setPetIcon(petData?.petIcon || "");
-    setPetBackColor(petData?.petBackColor || "");
-    setPreviewPreImg(petData?.petImageUrl || "");
+    setPetName(modifyPetData.petName);
+    setPetCategory(modifyPetData.petCategory);
+    setPetIcon(modifyPetData.petIcon);
+    setPetBackColor(modifyPetData.petBackColor);
+    setPreviewPreImg(petData.petImageUrl);
   }, [petData]);
 
   const handleFile = e => {

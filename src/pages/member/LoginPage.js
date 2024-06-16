@@ -138,36 +138,37 @@ const LoginPage = ({ children, setIsUser }) => {
         </MilyImgGroup>
         <h2>펫밀리 로그인</h2>
         <LoginLine></LoginLine>
+        <form>
+          <LoginForm action="#" method="post">
+            <input
+              type="email"
+              placeholder="이메일"
+              value={userId}
+              id="userid"
+              onChange={e => {
+                setUserId(e.target.value);
+              }}
+              required
+              autoComplete="off"
+            />
 
-        <LoginForm action="#" method="post">
-          <input
-            type="email"
-            placeholder="이메일"
-            value={userId}
-            id="userid"
-            onChange={e => {
-              setUserId(e.target.value);
-            }}
-            required
-            autoComplete="off"
-          />
+            <input
+              type="password"
+              placeholder="비밀번호"
+              value={userPass}
+              id="pass"
+              onChange={e => {
+                setUserPass(e.target.value);
+              }}
+              required
+              autoComplete="off"
+            />
 
-          <input
-            type="password"
-            placeholder="비밀번호"
-            value={userPass}
-            id="pass"
-            onChange={e => {
-              setUserPass(e.target.value);
-            }}
-            required
-            autoComplete="off"
-          />
-
-          <button type="submit" onClick={handleSubmit} disabled={loading}>
-            로그인
-          </button>
-        </LoginForm>
+            <button type="submit" onClick={handleSubmit} disabled={loading}>
+              로그인
+            </button>
+          </LoginForm>
+        </form>
         <Link to="/join">
           <JoinBtn type="submit">회원가입</JoinBtn>
         </Link>
