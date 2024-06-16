@@ -36,6 +36,7 @@ const useClearModal = ({ todos, setTodos }) => {
   };
 
   const clearNo = () => {
+    console.log("작동해");
     setClearModalOpen(false);
     if (clearModalRef.current) {
       clearModalRef.current.classList.remove("open");

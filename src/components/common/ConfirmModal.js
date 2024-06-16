@@ -5,7 +5,7 @@ import { colorSystem } from "../../styles/color";
 import styled from "@emotion/styled";
 import { IoClose } from "react-icons/io5";
 
-const ConfirmModalStyle = styled.div`
+export const ConfirmModalStyle = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;

@@ -1,22 +1,31 @@
+import styled from "@emotion/styled";
 import { CancelButton, SubmitButton } from "../common/Button";
+import { colorSystem } from "../../styles/color";
+import { ConfirmModalStyle } from "../common/ConfirmModal";
+import { IoClose } from "react-icons/io5";
+import { ModalBtn, ModalLine } from "../../styles/calendar/SimpleModalStyles";
 
 const Clear = ({ clearNo, clearYes, clearModalRef }) => {
   return (
-    <div className="realdelete" ref={clearModalRef}>
-      <span>모두 삭제</span>
-      <div className="clear-button-box">
+    <ConfirmModalStyle className="realdelete" ref={clearModalRef}>
+      <button className="close-btn" type="button" onClick={clearNo}>
+        <IoClose />
+      </button>
+      <ModalLine />
+      <p>모두 삭제하시겠습니까?</p>
+      <ModalBtn>
         <SubmitButton
           className="delete-button yes"
           onClick={clearYes}
-          label="삭제하기"
-        ></SubmitButton>
+          label="삭제"
+        />
         <CancelButton
           className="delete-button no"
           onClick={clearNo}
-          label="취소하기"
-        ></CancelButton>
-      </div>
-    </div>
+          label="취소"
+        />
+      </ModalBtn>
+    </ConfirmModalStyle>
   );
 };
 

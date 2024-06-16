@@ -18,7 +18,7 @@ import {
   AdminBtn,
 } from "../../styles/calendar/PetAdminStyles";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ConfirmModal from "../common/ConfirmModal";
 import AlertModal from "../common/AlertModal"; // Import the custom AlertModal component
 
@@ -30,8 +30,13 @@ const PetAdmin = () => {
   const [alertMessage, setAlertMessage] = useState("");
   const [isAlertModalOpen, setIsAlertOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [modifyPetData, setModifyPetData] = useState(null);
+  const registModalRef = useRef(null);
 
   const handleRegister = () => {
+    if (registModalRef.current) {
+      registModalRef.current.resetForm(); // 초기화
+    }
     openModal({
       onConfirm: () => closeModal(),
     });
@@ -41,7 +46,7 @@ const PetAdmin = () => {
     try {
       const userPk = sessionStorage.getItem("userPk");
       const response = await axios.get(`/api/pet?user_id=${userPk}`);
-      console.log("불러온데이터:", response.data.data);
+      console.log("불러온 데이터:", response.data.data);
       return response.data.data;
     } catch (error) {
       console.log(error);
@@ -68,7 +73,8 @@ const PetAdmin = () => {
       return;
     }
 
-    const selectedPet = petData.find(pet => pet.petId === selectedPetId);
+    const selectedPet = petData.find(pet => pet.petId == selectedPetId);
+    setModifyPetData(selectedPet);
     setIsEditMode(true);
 
     openModal({
@@ -89,7 +95,6 @@ const PetAdmin = () => {
   const confirmDelete = async () => {
     try {
       const response = await axios.delete(`/api/pet?pet_id=${selectedPetId}`);
-
       if (response.data.code === "SU") {
         setPetData(prevData =>
           prevData.filter(pet => pet.petId !== selectedPetId),
@@ -155,10 +160,12 @@ const PetAdmin = () => {
           </AddPetBtn>
         </AdminStyle>
         <RegistModal
+          modifyPetData={modifyPetData}
           isEdit={isEditMode}
           isOpen={isModalOpen}
           onClose={closeModal}
           onConfirm={confirmAction}
+          ref={registModalRef}
           petData={petData}
         />
         <ConfirmModal

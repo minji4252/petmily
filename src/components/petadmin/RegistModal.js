@@ -54,10 +54,10 @@ const registerPetData = async data => {
   }
 };
 
-const updatePetData = async (petId, data) => {
+const updatePetData = async data => {
   try {
     const header = { headers: { "Content-Type": "multipart/form-data" } };
-    const response = await axios.put(`/api/pet/${petId}`, data, header);
+    const response = await axios.patch("/api/pet", data, header);
     return response.data.message;
   } catch (error) {
     console.error(error);
@@ -65,7 +65,7 @@ const updatePetData = async (petId, data) => {
   }
 };
 
-const RegistModal = ({ isOpen, onClose, isEdit, petData }) => {
+const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
   if (!isOpen) return null;
 
   const [petName, setPetName] = useState(petData?.petName || "");
@@ -76,15 +76,16 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData }) => {
   const [petImg, setPetImg] = useState(null);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  console.log("지금은", petData);
 
   useEffect(() => {
-    setPetName(petData?.petName || "");
-    setPetCategory(petData?.petCategory || "");
-    setPetIcon(petData?.petIcon || "");
-    setPetBackColor(petData?.petBackColor || "");
-    setPreviewPreImg(petData?.petImageUrl || "");
-  }, [petData]);
+    if (modifyPetData) {
+      setPetName(modifyPetData.petName);
+      setPetCategory(modifyPetData.petCategory);
+      setPetIcon(modifyPetData.petIcon);
+      setPetBackColor(modifyPetData.petBackColor);
+      setPreviewPreImg(modifyPetData.petImageUrl);
+    }
+  }, [modifyPetData]);
 
   const handleFile = e => {
     const tempFile = e.target.files[0];
@@ -118,14 +119,12 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData }) => {
 
     const dto = new Blob([infoData], { type: "application/json" });
 
-    // formData에 데이터 추가
     formData.append("p", dto);
     formData.append("petImage", petImg);
 
     try {
-      console.log("수정모드일까요?", isEdit);
       const message = isEdit
-        ? await updatePetData(petData.petId, formData)
+        ? await updatePetData(formData)
         : await registerPetData(formData);
       setAlertMessage(message);
       setIsAlertModalOpen(true);
@@ -141,98 +140,98 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData }) => {
 
   return (
     <>
-      <WrapStyle className="box-style">
-        <PetRegistTitle>
-          {isEdit ? "반려동물 수정" : "반려동물 등록"}
-        </PetRegistTitle>
-        <button className="close-btn" type="button" onClick={onClose}>
-          <IoClose />
-        </button>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="petname">
-            <p>반려동물 이름</p>
-            <InputStyle
-              id="petname"
-              type="text"
-              placeholder="이름을 입력하세요"
-              autoComplete="off"
-              value={petName}
-              onChange={e => setPetName(e.target.value)}
-            />
-          </label>
-          <label htmlFor="petkind">
-            <p>반려동물 종류</p>
-            <InputStyle
-              id="petkind"
-              type="text"
-              placeholder="반려동물 종류를 입력하세요"
-              autoComplete="off"
-              value={petCategory}
-              onChange={e => setPetCategory(e.target.value)}
-            />
-          </label>
+      {isOpen && (
+        <WrapStyle className="box-style">
+          <PetRegistTitle>
+            {isEdit ? "반려동물 수정" : "반려동물 등록"}
+          </PetRegistTitle>
+          <button className="close-btn" type="button" onClick={onClose}>
+            <IoClose />
+          </button>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="petname">
+              <p>반려동물 이름</p>
+              <InputStyle
+                id="petname"
+                type="text"
+                placeholder="이름을 입력하세요"
+                value={petName}
+                onChange={e => setPetName(e.target.value)}
+              />
+            </label>
+            <label htmlFor="petkind">
+              <p>반려동물 종류</p>
+              <InputStyle
+                id="petkind"
+                type="text"
+                placeholder="종류를 입력하세요"
+                value={petCategory}
+                onChange={e => setPetCategory(e.target.value)}
+              />
+            </label>
 
-          <p>사진 등록</p>
-          <PetImgRegist className="box-style">
-            {/* <input
+            <p>사진 등록</p>
+            <PetImgRegist className="box-style">
+              {/* <input
             className="uploadname"
             value="첨부파일"
             placeholder="첨부파일"
           /> */}
-            {/* <label htmlFor="file">파일찾기</label> */}
-            <ImgPreview>
-              {previewImg && <img src={previewImg} alt="미리보기 이미지" />}
-            </ImgPreview>
-            <input
-              // className="one"
-              id="file"
-              type="file"
-              accept="image/png, image/gif, image/jpeg"
-              onChange={handleFile}
-            />
-          </PetImgRegist>
+              {/* <label htmlFor="file">파일찾기</label> */}
+              <ImgPreview>
+                {previewImg && <img src={previewImg} alt="미리보기 이미지" />}
+              </ImgPreview>
+              <input
+                // className="one"
+                id="file"
+                type="file"
+                accept="image/png, image/gif, image/jpeg"
+                onChange={handleFile}
+              />
+            </PetImgRegist>
 
-          <p>아이콘 선택</p>
-          <SelectedStyle className="box-style">
-            {icons.map(icon => (
-              <label key={icon.id}>
-                <input
-                  type="radio"
-                  name="icon"
-                  value={icon.id}
-                  checked={petIcon == icon.id}
-                  onChange={() => setPetIcon(icon.id)}
-                />
-                <img src={icon.src} alt={`Icon ${icon.id}`} />
-              </label>
-            ))}
-          </SelectedStyle>
+            <p>아이콘 선택</p>
+            <SelectedStyle className="box-style">
+              {icons.map(icon => (
+                <label key={icon.id}>
+                  <input
+                    type="radio"
+                    name="icon"
+                    value={icon.id}
+                    checked={petIcon == icon.id}
+                    onChange={() => setPetIcon(icon.id)}
+                  />
+                  <img src={icon.src} alt={`Icon ${icon.id}`} />
+                </label>
+              ))}
+            </SelectedStyle>
 
-          <p>배경색 선택</p>
-          <SelectedStyle className="box-style">
-            {colors.map(color => (
-              <label key={color.value}>
-                <input
-                  type="radio"
-                  name="color"
-                  value={color.value}
-                  checked={petBackColor == color.value}
-                  onChange={() => setPetBackColor(color.value)}
-                />
-                <img src={color.src} alt={`Color ${color.value}`} />
-              </label>
-            ))}
-          </SelectedStyle>
+            <p>배경색 선택</p>
+            <SelectedStyle className="box-style">
+              {colors.map(color => (
+                <label key={color.value}>
+                  <input
+                    type="radio"
+                    name="color"
+                    value={color.value}
+                    checked={petBackColor == color.value}
+                    onChange={() => setPetBackColor(color.value)}
+                  />
+                  <img src={color.src} alt={`Color ${color.value}`} />
+                </label>
+              ))}
+            </SelectedStyle>
 
-          <FormBtn>
-            <SubmitButton
-              type="submit"
-              label={isEdit ? "수정하기" : "등록하기"}
-            />
-            <CancelButton type="button" label="취소하기" onClick={onClose} />
-          </FormBtn>
-        </form>
-      </WrapStyle>
+            <FormBtn>
+              <SubmitButton
+                type="submit"
+                label={isEdit ? "수정하기" : "등록하기"}
+              />
+              <CancelButton type="button" label="취소하기" onClick={onClose} />
+            </FormBtn>
+          </form>
+        </WrapStyle>
+      )}
       <AlertModal
         isOpen={isAlertModalOpen}
         onClose={handleAlertClose}

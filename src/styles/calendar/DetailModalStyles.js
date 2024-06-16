@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { colorSystem } from "../../styles/color.js";
 
 // 공통
+
 export const DetailWrapStyle = styled.div`
   /* max-width: 600px; */
   width: 600px;
