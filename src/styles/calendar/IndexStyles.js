@@ -54,6 +54,7 @@ export const ManageItem = styled.div`
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+  align-items: start !important;
 
   & Input {
     display: none;
