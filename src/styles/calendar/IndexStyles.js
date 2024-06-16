@@ -153,12 +153,9 @@ export const PetSelect = styled.button`
     color: #777;
   }
 
-  > span {
-    font-size: 1.1rem;
-    color: ${colorSystem.g700};
-    font-family: "HSSanTokki20-Regular" !important;
-    margin-top: 2px;
-    cursor: pointer;
+  > img {
+    width: 30px;
+    height: 30px;
   }
 `;
 

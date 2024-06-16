@@ -50,11 +50,16 @@ const Header = () => {
         <ul className="navi-list-2">
           {isUser ? (
             <>
+<<<<<<< HEAD
               <li style={{ color: "#896555" }}>{isUser} 님</li>
               <li
                 onClick={handleLogout}
                 style={{ cursor: "pointer", color: "#896555" }}
               >
+=======
+              <li>{isUser} 님</li>
+              <li onClick={handleLogout} style={{ cursor: "pointer" }}>
+>>>>>>> 653b8cd (feat: 반려동물 관리 - axios 수정 함수 작업중)
                 로그아웃
               </li>
             </>

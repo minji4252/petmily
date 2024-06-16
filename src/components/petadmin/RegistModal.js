@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import color1 from "../../images/c-1.png";
 import color2 from "../../images/c-2.png";
@@ -23,7 +23,7 @@ import {
   WrapStyle,
 } from "../../styles/calendar/RegistModalStyles";
 import { CancelButton, SubmitButton } from "../common/Button";
-import AlertModal from "../common/AlertModal"; // AlertModal import 추가
+import AlertModal from "../common/AlertModal";
 
 const icons = [
   { id: 1, src: icon1 },
@@ -43,20 +43,48 @@ const colors = [
   { value: "gray", src: color6 },
 ];
 
-const RegistModal = ({ isOpen, onClose, onConfirm }) => {
-  if (!isOpen) return null;
-  const [userId, setUserId] = useState(1);
-  const [petName, setPetName] = useState("");
-  const [petCategory, setPetCategory] = useState("");
-  const [petIcon, setPetIcon] = useState("");
-  const [petBackColor, setPetBackColor] = useState("");
+const registerPetData = async data => {
+  try {
+    const header = { headers: { "Content-Type": "multipart/form-data" } };
+    const response = await axios.post("/api/pet", data, header);
+    return response.data.message;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
 
-  // 이미지 미리보기를 할 변수
-  const [previewImg, setPreviewPreImg] = useState("");
-  // 이미지 파일
+const updatePetData = async (petId, data) => {
+  try {
+    const header = { headers: { "Content-Type": "multipart/form-data" } };
+    const response = await axios.put(`/api/pet/${petId}`, data, header);
+    return response.data.message;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const RegistModal = ({ isOpen, onClose, isEdit, petData }) => {
+  if (!isOpen) return null;
+
+  const [petName, setPetName] = useState(petData?.petName || "");
+  const [petCategory, setPetCategory] = useState(petData?.petCategory || "");
+  const [petIcon, setPetIcon] = useState(petData?.petIcon || "");
+  const [petBackColor, setPetBackColor] = useState(petData?.petBackColor || "");
+  const [previewImg, setPreviewPreImg] = useState(petData?.petImageUrl || "");
   const [petImg, setPetImg] = useState(null);
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  console.log("지금은", petData);
+
+  useEffect(() => {
+    setPetName(petData?.petName || "");
+    setPetCategory(petData?.petCategory || "");
+    setPetIcon(petData?.petIcon || "");
+    setPetBackColor(petData?.petBackColor || "");
+    setPreviewPreImg(petData?.petImageUrl || "");
+  }, [petData]);
 
   const handleFile = e => {
     const tempFile = e.target.files[0];
@@ -65,7 +93,7 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
     setPetImg(tempFile);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (!petName) {
@@ -78,6 +106,7 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
     }
 
     const formData = new FormData();
+    const userPk = sessionStorage.getItem("userPk");
 
     const userPk = sessionStorage.getItem("userPk");
 
@@ -95,16 +124,12 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
     formData.append("p", dto);
     formData.append("petImage", petImg);
 
-    // 서버에 formData에전송
-    postPetImage(formData);
-  };
-
-  const postPetImage = async data => {
     try {
-      const header = { headers: { "Content-Type": "multipart/form-data" } };
-      const response = await axios.post("/api/pet", data, header);
-      console.log(response);
-      setAlertMessage(response.data.message);
+      console.log("수정모드일까요?", isEdit);
+      const message = isEdit
+        ? await updatePetData(petData.petId, formData)
+        : await registerPetData(formData);
+      setAlertMessage(message);
       setIsAlertModalOpen(true);
     } catch (error) {
       console.log(error);
@@ -119,15 +144,13 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
   return (
     <>
       <WrapStyle className="box-style">
-        <PetRegistTitle>반려동물 등록</PetRegistTitle>
+        <PetRegistTitle>
+          {isEdit ? "반려동물 수정" : "반려동물 등록"}
+        </PetRegistTitle>
         <button className="close-btn" type="button" onClick={onClose}>
           <IoClose />
         </button>
-        <form
-          onSubmit={e => {
-            handleSubmit(e);
-          }}
-        >
+        <form onSubmit={handleSubmit}>
           <label htmlFor="petname">
             <p>반려동물 이름</p>
             <InputStyle
@@ -163,13 +186,11 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
               {previewImg && <img src={previewImg} alt="미리보기 이미지" />}
             </ImgPreview>
             <input
-              className="one"
+              // className="one"
               id="file"
               type="file"
               accept="image/png, image/gif, image/jpeg"
-              onChange={e => {
-                handleFile(e);
-              }}
+              onChange={handleFile}
             />
           </PetImgRegist>
 
@@ -181,13 +202,14 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
                   type="radio"
                   name="icon"
                   value={icon.id}
-                  onChange={e => setPetIcon(e.target.value)}
-                  required
+                  checked={petIcon == icon.id}
+                  onChange={() => setPetIcon(icon.id)}
                 />
                 <img src={icon.src} alt={`Icon ${icon.id}`} />
               </label>
             ))}
           </SelectedStyle>
+
           <p>배경색 선택</p>
           <SelectedStyle className="box-style">
             {colors.map(color => (
@@ -196,16 +218,20 @@ const RegistModal = ({ isOpen, onClose, onConfirm }) => {
                   type="radio"
                   name="color"
                   value={color.value}
-                  onChange={e => setPetBackColor(e.target.value)}
-                  required
+                  checked={petBackColor == color.value}
+                  onChange={() => setPetBackColor(color.value)}
                 />
                 <img src={color.src} alt={`Color ${color.value}`} />
               </label>
             ))}
           </SelectedStyle>
+
           <FormBtn>
+            <SubmitButton
+              type="submit"
+              label={isEdit ? "수정하기" : "등록하기"}
+            />
             <CancelButton type="button" label="취소하기" onClick={onClose} />
-            <SubmitButton type="submit" label="등록하기" />
           </FormBtn>
         </form>
       </WrapStyle>

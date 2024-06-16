@@ -16,15 +16,24 @@ export const getUpcoming = async () => {
   }
 };
 
+// 동물 친구들 사진 불러오기 (보류)
+// export const getMainpet = async () => {
+//   try {
+//     const response = await axios.get(`api/pet?user_id=1`);
+//     console.log(response);
+//     return response.data.data.map(pet => pet.petImage);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
 // 메인 상단 랜덤 사진 불러오기
 export const getMainbanner = async () => {
   try {
-    const response = await axios.get(`api/mainbanner`);
+    const response = await axios.get("/api/mainbanner");
     console.log(response);
     if (response.data && response.data.data) {
-      return response.data.data.map(
-        item => `/pic/mainbanner/${item.imageUrl}/${item.imageUrl}`,
-      );
+      return response.data.data.map(item => `/pic/main/${item.imageUrl}`);
     } else {
       throw new Error("No data found");
     }
@@ -37,12 +46,10 @@ export const getMainbanner = async () => {
 // 메인 하단 이벤트 슬라이더 불러오기 (6/14)
 export const getEventbanner = async () => {
   try {
-    const response = await axios.get(`api/eventbanner`);
+    const response = await axios.get("/api/eventbanner?page=1&size=4");
 
     if (response.data && response.data.data) {
-      return response.data.data.map(
-        item => `/pic/eventbanner/${item.imageUrl}/${item.imageUrl}`,
-      );
+      return response.data.data.map(item => `/pic/event/${item.imageUrl}`);
     } else {
       throw new Error("No data found");
     }
@@ -52,31 +59,18 @@ export const getEventbanner = async () => {
   }
 };
 
-// 동물 친구들 사진 랜덤으로 불러오기 (6/15)
+// 동물 친구들 사진 랜덤으로 불러오기
 export const getMainpet = async () => {
   try {
-    const response = await axios.get(`api/pet?user_id=${userPk}`);
+    const response = await axios.get(`api/pet?user_id=59`);
     console.log(response);
     if (response.data && response.data.data) {
-      return response.data.data.map(
-        item => `/pic/pet/${item.petId}/${item.petImage}`,
-      );
+      return response.data.data.map(item => `/pic/pet/${item.petImage}`);
     } else {
       throw new Error("No data found");
     }
   } catch (error) {
     console.error(error);
     return [];
-  }
-};
-
-// 메인 캘린더의 데이터 불러오기(6/15)
-export const getMainpetInfo = async () => {
-  try {
-    const response = await axios.get(`api/pet?user_id=${userPk}`);
-    console.log(response.data);
-    return response.data.data; // 데이터를 반환합니다.
-  } catch (error) {
-    console.error(error);
   }
 };

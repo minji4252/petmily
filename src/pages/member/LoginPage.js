@@ -146,6 +146,7 @@ const LoginPage = ({ children, setIsUser }) => {
               autoComplete="off"
             />
 
+<<<<<<< HEAD
             <button
               type="submit"
               onClick={e => {
@@ -156,6 +157,17 @@ const LoginPage = ({ children, setIsUser }) => {
             </button>
           </LoginForm>
         </form>
+=======
+          <button
+            type="submit"
+            onClick={e => {
+              handleSubmit(e);
+            }}
+          >
+            로그인
+          </button>
+        </LoginForm>
+>>>>>>> 653b8cd (feat: 반려동물 관리 - axios 수정 함수 작업중)
         <Link to="/join">
           <JoinBtn type="submit">회원가입</JoinBtn>
         </Link>
