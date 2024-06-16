@@ -104,9 +104,7 @@ const LoginPage = ({ children, setIsUser }) => {
     setIsUser(userId);
     sessionStorage.setItem("userPk", result.data.userId);
 
-    setTimeout(() => {
-      navigate("/");
-    }, 3000);
+    navigate("/");
   };
 
   return (
@@ -120,44 +118,31 @@ const LoginPage = ({ children, setIsUser }) => {
         <h2>펫밀리 로그인</h2>
         <LoginLine></LoginLine>
 
-        <form>
-          <LoginForm action="#" method="post">
-            <input
-              type="email"
-              placeholder="이메일"
-              value={userId}
-              id="userid"
-              onChange={e => {
-                setUserId(e.target.value);
-              }}
-              required
-              autoComplete="off"
-            />
+        <LoginForm action="#" method="post">
+          <input
+            type="email"
+            placeholder="이메일"
+            value={userId}
+            id="userid"
+            onChange={e => {
+              setUserId(e.target.value);
+            }}
+            required
+            autoComplete="off"
+          />
 
-            <input
-              type="password"
-              placeholder="비밀번호"
-              value={userPass}
-              id="pass"
-              onChange={e => {
-                setUserPass(e.target.value);
-              }}
-              required
-              autoComplete="off"
-            />
+          <input
+            type="password"
+            placeholder="비밀번호"
+            value={userPass}
+            id="pass"
+            onChange={e => {
+              setUserPass(e.target.value);
+            }}
+            required
+            autoComplete="off"
+          />
 
-<<<<<<< HEAD
-            <button
-              type="submit"
-              onClick={e => {
-                handleSubmit(e);
-              }}
-            >
-              로그인
-            </button>
-          </LoginForm>
-        </form>
-=======
           <button
             type="submit"
             onClick={e => {
@@ -167,7 +152,6 @@ const LoginPage = ({ children, setIsUser }) => {
             로그인
           </button>
         </LoginForm>
->>>>>>> 653b8cd (feat: 반려동물 관리 - axios 수정 함수 작업중)
         <Link to="/join">
           <JoinBtn type="submit">회원가입</JoinBtn>
         </Link>

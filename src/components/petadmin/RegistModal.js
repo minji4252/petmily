@@ -108,8 +108,6 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData }) => {
     const formData = new FormData();
     const userPk = sessionStorage.getItem("userPk");
 
-    const userPk = sessionStorage.getItem("userPk");
-
     const infoData = JSON.stringify({
       userId: userPk,
       petName: petName,
