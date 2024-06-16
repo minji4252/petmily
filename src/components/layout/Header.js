@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import petmilyLogo from "../../images/petmily-header.png";
 import "../../styles/common.css";
 import "../../styles/header.css";
@@ -7,21 +7,28 @@ import { useEffect, useState } from "react";
 
 const Header = () => {
   const [isUser, setIsUser] = useState("");
+  const navigate = useNavigate();
 
   const userPk = sessionStorage.getItem("userPk");
+
   useEffect(() => {
     if (userPk) {
       setIsUser(userPk);
+
+      if (!localStorage.getItem("refreshed")) {
+        localStorage.setItem("refreshed", "true");
+        window.location.reload();
+      }
     } else {
       setIsUser("");
+      localStorage.removeItem("refreshed");
     }
   }, [userPk]);
 
   const handleLogout = () => {
-    // 로그아웃 로직 (예: sessionStorage에서 userPk 제거)
     sessionStorage.removeItem("userPk");
     setIsUser("");
-    // 필요한 경우 페이지를 새로고침하거나 리다이렉트
+    navigate("/login");
   };
 
   return (
@@ -50,8 +57,18 @@ const Header = () => {
         <ul className="navi-list-2">
           {isUser ? (
             <>
-              <li>{isUser} 님</li>
-              <li onClick={handleLogout} style={{ cursor: "pointer" }}>
+              <li style={{ color: "#896555", cursor: "default" }}>
+                {isUser} 님
+              </li>
+              <li
+                onClick={handleLogout}
+                style={{
+                  cursor: "pointer",
+                  color: "#896555",
+                  fontSize: "17px",
+                }}
+                className="logout-button"
+              >
                 로그아웃
               </li>
             </>

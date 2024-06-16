@@ -11,10 +11,10 @@ import { useEffect, useState } from "react";
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const logedid = sessionStorage.getItem("userPk");
+  const loggedIn = sessionStorage.getItem("userPk");
 
   useEffect(() => {
-    if (!logedid) {
+    if (!loggedIn) {
       navigate("/login");
     } else {
       navigate("/");
