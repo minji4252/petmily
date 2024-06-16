@@ -64,6 +64,17 @@ const DelectButtonStyle = styled(ButtonStyle)`
   }
 `;
 
+const ModifyButtonStyle = styled(ButtonStyle)`
+  background-color: ${colorSystem.primary};
+  color: ${colorSystem.white};
+  width: 100%;
+
+  &:hover {
+    border: 1px solid ${colorSystem.p700};
+    background-color: ${colorSystem.p700};
+  }
+`;
+
 const SubmitButton = ({ label = "버튼", onClick }) => {
   return <SubmitButtonStyle onClick={onClick}>{label}</SubmitButtonStyle>;
 };
@@ -79,5 +90,8 @@ const CancelButton = ({ label = "버튼", onClick }) => {
 const DelectButton = ({ label = "버튼", onClick }) => {
   return <DelectButtonStyle onClick={onClick}>{label}</DelectButtonStyle>;
 };
+const ModifyButton = ({ label = "버튼", onClick }) => {
+  return <ModifyButtonStyle onClick={onClick}>{label}</ModifyButtonStyle>;
+};
 
-export { SubmitButton, ActionButton, CancelButton, DelectButton };
+export { SubmitButton, ActionButton, CancelButton, DelectButton, ModifyButton };

@@ -1,9 +1,10 @@
+import { CancelButton, ModifyButton, SubmitButton } from "../common/Button";
+
 const ModifyModal = ({
   modifyModalRef,
   modifyYes,
   modifyNo,
   modifyInsert,
-  modifyValue,
   setModifyInsert,
   onModifyInsert,
 }) => {
@@ -29,20 +30,21 @@ const ModifyModal = ({
           }}
         />
 
-        <button
-          className="delete-button yes"
+        <ModifyButton
+          className="modify-button-yes"
           type="submit"
           onClick={event => {
             modifyYes(event);
             onSubmit(event);
           }}
-        >
-          <p>수정</p>
-        </button>
+          label="수정"
+        ></ModifyButton>
       </form>
-      <button className="delete-button no" onClick={modifyNo}>
-        <p>취소</p>
-      </button>
+      <CancelButton
+        className="delete-button no"
+        onClick={modifyNo}
+        label="취소"
+      ></CancelButton>
     </div>
   );
 };

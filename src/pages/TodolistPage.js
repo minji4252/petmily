@@ -149,7 +149,9 @@ const TodolistPage = () => {
       }
       if (window.innerWidth <= 768) {
         if (mobileMenu.current) {
-          todoListRight.current.style.display = "flex";
+          todoListRight.current.style.display === "flex"
+            ? (todoListLeft.current.style.display = "none")
+            : "";
           todoListLeft.current.style.display = "none";
         }
       }

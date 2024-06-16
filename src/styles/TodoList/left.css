@@ -191,7 +191,7 @@
 }
 
 .todo-right-create-input {
-  width: 100%;
+  width: 600px;
   display: flex;
   align-items: center;
   padding: 10px;
@@ -246,22 +246,34 @@
   cursor: pointer;
 }
 
-.realdelete {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
+.clear-button-box {
+  display: flex;
   gap: 30px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background: rgba(0, 0, 0, 0.5);
+}
+
+.realdelete {
+  display: none;
+  width: 600px;
+  height: 720px;
+  border-radius: 13px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
+  background-color: rgb(255, 255, 255);
+
+  padding: 30px 30px;
+
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  z-index: 9999;
 }
 
 .realdelete.open {
   display: flex;
+  gap: 30px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .realdelete p {
@@ -338,7 +350,7 @@
   width: 100%;
   height: 100%;
   display: none;
-  padding: 125px 50px;
+  padding: 180px 50px;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 13px;
 }
@@ -360,7 +372,12 @@
 }
 
 .open-todolist {
-  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  width: 100%;
+  height: 50px;
   font-size: 20px;
   font-weight: 600;
   color: #694e42;
@@ -368,6 +385,11 @@
 }
 
 .open-successlist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50px;
   font-size: 20px;
   font-weight: 600;
   color: #694e42;
@@ -382,6 +404,15 @@
   width: 100%;
   display: flex;
   justify-content: start;
+}
+.delete-box {
+  position: absolute;
+  display: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 @media all and (max-width: 768px) {
@@ -398,22 +429,57 @@
   }
   .todo-right {
     min-width: 440px;
-    display: none;
+    display: flex;
     padding: 40px 50px;
   }
   .mb-menu {
     display: flex;
   }
   .mb-menumodal {
+    z-index: 99;
     padding: 20px 20px;
     position: fixed;
     top: 100px;
     left: 0;
     width: 200px;
     height: 100%;
-    display: none;
+    display: flex;
     align-items: center;
     flex-direction: column;
     background: #fff;
+  }
+
+  .realdelete {
+    display: none;
+    width: 300px;
+    height: 360px;
+    border-radius: 13px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
+    background-color: rgb(255, 255, 255);
+
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    z-index: 9999;
+  }
+
+  .realdelete.open {
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .menubox {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    left: 0;
+    top: 0;
+    z-index: 1;
   }
 }
