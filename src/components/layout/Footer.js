@@ -18,13 +18,13 @@ const Footer = () => {
           </Link>
           <ul className="footer-l-info">
             <li>
-              <a href="#" className="footer-map">
+              <a href="javascript:void(0);" className="footer-map">
                 고객센터 · 문의하기 · 이용약관 · 사이트 ·
                 <span className="footer-p-info">개인정보처리방침</span>
               </a>
             </li>
             <li>
-              <a href="#" className="footer-cr">
+              <a href="javascript:void(0);" className="footer-cr">
                 Copyright © PETMILY All Right Reserved.
               </a>
             </li>
@@ -33,18 +33,18 @@ const Footer = () => {
         <div className="footer-right">
           <ul className="sns-list">
             <li>
-              <a href="#">
+              <a href="javascript:void(0);">
                 <i className="xi-instagram"></i>
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="javascript:void(0);">
                 <i className="xi-naver"></i>
               </a>
             </li>
 
             <li>
-              <a href="#">
+              <a href="javascript:void(0);">
                 <i className="xi-youtube-play"></i>
               </a>
             </li>
