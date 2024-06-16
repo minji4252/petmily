@@ -78,5 +78,6 @@ export const getMainpetInfo = async () => {
     return response.data.data; // 데이터를 반환합니다.
   } catch (error) {
     console.error(error);
+    return [];
   }
 };
