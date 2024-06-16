@@ -29,12 +29,27 @@ const TodolistPage = () => {
   const [realDate, setRealDate] = useState("");
 
   const navigate = useNavigate();
+  const logedid = sessionStorage.getItem("userPk");
 
-  /* todos 배열에 새 객체 추가*/
+  useEffect(() => {
+    const fetchTodoList = async () => {
+      if (!logedid) {
+        navigate("/login");
+      } else {
+        const result = await getTodoList(logedid);
+        console.log(result);
+        if (result) {
+          setTodos(result);
+        }
+      }
+    };
+
+    fetchTodoList();
+  }, [logedid, navigate]);
 
   const onInsert = async () => {
     setChecked(false);
-    if (todoInsert == "") {
+    if (todoInsert === "") {
       alert("공백은 넣을 수 없습니다.");
       return;
     } else {
@@ -56,7 +71,6 @@ const TodolistPage = () => {
     }
   };
 
-  // 수정 기능
   const onModifyInsert = listId => {
     setModifyId(listId);
     const numericListId = Number(listId);
@@ -66,10 +80,8 @@ const TodolistPage = () => {
     }
   };
 
-  const modifyYes = e => {
+  const modifyYes = async e => {
     e.preventDefault();
-    console.log(modifyId);
-    console.log(modifyInsert);
     const data = {
       listId: modifyId,
       content: modifyInsert,
@@ -77,18 +89,16 @@ const TodolistPage = () => {
 
     const updatedTodos = todos.map(item => {
       if (item.listId === modifyId) {
-        // 해당 항목을 찾아서 새로운 객체를 반환하여 content를 업데이트한다
         return {
           ...item,
           content: modifyInsert,
         };
       }
-      return item; // 변경할 필요가 없는 경우 원래 객체를 그대로 반환한다
+      return item;
     });
 
-    setTodos(updatedTodos); // 수정된 배열을 상태로 설정한다
-
-    modifyTodoList(data);
+    setTodos(updatedTodos);
+    await modifyTodoList(data);
     if (modifyModalRef.current) {
       modifyModalRef.current.classList.remove("open");
     } else {
@@ -96,16 +106,11 @@ const TodolistPage = () => {
     }
   };
 
-  // 삭제 기능
   const onRemove = async listId => {
     setTodos(todos.filter(todo => todo.listId !== listId));
-    console.log(listId);
-
     await deleteTodoList(listId);
-    console.log(listId);
   };
 
-  // 토글 기능
   const onToggle = async listId => {
     setTodos(
       todos.map(todo =>
@@ -117,14 +122,13 @@ const TodolistPage = () => {
 
     const result = await toggleTodoList(listId);
     if (result) {
-      console.log(result.headers.date);
       setCheckedDate(result.headers.date);
       const formatDate = dateString => {
         const date = new Date(dateString);
         const options = { month: "long", day: "numeric" };
         return date.toLocaleDateString("ko-KR", options);
       };
-      setRealDate(formatDate(checkedDate));
+      setRealDate(formatDate(result.headers.date));
     }
   };
 
@@ -132,13 +136,7 @@ const TodolistPage = () => {
     mobileMenu.current.style.display = "flex";
   };
 
-  const todoListInit = async () => {
-    const result = await getTodoList();
-    setTodos(result);
-  };
   useEffect(() => {
-    // 초기 목록 가져오기
-    todoListInit();
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         if (mobileMenu.current) {
@@ -146,8 +144,7 @@ const TodolistPage = () => {
           todoListRight.current.style.display = "flex";
           todoListLeft.current.style.display = "flex";
         }
-      }
-      if (window.innerWidth <= 768) {
+      } else {
         if (mobileMenu.current) {
           todoListRight.current.style.display === "flex"
             ? (todoListLeft.current.style.display = "none")
@@ -157,11 +154,9 @@ const TodolistPage = () => {
       }
     };
 
-    // 처음 마운트될 때와 resize 이벤트 발생 시 handleResize를 호출합니다.
     handleResize();
     window.addEventListener("resize", handleResize);
 
-    // 컴포넌트가 언마운트될 때 리스너를 제거합니다.
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -170,11 +165,13 @@ const TodolistPage = () => {
   const closeMobileMenu = () => {
     mobileMenu.current.style.display = "none";
   };
+
   const clickTodoList = () => {
     todoListRight.current.style.display = "flex";
     todoListLeft.current.style.display = "none";
     mobileMenu.current.style.display = "none";
   };
+
   const clickSuccessList = () => {
     todoListRight.current.style.display = "none";
     todoListLeft.current.style.display = "flex";
@@ -188,8 +185,6 @@ const TodolistPage = () => {
     todos,
   });
 
-  const logedid = sessionStorage.getItem("userPk");
-
   return (
     <TodoTemplate>
       {logedid ? (
@@ -202,7 +197,7 @@ const TodolistPage = () => {
             todos={todos}
             onRemove={onRemove}
             onToggle={onToggle}
-          ></TodoLeft>
+          />
           <TodoRight
             onModifyInsert={onModifyInsert}
             setModifyInsert={setModifyInsert}
@@ -219,18 +214,18 @@ const TodolistPage = () => {
             openModifyModal={openModifyModal}
             modifyYes={modifyYes}
             modifyNo={modifyNo}
-          ></TodoRight>
+          />
           <Clear
             clearModalRef={clearModalRef}
             clearNo={clearNo}
             clearYes={clearYes}
-          ></Clear>
+          />
           <MobileMenu
             mobileMenu={mobileMenu}
             closeMobileMenu={closeMobileMenu}
             clickTodoList={clickTodoList}
             clickSuccessList={clickSuccessList}
-          ></MobileMenu>
+          />
         </>
       ) : (
         navigate("/login")

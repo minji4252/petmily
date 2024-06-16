@@ -482,4 +482,7 @@
     top: 0;
     z-index: 1;
   }
+  .modifybox {
+    padding: 210px 50px;
+  }
 }

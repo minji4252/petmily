@@ -36,9 +36,9 @@ const MainUpload = () => {
       <div className="main-sec-3-inner">
         <div className="main-animal-box">
           <div className="m-r-animal mra-extra">
-            <a href="#" className="animal-txt">
+            <Link to="/petadmin" className="animal-txt">
               나의 반려동물 관리
-            </a>
+            </Link>
             <span>
               <Link to="/petadmin" className="main-plus-i">
                 <i className="xi-plus-square"></i>
@@ -48,21 +48,21 @@ const MainUpload = () => {
 
           <div className="main-animal-sync">
             <div className="mas-icon-lists-1">
-              <a href="#" className="mas-icon-1">
+              <a href="javascript:void(0);" className="mas-icon-1">
                 <img
                   src={mainpeticon}
                   alt="팻밀리 아이콘"
                   className="main-logos-i"
                 />
               </a>
-              <a href="#" className="mas-icon-2">
+              <a href="javascript:void(0);" className="mas-icon-2">
                 <img
                   src={mainpeticon2}
                   alt="팻밀리 아이콘"
                   className="main-logos-i"
                 />
               </a>
-              <a href="#" className="mas-icon-3">
+              <a href="javascript:void(0);" className="mas-icon-3">
                 <img
                   src={mainpeticon3}
                   alt="팻밀리 아이콘"
@@ -71,21 +71,21 @@ const MainUpload = () => {
               </a>
             </div>
             <div className="mas-icon-lists-2">
-              <a href="#" className="mas-icon-4">
+              <a href="javascript:void(0);" className="mas-icon-4">
                 <img
                   src={mainpeticon4}
                   alt="팻밀리 아이콘"
                   className="main-logos-i"
                 />
               </a>
-              <a href="#" className="mas-icon-5">
+              <a href="javascript:void(0);" className="mas-icon-5">
                 <img
                   src={mainpeticon5}
                   alt="팻밀리 아이콘"
                   className="main-logos-i"
                 />
               </a>
-              <a href="#" className="mas-icon-6">
+              <a href="javascript:void(0);" className="mas-icon-6">
                 <img
                   src={mainpeticon6}
                   alt="팻밀리 아이콘"
@@ -98,9 +98,9 @@ const MainUpload = () => {
 
         <div className="animal-pics-box">
           <div className="m-r-animal">
-            <a href="#" className="animal-txt">
+            <Link to="/petadmin" className="animal-txt">
               동물 친구들
-            </a>
+            </Link>
           </div>
           <div className="main-animal-pics-sync">
             {randomImage ? (

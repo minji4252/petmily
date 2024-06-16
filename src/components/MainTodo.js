@@ -16,9 +16,10 @@ function MainTodo() {
       try {
         const data = await getUpcoming();
         console.log(data);
-        setUpcomingItems(data);
+        setUpcomingItems(data || []);
       } catch (error) {
         console.log(error);
+        setUpcomingItems([]);
       }
     };
 
@@ -26,9 +27,10 @@ function MainTodo() {
       try {
         const data = await getMainpetInfo();
         console.log(data);
-        setUserCalendar(data);
+        setUserCalendar(data || []);
       } catch (error) {
         console.log(error);
+        setUserCalendar([]);
       }
     };
 

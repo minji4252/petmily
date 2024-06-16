@@ -1,4 +1,14 @@
 /* 박민경 */
+.logout-button:hover {
+  border: none;
+  color: white !important;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  background-color: #c1a89c;
+}
 
 .header {
   position: fixed;
