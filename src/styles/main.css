@@ -167,6 +167,10 @@
     width: 12px !important;
     height: 12px !important;
   }
+
+  .main-calendar-sync .react-calendar__navigation__label {
+    padding-top: 51px !important;
+  }
 }
 @media all and (max-width: 871px) {
   .main-calendar-sync .react-calendar {
@@ -195,6 +199,14 @@
   .main-calendar-sync h2 {
     width: 8px !important;
     height: 8px !important;
+  }
+
+  .main-calendar-sync .react-calendar__month-view__weekdays {
+    padding: 0 18px !important;
+  }
+
+  .main-calendar-sync .react-calendar__month-view__days {
+    padding: 0 16px !important;
   }
 }
 
@@ -506,6 +518,10 @@
 
 /* main-sec-3 반응형 */
 @media all and (max-width: 940px) {
+  .m-a-pics {
+    height: 100%;
+  }
+
   .maps-text {
     font-size: 30px;
   }
