@@ -46,6 +46,8 @@ const SimpleModal = ({
       );
       setAllData(response.data.data);
       console.log("심플모달의 allData는", response.data.data);
+      console.log("심플모달의 response.data", response.data);
+      console.log("심플모달의 findEventDay", findEventDay);
     } catch (error) {
       console.log(error);
     }

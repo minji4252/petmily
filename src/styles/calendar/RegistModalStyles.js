@@ -13,10 +13,10 @@ export const WrapStyle = styled.div`
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
   background-color: rgb(255, 255, 255);
 
-  position: fixed;
+  position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
-  top: 52%;
+  top: 25%;
   z-index: 9999;
 
   form p {

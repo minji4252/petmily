@@ -11,7 +11,6 @@ import {
   CalRight,
   CalendarMain,
   ManageItem,
-  PetIcon,
   PetManage,
   PetSelect,
   RadioText,
@@ -23,18 +22,36 @@ import Calendar from "./Calendar";
 import DetailModal from "./DetailModal";
 import axios from "axios";
 
+import icon1 from "../../images/icon-1.png";
+import icon2 from "../../images/icon-2.png";
+import icon3 from "../../images/icon-3.png";
+import icon4 from "../../images/icon-4.png";
+import icon5 from "../../images/icon-5.png";
+import icon6 from "../../images/icon-6.png";
+
+// 아이콘 이미지 경로를 매핑한 객체
+const iconMap = {
+  1: icon1,
+  2: icon2,
+  3: icon3,
+  4: icon4,
+  5: icon5,
+  6: icon6,
+};
+
 const Index = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [isVisible, setIsVisible] = useState(false);
   const [petData, setPetData] = useState([]);
   const [selectedPetImage, setSelectedPetImage] = useState("");
+  const [selectedPetIcon, setSelectedPetIcon] = useState("");
   const userPk = sessionStorage.getItem("userPk");
 
   const fetchPetData = async () => {
     try {
       const response = await axios.get(`/api/pet?user_id=${userPk}`);
-      console.log("petData불러온 데이터:", response.data.data);
       setPetData(response.data.data);
+      console.log("펫데이터", response.data.data);
     } catch (error) {
       console.log(error);
       setPetData([]);
@@ -42,21 +59,25 @@ const Index = () => {
   };
 
   useEffect(() => {
+    console.log("Fetching pet data...");
     fetchPetData();
   }, []);
+
+  useEffect(() => {
+    console.log("Updated petData:", petData);
+  }, [petData]);
 
   const handleRadioChange = petId => {
     const pet = petData.find(p => p.petId === petId);
     if (pet) {
       setSelectedPetImage(`/pic/pet/${pet.petId}/${pet.petImage}`);
+      setSelectedPetIcon(pet.petIcon);
     }
   };
 
   const handleSchedule = () => {
     openModal({
-      onConfirm: () => {
-        closeModal();
-      },
+      onConfirm: () => closeModal(),
     });
   };
 
@@ -104,11 +125,13 @@ const Index = () => {
         <CalAddition>
           <PetSelect onClick={ManageVisible}>
             <PiCaretLeftBold />
-            <span>pick !</span>
+            {selectedPetIcon && (
+              <img src={iconMap[selectedPetIcon]} alt="아이콘" />
+            )}
           </PetSelect>
           <BoxStyle className="pet-img">
             {selectedPetImage && (
-              <img src={selectedPetImage} alt="Selected pet" />
+              <img src={selectedPetImage} alt="선택된 반려동물" />
             )}
           </BoxStyle>
           <BoxStyle className="schedule-add">

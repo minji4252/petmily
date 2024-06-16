@@ -31,6 +31,12 @@ const DetailModal = ({
 }) => {
   if (!isOpen) return null;
 
+  useEffect(() => {
+    if (isOpen) {
+      console.log("Received petData in DetailModal:", petData);
+    }
+  }, [isOpen, petData]);
+
   const [dateValue, setDateValue] = useState(
     initialDateValue || getCurrentDate(),
   );
@@ -38,7 +44,10 @@ const DetailModal = ({
     formatTime(allData?.startTime || getCurrentTime()),
   );
   const [scheduleTitle, setScheduleTitle] = useState(allData?.title || "");
-  const [selected, setSelected] = useState(allData?.petId || "");
+  const [selected, setSelected] = useState([]);
+  // const [selected, setSelected] = useState(
+  //   petData.length > 0 ? petData[0].petId : "",
+  // );
   const [scheduleMemo, setScheduleMemo] = useState(allData?.content || "");
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -134,6 +143,12 @@ const DetailModal = ({
   function formatTime(time) {
     return moment(time, "HH:mm:ss").format("HH:mm");
   }
+
+  useEffect(() => {
+    if (isOpen) {
+      console.log("Received petData in DetailModal22:", petData);
+    }
+  }, [isOpen, petData]);
 
   return ReactDOM.createPortal(
     <DetailWrapStyle className="box-style">
