@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { colorSystem } from "../color.js";
-import mypetImage from "../../images/mypet.png";
+import defaultImage from "../../images/backDefault.png";
 
 export const CalendarMain = styled.main`
   width: 100%;
@@ -52,20 +52,20 @@ export const ManageItem = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start !important;
   margin-top: 50px;
 
   & Input {
     display: none;
   }
 
-  .radio_label {
+  .radio-label {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
   }
 
-  .radio_icon::before {
+  .radio-icon::before {
     content: "";
     display: block;
     margin-right: 5px;
@@ -78,11 +78,11 @@ export const ManageItem = styled.div`
     position: relative;
     cursor: pointer;
   }
-  .radio_icon::before {
+  .radio-icon::before {
     border-radius: 50px;
   }
 
-  .radio_label input:checked + .radio_icon::before {
+  .radio-label input:checked + .radio-icon::before {
     transition: all 0.15s ease;
     background: url(https://intranet.adef.co.kr/asset/images/ic_check.png)
       ${colorSystem.signature2} no-repeat center;
@@ -114,7 +114,7 @@ export const CalAddition = styled.div`
   .pet-img {
     width: 100%;
     margin-bottom: 25px;
-    background: url(${mypetImage}) no-repeat center;
+    background: url(${defaultImage}) no-repeat center;
     background-size: cover;
   }
 

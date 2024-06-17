@@ -49,8 +49,7 @@ const registerPetData = async data => {
     const response = await axios.post("/api/pet", data, header);
     return response.data.message;
   } catch (error) {
-    console.error(error);
-    throw error;
+    console.log(error);
   }
 };
 
@@ -60,8 +59,7 @@ const updatePetData = async data => {
     const response = await axios.patch("/api/pet", data, header);
     return response.data.message;
   } catch (error) {
-    console.error(error);
-    throw error;
+    console.log(error);
   }
 };
 
@@ -74,16 +72,20 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
   const [petBackColor, setPetBackColor] = useState(petData?.petBackColor || "");
   const [previewImg, setPreviewPreImg] = useState(petData?.petImageUrl || "");
   const [petImg, setPetImg] = useState(null);
-  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+  const [isAlertModalOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     if (modifyPetData) {
+      console.log("modifyPetData는", modifyPetData);
       setPetName(modifyPetData.petName);
       setPetCategory(modifyPetData.petCategory);
       setPetIcon(modifyPetData.petIcon);
       setPetBackColor(modifyPetData.petBackColor);
-      setPreviewPreImg(modifyPetData.petImageUrl);
+      setPreviewPreImg(
+        `http://112.222.157.156:5112/pic/pet/${modifyPetData.petId}/${modifyPetData.petImage}`,
+      );
+      //임시
     }
   }, [modifyPetData]);
 
@@ -98,11 +100,28 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
     e.preventDefault();
 
     if (!petName) {
-      alert("반려동물 이름을 입력하세요");
+      setAlertMessage("반려동물 이름을 입력하세요");
+      setIsAlertOpen(true);
       return;
     }
     if (!petCategory) {
-      alert("반려동물 종류를 입력하세요");
+      setAlertMessage("반려동물 종류를 입력하세요 ");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!petImg) {
+      setAlertMessage("이미지를 등록해주세요");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!petIcon) {
+      setAlertMessage("아이콘을 선택해주세요");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!petBackColor) {
+      setAlertMessage("배경색을 선택해주세요");
+      setIsAlertOpen(true);
       return;
     }
 
@@ -117,8 +136,17 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
       petBackColor: petBackColor,
     });
 
-    const dto = new Blob([infoData], { type: "application/json" });
+    const editInfoData = JSON.stringify({
+      petId: modifyPetData.petId,
+      petName: petName,
+      petCategory: petCategory,
+      petIcon: petIcon,
+      petBackColor: petBackColor,
+    });
 
+    const dto = new Blob([isEdit ? editInfoData : infoData], {
+      type: "application/json",
+    });
     formData.append("p", dto);
     formData.append("petImage", petImg);
 
@@ -127,15 +155,18 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
         ? await updatePetData(formData)
         : await registerPetData(formData);
       setAlertMessage(message);
-      setIsAlertModalOpen(true);
+      setIsAlertOpen(true);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleAlertClose = () => {
-    setIsAlertModalOpen(false);
-    window.location.reload();
+    if (alertMessage.includes("완료")) {
+      window.location.reload();
+    } else {
+      setIsAlertOpen(false);
+    }
   };
 
   return (

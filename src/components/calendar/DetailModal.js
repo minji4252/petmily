@@ -27,7 +27,7 @@ const DetailModal = ({
   readOnly = false,
   detailModalMode,
   petData,
-  findEventDay, // findEventDay 객체를 받아옴
+  findEventDay,
   selectedEvent,
 }) => {
   if (!isOpen) return null;

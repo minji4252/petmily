@@ -20,7 +20,7 @@ import {
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import ConfirmModal from "../common/ConfirmModal";
-import AlertModal from "../common/AlertModal"; // Import the custom AlertModal component
+import AlertModal from "../common/AlertModal";
 
 const PetAdmin = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
@@ -35,7 +35,7 @@ const PetAdmin = () => {
 
   const handleRegister = () => {
     if (registModalRef.current) {
-      registModalRef.current.resetForm(); // 초기화
+      registModalRef.current.resetForm();
     }
     openModal({
       onConfirm: () => closeModal(),
@@ -46,7 +46,6 @@ const PetAdmin = () => {
     try {
       const userPk = sessionStorage.getItem("userPk");
       const response = await axios.get(`/api/pet?user_id=${userPk}`);
-      console.log("불러온 데이터:", response.data.data);
       return response.data.data;
     } catch (error) {
       console.log(error);
@@ -54,8 +53,8 @@ const PetAdmin = () => {
     }
   };
 
-  const handleRadioChange = event => {
-    setSelectedPetId(event.target.value);
+  const handleRadioChange = e => {
+    setSelectedPetId(e.target.value);
   };
 
   useEffect(() => {
@@ -136,14 +135,14 @@ const PetAdmin = () => {
             <AdminItemStyle>
               <AdminItem>
                 {petData.map((item, index) => (
-                  <label className="radio_label" key={index}>
+                  <label className="radio-label" key={index}>
                     <input
                       type="radio"
                       name="itemcheck"
                       value={item.petId}
                       onChange={handleRadioChange}
                     />
-                    <span className="radio_icon"></span>
+                    <span className="radio-icon"></span>
                     <RadioText>{item.petName}</RadioText>
                   </label>
                 ))}

@@ -45,6 +45,10 @@
 input {
   caret-color: auto;
 }
+
+input:focus {
+  outline: none;
+}
 /* a태그 파란글씨 없애고 밑줄 삭제 */
 a {
   color: #000000;

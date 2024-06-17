@@ -59,7 +59,7 @@ export const ModalItem = styled.div`
   }
 
   p {
-    margin-left: 5px;
+    /* margin-left: 5px; */
     font-size: 0.8rem;
     display: flex;
     white-space: nowrap;
@@ -73,26 +73,40 @@ export const ModalItem = styled.div`
     text-overflow: ellipsis;
     display: inline-block;
     white-space: nowrap;
-    max-width: 60px;
-    width: 60px;
-    /* 임시 */
+    max-width: 44px;
+    /* width: 100%; */
   }
 
   p > svg {
     color: ${colorSystem.signature2};
+    width: 14px;
   }
 
   & Input {
     display: none;
   }
 
-  .radio_label {
+  .radio-label {
     display: flex;
     align-items: center;
     margin-top: 3px;
   }
 
-  .radio_icon::before {
+  .radio-label p:nth-of-type(1) {
+    width: 35px;
+    margin-right: 5px;
+  }
+
+  .radio-label p:nth-of-type(2) {
+    max-width: 35px;
+    display: inline-block;
+  }
+
+  .radio-icon {
+    margin-right: 5px;
+  }
+
+  .radio-icon::before {
     content: "";
     display: block;
     display: inline-block;
@@ -104,11 +118,11 @@ export const ModalItem = styled.div`
     position: relative;
     cursor: pointer;
   }
-  .radio_icon::before {
+  .radio-icon::before {
     border-radius: 50px;
   }
 
-  .radio_label input:checked + .radio_icon::before {
+  .radio-label input:checked + .radio-icon::before {
     transition: all 0.15s ease;
     background: url(https://intranet.adef.co.kr/asset/images/ic_check.png)
       ${colorSystem.signature2} no-repeat center;

@@ -50,7 +50,6 @@ const SimpleModal = ({
   }, [isOpen, clickDay, dayEvents]);
 
   const openDetailModal = (mode, item) => {
-    console.log("여기봐", item, item?.title);
     setDetailModalMode(mode);
     openModal({
       // onConfirm: () => closeModal(),
@@ -75,7 +74,6 @@ const SimpleModal = ({
   };
 
   const handleViewSchedule = e => {
-    console.log("e", e);
     setSelectedEvent(e);
     openDetailModal("view", e);
   };
@@ -114,15 +112,10 @@ const SimpleModal = ({
 
   const handleRadioChange = item => {
     setSelectedEvent(item);
-    console.log("선택한 반려동물 ID:", item.petId);
   };
 
   if (!isOpen) return null;
   const titleDate = moment(clickDay).format("DD dddd");
-
-  useEffect(() => {
-    console.log("Selected event:", selectedEvent);
-  }, [selectedEvent]);
 
   return (
     <>
@@ -136,7 +129,7 @@ const SimpleModal = ({
           {dayEvents && dayEvents.length > 0 ? (
             dayEvents.map((item, index) => (
               <ModalItem key={index}>
-                <label className="radio_label">
+                <label className="radio-label">
                   <input
                     type="radio"
                     name="allData"
@@ -144,7 +137,7 @@ const SimpleModal = ({
                     onChange={() => handleRadioChange(item)}
                     value={item.petId}
                   />
-                  <span className="radio_icon"></span>
+                  <span className="radio-icon"></span>
                   <p>
                     {moment(item.startTime, "HH:mm:ss").isValid()
                       ? moment(item.startTime, "HH:mm:ss").format("HH:mm")
@@ -152,7 +145,8 @@ const SimpleModal = ({
                   </p>
                   <p>{item.petName}</p>
                   <p>
-                    <RiArrowRightWideFill /> <span>{item.title}</span>
+                    <RiArrowRightWideFill />
+                    <span>{item.title}</span>
                   </p>
                 </label>
                 <ActionButton
