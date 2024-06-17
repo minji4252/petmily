@@ -74,8 +74,10 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
   const [petBackColor, setPetBackColor] = useState(petData?.petBackColor || "");
   const [previewImg, setPreviewPreImg] = useState(petData?.petImageUrl || "");
   const [petImg, setPetImg] = useState(null);
-  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+  const [isAlertModalOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+
+  console.log(modifyPetData);
 
   useEffect(() => {
     if (modifyPetData) {
@@ -98,11 +100,28 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
     e.preventDefault();
 
     if (!petName) {
-      alert("반려동물 이름을 입력하세요");
+      setAlertMessage("반려동물 이름을 입력하세요");
+      setIsAlertOpen(true);
       return;
     }
     if (!petCategory) {
-      alert("반려동물 종류를 입력하세요");
+      setAlertMessage("반려동물 종류를 입력하세요 ");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!petImg) {
+      setAlertMessage("이미지를 등록해주세요");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!petIcon) {
+      setAlertMessage("아이콘을 선택해주세요");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!petBackColor) {
+      setAlertMessage("배경색을 선택해주세요");
+      setIsAlertOpen(true);
       return;
     }
 
@@ -127,15 +146,18 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
         ? await updatePetData(formData)
         : await registerPetData(formData);
       setAlertMessage(message);
-      setIsAlertModalOpen(true);
+      setIsAlertOpen(true);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleAlertClose = () => {
-    setIsAlertModalOpen(false);
-    window.location.reload();
+    if (alertMessage.includes("완료")) {
+      window.location.reload();
+    } else {
+      setIsAlertOpen(false);
+    }
   };
 
   return (

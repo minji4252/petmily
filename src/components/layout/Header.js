@@ -10,10 +10,11 @@ const Header = () => {
   const navigate = useNavigate();
 
   const userPk = sessionStorage.getItem("userPk");
+  const userName = sessionStorage.getItem("userName");
 
   useEffect(() => {
     if (userPk) {
-      setIsUser(userPk);
+      setIsUser(userName);
 
       if (!localStorage.getItem("refreshed")) {
         localStorage.setItem("refreshed", "true");
@@ -23,7 +24,7 @@ const Header = () => {
       setIsUser("");
       localStorage.removeItem("refreshed");
     }
-  }, [userPk]);
+  }, [userPk, userName]);
 
   const handleLogout = () => {
     sessionStorage.removeItem("userPk");
@@ -57,9 +58,9 @@ const Header = () => {
         <ul className="navi-list-2">
           {isUser ? (
             <>
-              {/* <li style={{ color: "#896555", cursor: "default" }}>
+              <li style={{ color: "#896555", cursor: "default" }}>
                 {isUser} 님
-              </li> */}
+              </li>
               <li
                 onClick={handleLogout}
                 style={{

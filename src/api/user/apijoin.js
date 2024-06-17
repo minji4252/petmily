@@ -49,7 +49,6 @@ export const postCheckEmailCode = async () => {
   try {
     const rqData = "/api/mail/auth_check";
     const response = await axios.post(rqData);
-    console.log(response);
 
     if (response.data.code !== "SU") {
       return response.data.message;
