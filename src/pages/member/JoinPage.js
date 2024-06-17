@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postCheckEmail, postJoin } from "../../api/user/apijoin";
 import "../../styles/join.css";
+import { SyncLoader } from "react-spinners";
+import AlertModal from "../../components/common/AlertModal";
 
 const JoinPage = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -13,6 +15,9 @@ const JoinPage = () => {
   const [emailCheck, setEmailCheck] = useState(false);
   const [userEmailCheckCodeSuccess, setUserEmailCheckCodeSuccess] =
     useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   //  state: 에러 상태 추가  //
   const [errors, setErrors] = useState({
@@ -29,6 +34,7 @@ const JoinPage = () => {
   useEffect(() => {
     setEmailCheck(false);
     setUserEmailCheckCodeSuccess(false);
+    setIsOpen(false);
   }, []);
 
   const navigate = useNavigate();
@@ -69,57 +75,77 @@ const JoinPage = () => {
     };
 
     const result = await postJoin(requestData);
-    console.log(result);
 
     if (result.code !== "SU") {
-      alert(result.message);
+      setIsOpen(true);
+      setMessage(result.message);
       return;
     }
 
-    alert("회원가입 성공");
+    setIsOpen(true);
+    setMessage("회원가입 성공");
     navigate("/login");
   };
 
   const checkEmail = async event => {
     event.preventDefault();
     setUserEmailCheck("");
+    setLoading(true);
 
     if (!regex.test(userEmail)) {
-      alert("이메일 형식에 맞지 않습니다.");
+      setIsOpen(true);
+      setMessage("이메일 형식에 맞지 않습니다.");
       setEmailCheck(false);
+      setLoading(false);
       return;
     }
 
     const requestData = { email: userEmail };
     const result = await postCheckEmail(requestData);
     setUserEmailCheckCode(result.data.emailCheckCode);
-    console.log(result.data.emailCheckCode);
 
     if (result.code !== "SU") {
       setEmailCheck(false);
-      alert(result.message);
+      setIsOpen(true);
+      setMessage(result.message);
+      setLoading(false);
       return;
     }
 
     setEmailCheck(true);
+    setLoading(false);
   };
 
   const checkEmailSuccess = event => {
     event.preventDefault();
 
     if (userEmailCheck === userEmailCheckCode) {
-      alert("인증완료");
+      setIsOpen(true);
+      setMessage("인증완료");
       setUserEmailCheckCodeSuccess(true);
       setEmailCheck(false);
       return;
     }
 
-    alert("인증 코드와 다릅니다.");
+    setIsOpen(true);
+    setMessage("인증 코드와 다릅니다.");
     setUserEmailCheckCodeSuccess(false);
+  };
+
+  const handleAlertClose = () => {
+    setIsOpen(false);
   };
 
   return (
     <div className="join-wrap">
+      <AlertModal
+        isOpen={isOpen}
+        onClose={handleAlertClose}
+        message={message}
+      ></AlertModal>
+      {loading && (
+        <SyncLoader color="#896555" size={20} style={{ position: "fixed" }} />
+      )}
       <div className="container">
         <div className="mily-img-group">
           <img

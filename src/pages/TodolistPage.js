@@ -7,6 +7,7 @@ import {
   postTodoInsert,
   toggleTodoList,
 } from "../api/todolist";
+import AlertModal from "../components/common/AlertModal";
 import Clear from "../components/todolist/Clear";
 import MobileMenu from "../components/todolist/MobileMenu";
 import TodoLeft from "../components/todolist/TodoLeft";
@@ -27,6 +28,8 @@ const TodolistPage = () => {
   const [modifyId, setModifyId] = useState("");
   const [checkedDate, setCheckedDate] = useState("");
   const [realDate, setRealDate] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
   const logedid = sessionStorage.getItem("userPk");
@@ -37,20 +40,22 @@ const TodolistPage = () => {
         navigate("/login");
       } else {
         const result = await getTodoList(logedid);
-        console.log(result);
         if (result) {
           setTodos(result);
         }
       }
     };
 
+    setIsOpen(false);
+
     fetchTodoList();
-  }, [logedid, navigate]);
+  }, [logedid, navigate, todoInsert]);
 
   const onInsert = async () => {
     setChecked(false);
     if (todoInsert === "") {
-      alert("공백은 넣을 수 없습니다.");
+      setMessage("공백은 넣을 수 없습니다.");
+      setIsOpen(true);
       return;
     } else {
       const requestData = {
@@ -65,8 +70,6 @@ const TodolistPage = () => {
           isCompleted: checked,
         };
         setTodos(todos.concat(todo));
-      } else {
-        console.log("에러입니다");
       }
     }
   };
@@ -101,8 +104,6 @@ const TodolistPage = () => {
     await modifyTodoList(data);
     if (modifyModalRef.current) {
       modifyModalRef.current.classList.remove("open");
-    } else {
-      console.error("modifyModalRef.current is not defined.");
     }
   };
 
@@ -185,8 +186,17 @@ const TodolistPage = () => {
     todos,
   });
 
+  const handleAlertClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <TodoTemplate>
+      <AlertModal
+        isOpen={isOpen}
+        onClose={handleAlertClose}
+        message={message}
+      ></AlertModal>
       {logedid ? (
         <>
           <TodoLeft

@@ -10,7 +10,6 @@ export const postSignIn = async ({ userId, userPass }) => {
       email: userId,
       password: userPass,
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

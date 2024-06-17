@@ -1,11 +1,10 @@
-import React from "react";
-import { ModalBtn, ModalLine } from "../../styles/calendar/SimpleModalStyles";
-import { SubmitButton } from "./Button";
-import { colorSystem } from "../../styles/color";
 import styled from "@emotion/styled";
 import { IoClose } from "react-icons/io5";
+import { ModalBtn, ModalLine } from "../../styles/calendar/SimpleModalStyles";
+import { colorSystem } from "../../styles/color";
+import { SubmitButton } from "./Button";
 
-const AlertModalStyle = styled.div`
+export const AlertModalStyle = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -31,7 +30,7 @@ const AlertModalStyle = styled.div`
   }
 `;
 
-const AlertModal = ({ isOpen, onClose, message }) => {
+export const AlertModal = ({ isOpen, onClose, message }) => {
   if (!isOpen) return null;
 
   return (

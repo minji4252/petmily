@@ -84,6 +84,10 @@
 .navi-list-2 {
   display: flex;
   gap: 50px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .navi-list-2 a {
@@ -113,21 +117,9 @@
   }
 }
 
-@media all and (max-width: 940px) {
-  .navi-list a {
-    font-size: 26px;
-  }
-
-  .navi-list-2 a {
-    font-size: 22px;
-  }
-}
-
-@media all and (max-width: 830px) {
-  .navi-list {
-    gap: 53px;
-  }
-}
-
 @media all and (max-width: 768px) {
+  .navi-list {
+    gap: 20px;
+    white-space: nowrap;
+  }
 }

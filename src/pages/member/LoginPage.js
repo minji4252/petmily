@@ -5,6 +5,7 @@ import { postSignIn } from "../../api/user/apiuser";
 import milyicon from "../../images/mily-icon.png";
 import { Link } from "react-router-dom";
 import { SyncLoader } from "react-spinners";
+import AlertModal from "../../components/common/AlertModal";
 
 const WrapStyle = styled.div`
   margin: 0;
@@ -106,25 +107,38 @@ const LoginPage = ({ children, setIsUser }) => {
   const [userId, setUserId] = useState("");
   const [userPass, setUserPass] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
     const result = await postSignIn({ userId, userPass });
-    console.log(result);
     setLoading(false);
     if (result.code !== "SU") {
-      alert(result.message);
+      setIsOpen(true);
+      setMessage(result.message);
       return;
     }
     setIsUser(userId);
+
     sessionStorage.setItem("userPk", result.data.userId);
+    sessionStorage.setItem("userName", result.data.nickname);
 
     navigate("/");
   };
 
+  const handleAlertClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <WrapStyle>
+      <AlertModal
+        isOpen={isOpen}
+        onClose={handleAlertClose}
+        message={message}
+      ></AlertModal>
       {loading && (
         <SpinnerOverlay>
           <SyncLoader color="#896555" size={20} />
