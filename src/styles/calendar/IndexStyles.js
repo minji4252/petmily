@@ -105,6 +105,11 @@ export const RadioText = styled.div`
   margin-right: 20px;
   font-weight: 600;
   color: ${colorSystem.g800};
+  white-space: nowrap;
+
+  @media all and (max-width: 768px) {
+    white-space: normal;
+  }
 `;
 
 export const CalAddition = styled.div`
