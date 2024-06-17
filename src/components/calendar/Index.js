@@ -108,7 +108,7 @@ const Index = () => {
                   checked={selectedPetId === null}
                   onChange={() => handleRadioChange("all")}
                 />
-                <span className="radio-icon"></span>
+                <span className="radio_icon"></span>
                 <RadioText>전체</RadioText>
               </label>
               {petData.map(pet => (
@@ -120,7 +120,7 @@ const Index = () => {
                     checked={selectedPetId === pet.petId}
                     onChange={() => handleRadioChange(pet.petId)}
                   />
-                  <span className="radio-icon"></span>
+                  <span className="radio_icon"></span>
                   <RadioText>{pet.petName}</RadioText>
                 </label>
               ))}

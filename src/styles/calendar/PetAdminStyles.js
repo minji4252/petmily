@@ -10,6 +10,12 @@ export const AdminStyle = styled.div`
   width: 100%;
   align-items: center;
   justify-content: space-around;
+
+  @media all and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 30px; */
+  }
 `;
 
 export const AdminLeft = styled.div`
@@ -26,6 +32,7 @@ export const AdminLeft = styled.div`
   @media all and (max-width: 768px) {
     height: 495px;
     margin-left: 30px;
+    order: 2;
   }
 `;
 
@@ -144,5 +151,10 @@ export const AddPetBtn = styled.div`
     transform: translateY(-50%);
     right: 10%;
     pointer-events: none;
+  }
+
+  @media all and (max-width: 768px) {
+    margin-bottom: 30px;
+    order: 1;
   }
 `;

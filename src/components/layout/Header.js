@@ -66,7 +66,6 @@ const Header = () => {
                 style={{
                   cursor: "pointer",
                   color: "#896555",
-                  fontSize: "17px",
                 }}
                 className="logout-button"
               >

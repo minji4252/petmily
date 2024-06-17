@@ -39,8 +39,8 @@
 
 .navi-list a:hover,
 .navi-list-2 a:hover {
-  border: none;
-  color: white;
+  /* border: none;
+  color: white; */
 
   text-align: center;
   text-decoration: none;
@@ -51,6 +51,12 @@
 
   background-color: #c1a89c;
   color: white;
+
+  height: 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header .inner {
@@ -73,12 +79,16 @@
 
 .navi-list a {
   color: #896555;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 500;
   font-family: "Pretendard-Bold", sans-serif;
   font-weight: 700;
   letter-spacing: 2px;
   word-wrap: break-word;
+  white-space: nowrap;
+  transition: all 0.5s ease;
+  padding: 0 10px;
+  border-radius: 500px;
 }
 
 .navi-list-2 {
@@ -90,13 +100,13 @@
   text-overflow: ellipsis;
 }
 
-.navi-list-2 a {
+.navi-list-2 li {
   color: #a47e6d;
   font-size: 17px;
   font-family: "Pretendard-Medium", sans-serif;
   font-weight: 500;
-  letter-spacing: 1.7px;
   word-wrap: break-word;
+  transition: all 0.5s ease;
 }
 
 .header-navi {
@@ -121,5 +131,15 @@
   .navi-list {
     gap: 20px;
     white-space: nowrap;
+    margin: 0 10px;
+  }
+
+  .navi-list a {
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+  }
+
+  .navi-list-2 li {
+    font-size: 13px;
   }
 }
