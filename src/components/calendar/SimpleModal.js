@@ -49,18 +49,19 @@ const SimpleModal = ({
     }
   }, [isOpen, clickDay, dayEvents]);
 
-  const openDetailModal = (mode, item = null) => {
+  const openDetailModal = (mode, item) => {
+    console.log("여기봐", item, item?.title);
     setDetailModalMode(mode);
     openModal({
-      onConfirm: () => closeModal(),
-      initialDateValue: clickDay,
-      initialTimeValue:
-        mode === "add" ? getCurrentTime() : item?.startTime || "",
-      initialTitle: item?.title || "",
-      initialPetId: item?.petId || "",
-      initialContent: item?.content || "",
-      initialCalendarId: item?.calendarId || "",
-      readOnly: mode === "view",
+      // onConfirm: () => closeModal(),
+      // initialDateValue: clickDay,
+      // initialTimeValue:
+      //   mode === "add" ? getCurrentTime() : item?.startTime || "",
+      // initialTitle: item?.title || "",
+      // initialPetId: item?.petId || "",
+      // initialContent: item?.content || "",
+      // initialCalendarId: item?.calendarId || "",
+      // readOnly: mode === "view",
     });
   };
 
@@ -74,6 +75,7 @@ const SimpleModal = ({
   };
 
   const handleViewSchedule = e => {
+    console.log("e", e);
     setSelectedEvent(e);
     openDetailModal("view", e);
   };
@@ -110,6 +112,11 @@ const SimpleModal = ({
     return `${hours}:${minutes}`;
   }
 
+  const handleRadioChange = item => {
+    setSelectedEvent(item);
+    console.log("선택한 반려동물 ID:", item.petId);
+  };
+
   if (!isOpen) return null;
   const titleDate = moment(clickDay).format("DD dddd");
 
@@ -133,8 +140,9 @@ const SimpleModal = ({
                   <input
                     type="radio"
                     name="allData"
-                    checked={item.pk === selectedEvent?.pk}
-                    onChange={() => setSelectedEvent(item)}
+                    checked={item.petId === selectedEvent?.petId}
+                    onChange={() => handleRadioChange(item)}
+                    value={item.petId}
                   />
                   <span className="radio_icon"></span>
                   <p>
@@ -204,6 +212,7 @@ const SimpleModal = ({
           readOnly={detailModalMode === "view"}
           detailModalMode={detailModalMode}
           petData={petData}
+          selectedEvent={selectedEvent}
         />
       )}
       {isDeleteConfirmOpen && (

@@ -28,6 +28,7 @@ const DetailModal = ({
   detailModalMode,
   petData,
   findEventDay, // findEventDay 객체를 받아옴
+  selectedEvent,
 }) => {
   if (!isOpen) return null;
 
@@ -44,7 +45,7 @@ const DetailModal = ({
   useEffect(() => {
     if (isOpen && findEventDay?.calendarId) {
       if (detailModalMode === "edit" || detailModalMode === "view") {
-        fetchCalendarData(findEventDay.calendarId);
+        fetchCalendarData(selectedEvent.calendarId);
       } else {
         setDateValue(initialDateValue || getCurrentDate());
         setTimeValue(getCurrentTime());

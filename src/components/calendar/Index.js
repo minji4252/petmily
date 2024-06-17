@@ -43,6 +43,7 @@ const Index = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [isVisible, setIsVisible] = useState(false);
   const [petData, setPetData] = useState([]);
+  const [selectedPetId, setSelectedPetId] = useState("all");
   const [selectedPetImage, setSelectedPetImage] = useState("");
   const [selectedPetIcon, setSelectedPetIcon] = useState("");
   const userPk = sessionStorage.getItem("userPk");
@@ -68,10 +69,16 @@ const Index = () => {
   }, [petData]);
 
   const handleRadioChange = petId => {
-    const pet = petData.find(p => p.petId === petId);
-    if (pet) {
-      setSelectedPetImage(`/pic/pet/${pet.petId}/${pet.petImage}`);
-      setSelectedPetIcon(pet.petIcon);
+    setSelectedPetId(petId);
+    if (petId === "all") {
+      setSelectedPetImage("");
+      setSelectedPetIcon("");
+    } else {
+      const pet = petData.find(p => p.petId === petId);
+      if (pet) {
+        setSelectedPetImage(`/pic/pet/${pet.petId}/${pet.petImage}`);
+        setSelectedPetIcon(pet.petIcon);
+      }
     }
   };
 
@@ -102,7 +109,7 @@ const Index = () => {
                   type="radio"
                   name="itemcheck"
                   value="all"
-                  onChange={() => setSelectedPetImage("")}
+                  onChange={() => handleRadioChange("all")}
                 />
                 <span className="radio_icon"></span>
                 <RadioText>전체</RadioText>
@@ -140,7 +147,7 @@ const Index = () => {
         </CalAddition>
       </CalLeft>
       <CalRight>
-        <Calendar petData={petData} />
+        <Calendar petData={petData} selectedPetId={selectedPetId} />
       </CalRight>
       <DetailModal
         isOpen={isModalOpen}
