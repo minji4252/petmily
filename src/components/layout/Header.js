@@ -61,23 +61,16 @@ const Header = () => {
               <li style={{ color: "#896555", cursor: "default" }}>
                 {isUser} 님
               </li>
-              <li
-                onClick={handleLogout}
-                style={{
-                  cursor: "pointer",
-                  color: "#896555",
-                }}
-                className="logout-button"
-              >
+              <li onClick={handleLogout} className="logout-button">
                 로그아웃
               </li>
             </>
           ) : (
             <>
-              <li>
+              <li className="main-button">
                 <Link to="/login">로그인</Link>
               </li>
-              <li>
+              <li className="main-button">
                 <Link to="/join">회원가입</Link>
               </li>
             </>
