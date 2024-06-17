@@ -35,7 +35,7 @@ export const AdminTitle = styled.div`
 
 export const AdminText = styled.div`
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: ${colorSystem.p800};
 `;
 export const TitleLine = styled.div`

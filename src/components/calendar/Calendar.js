@@ -32,18 +32,21 @@ const ModalWrapper = styled.div`
   left: ${props => props.left || "50%"};
   transform: translate(-50%, 0%);
 `;
+
 const TitleStyle = styled.div`
   width: 117%;
 `;
+
 const Title = styled.h2`
   background-color: ${props => props.backgroundColor || "#fff"};
   max-width: 100%;
   padding: 0 5px;
   font-size: 0.7rem;
   width: 100%;
+  text-align: center;
 `;
 
-const Calendar = ({ petData }) => {
+const Calendar = ({ petData, selectedPetId }) => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [modalPosition, setModalPosition] = useState({});
   const [clickDay, setClickDay] = useState("");
@@ -54,29 +57,29 @@ const Calendar = ({ petData }) => {
   const userPk = sessionStorage.getItem("userPk");
 
   useEffect(() => {
-    const getData = async () => {
+    const getAllPetData = async () => {
       try {
         const response = await axios.get(
           `/api/calendar/user_id?user_id=${userPk}`,
         );
         setAllData(response.data.data);
-        // console.log(response.data.data);
+        console.log("getAllPetData", response.data.data);
       } catch (error) {
         console.log(error);
       }
     };
-    getData();
+    getAllPetData();
   }, []);
 
   const onClickDay = (value, event) => {
     const checkDay = moment(value).format("YYYY-MM-DD");
-    const findEvents = allData.filter(
+    const filteredData = selectedPetId
+      ? allData.filter(item => item.petId === selectedPetId)
+      : allData;
+    const findEvents = filteredData.filter(
       item => moment(item.startDate).format("YYYY-MM-DD") === checkDay,
     );
 
-    console.log("findEvents[0]", findEvents[0]);
-    console.log("findEvents", findEvents);
-    console.log("checkDay", checkDay);
     setFindEventDay(findEvents[0]);
     setDayEvents(findEvents);
     setClickDay(checkDay);
@@ -114,17 +117,21 @@ const Calendar = ({ petData }) => {
         case "orange":
           return "#FEE6C9";
         default:
-          return "#FFD9D9";
+          return "#fff";
       }
     }
-    return "#FFD9D9";
+    return "#fff";
   };
 
   const tileContent = ({ date }) => {
     const checkDay = moment(date).format("YYYY-MM-DD");
-    const dayResult = allData.filter(
+    const filteredData = selectedPetId
+      ? allData.filter(item => item.petId === selectedPetId)
+      : allData;
+    const dayResult = filteredData.filter(
       item => moment(item.startDate).format("YYYY-MM-DD") === checkDay,
     );
+
     if (dayResult.length > 0) {
       return (
         <TitleStyle>
