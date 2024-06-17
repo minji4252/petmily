@@ -49,8 +49,7 @@ const registerPetData = async data => {
     const response = await axios.post("/api/pet", data, header);
     return response.data.message;
   } catch (error) {
-    console.error(error);
-    throw error;
+    console.log(error);
   }
 };
 
@@ -60,8 +59,7 @@ const updatePetData = async data => {
     const response = await axios.patch("/api/pet", data, header);
     return response.data.message;
   } catch (error) {
-    console.error(error);
-    throw error;
+    console.log(error);
   }
 };
 
@@ -81,11 +79,15 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
 
   useEffect(() => {
     if (modifyPetData) {
+      console.log("modifyPetData는", modifyPetData);
       setPetName(modifyPetData.petName);
       setPetCategory(modifyPetData.petCategory);
       setPetIcon(modifyPetData.petIcon);
       setPetBackColor(modifyPetData.petBackColor);
-      setPreviewPreImg(modifyPetData.petImageUrl);
+      setPreviewPreImg(
+        `http://112.222.157.156:5112/pic/pet/${modifyPetData.petId}/${modifyPetData.petImage}`,
+      );
+      //임시
     }
   }, [modifyPetData]);
 
@@ -136,8 +138,17 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
       petBackColor: petBackColor,
     });
 
-    const dto = new Blob([infoData], { type: "application/json" });
+    const editInfoData = JSON.stringify({
+      petId: modifyPetData.petId,
+      petName: petName,
+      petCategory: petCategory,
+      petIcon: petIcon,
+      petBackColor: petBackColor,
+    });
 
+    const dto = new Blob([isEdit ? editInfoData : infoData], {
+      type: "application/json",
+    });
     formData.append("p", dto);
     formData.append("petImage", petImg);
 

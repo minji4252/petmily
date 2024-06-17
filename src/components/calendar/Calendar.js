@@ -44,6 +44,9 @@ const Title = styled.h2`
   font-size: 0.7rem;
   width: 100%;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const Calendar = ({ petData, selectedPetId }) => {
@@ -63,7 +66,6 @@ const Calendar = ({ petData, selectedPetId }) => {
           `/api/calendar/user_id?user_id=${userPk}`,
         );
         setAllData(response.data.data);
-        console.log("getAllPetData", response.data.data);
       } catch (error) {
         console.log(error);
       }

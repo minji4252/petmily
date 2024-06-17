@@ -21,6 +21,7 @@ import { SubmitButton } from "../common/Button";
 import Calendar from "./Calendar";
 import DetailModal from "./DetailModal";
 import axios from "axios";
+import defaultImage from "../../images/backDefault.png";
 
 import icon1 from "../../images/icon-1.png";
 import icon2 from "../../images/icon-2.png";
@@ -43,7 +44,7 @@ const Index = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
   const [isVisible, setIsVisible] = useState(false);
   const [petData, setPetData] = useState([]);
-  const [selectedPetId, setSelectedPetId] = useState("all");
+  const [selectedPetId, setSelectedPetId] = useState(null);
   const [selectedPetImage, setSelectedPetImage] = useState("");
   const [selectedPetIcon, setSelectedPetIcon] = useState("");
   const userPk = sessionStorage.getItem("userPk");
@@ -52,7 +53,6 @@ const Index = () => {
     try {
       const response = await axios.get(`/api/pet?user_id=${userPk}`);
       setPetData(response.data.data);
-      console.log("펫데이터", response.data.data);
     } catch (error) {
       console.log(error);
       setPetData([]);
@@ -60,18 +60,14 @@ const Index = () => {
   };
 
   useEffect(() => {
-    console.log("Fetching pet data...");
     fetchPetData();
   }, []);
-
-  useEffect(() => {
-    console.log("Updated petData:", petData);
-  }, [petData]);
 
   const handleRadioChange = petId => {
     setSelectedPetId(petId);
     if (petId === "all") {
-      setSelectedPetImage("");
+      setSelectedPetId(null);
+      setSelectedPetImage(defaultImage);
       setSelectedPetIcon("");
     } else {
       const pet = petData.find(p => p.petId === petId);
@@ -104,25 +100,27 @@ const Index = () => {
               <IoClose />
             </button>
             <ManageItem>
-              <label className="radio_label">
+              <label className="radio-label">
                 <input
                   type="radio"
                   name="itemcheck"
                   value="all"
+                  checked={selectedPetId === null}
                   onChange={() => handleRadioChange("all")}
                 />
-                <span className="radio_icon"></span>
+                <span className="radio-icon"></span>
                 <RadioText>전체</RadioText>
               </label>
               {petData.map(pet => (
-                <label className="radio_label" key={pet.petId}>
+                <label className="radio-label" key={pet.petId}>
                   <input
                     type="radio"
                     name="itemcheck"
                     value={pet.petId}
+                    checked={selectedPetId === pet.petId}
                     onChange={() => handleRadioChange(pet.petId)}
                   />
-                  <span className="radio_icon"></span>
+                  <span className="radio-icon"></span>
                   <RadioText>{pet.petName}</RadioText>
                 </label>
               ))}

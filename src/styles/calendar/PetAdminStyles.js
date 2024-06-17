@@ -61,14 +61,14 @@ export const AdminItem = styled.div`
     display: none;
   }
 
-  .radio_label {
+  .radio-label {
     display: flex;
     align-items: left;
     margin-bottom: 20px;
     cursor: pointer;
   }
 
-  .radio_icon::before {
+  .radio-icon::before {
     content: "";
     display: block;
     margin-right: 5px;
@@ -81,11 +81,11 @@ export const AdminItem = styled.div`
     position: relative;
     cursor: pointer;
   }
-  .radio_icon::before {
+  .radio-icon::before {
     border-radius: 50px;
   }
 
-  .radio_label input:checked + .radio_icon::before {
+  .radio-label input:checked + .radio-icon::before {
     transition: all 0.15s ease;
     background: url(https://intranet.adef.co.kr/asset/images/ic_check.png)
       ${colorSystem.signature2} no-repeat center;
