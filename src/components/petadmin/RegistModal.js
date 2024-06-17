@@ -75,17 +75,15 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
   const [isAlertModalOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  console.log(modifyPetData);
-
   useEffect(() => {
     if (modifyPetData) {
-      console.log("modifyPetData는", modifyPetData);
       setPetName(modifyPetData.petName);
       setPetCategory(modifyPetData.petCategory);
       setPetIcon(modifyPetData.petIcon);
       setPetBackColor(modifyPetData.petBackColor);
       setPreviewPreImg(
-        `http://112.222.157.156:5112/pic/pet/${modifyPetData.petId}/${modifyPetData.petImage}`,
+        `http://34.22.70.89:8080/pic/pet/${modifyPetData.petId}/${modifyPetData.petImage}`,
+        // `http://112.222.157.156:5112/pic/pet/${modifyPetData.petId}/${modifyPetData.petImage}`,
       );
       //임시
     }
@@ -205,17 +203,12 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
 
             <p>사진 등록</p>
             <PetImgRegist className="box-style">
-              {/* <input
-            className="uploadname"
-            value="첨부파일"
-            placeholder="첨부파일"
-          /> */}
-              {/* <label htmlFor="file">파일찾기</label> */}
+              <label htmlFor="file">파일첨부</label>
               <ImgPreview>
                 {previewImg && <img src={previewImg} alt="미리보기 이미지" />}
               </ImgPreview>
               <input
-                // className="one"
+                className="img-input"
                 id="file"
                 type="file"
                 accept="image/png, image/gif, image/jpeg"

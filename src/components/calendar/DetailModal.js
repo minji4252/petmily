@@ -213,6 +213,7 @@ const DetailModal = ({
                 onChange={e => setTimeValue(formatTime(e.target.value))}
                 readOnly={readOnly}
                 disabled={readOnly}
+                step="600"
               />
             </label>
 

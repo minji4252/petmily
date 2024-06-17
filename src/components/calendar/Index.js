@@ -30,7 +30,6 @@ import icon4 from "../../images/icon-4.png";
 import icon5 from "../../images/icon-5.png";
 import icon6 from "../../images/icon-6.png";
 
-// 아이콘 이미지 경로를 매핑한 객체
 const iconMap = {
   1: icon1,
   2: icon2,
@@ -45,7 +44,7 @@ const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [petData, setPetData] = useState([]);
   const [selectedPetId, setSelectedPetId] = useState(null);
-  const [selectedPetImage, setSelectedPetImage] = useState("");
+  const [selectedPetImage, setSelectedPetImage] = useState(defaultImage);
   const [selectedPetIcon, setSelectedPetIcon] = useState("");
   const userPk = sessionStorage.getItem("userPk");
 
@@ -91,11 +90,14 @@ const Index = () => {
   return (
     <CalendarMain>
       <CalLeft>
-        <PetManage>
-          <BoxStyle
-            className="pet-manage"
-            style={{ display: isVisible ? "block" : "none" }}
-          >
+        <PetManage
+          style={{
+            display: isVisible ? "block" : "none",
+            width: isVisible ? "35%" : "0%",
+            // transition: "all 0.5s ease",
+          }}
+        >
+          <BoxStyle className="pet-manage">
             <button className="close-btn" type="button" onClick={ManageVisible}>
               <IoClose />
             </button>
@@ -108,7 +110,7 @@ const Index = () => {
                   checked={selectedPetId === null}
                   onChange={() => handleRadioChange("all")}
                 />
-                <span className="radio_icon"></span>
+                <span className="radio-icon"></span>
                 <RadioText>전체</RadioText>
               </label>
               {petData.map(pet => (
@@ -120,25 +122,31 @@ const Index = () => {
                     checked={selectedPetId === pet.petId}
                     onChange={() => handleRadioChange(pet.petId)}
                   />
-                  <span className="radio_icon"></span>
+                  <span className="radio-icon"></span>
                   <RadioText>{pet.petName}</RadioText>
                 </label>
               ))}
             </ManageItem>
           </BoxStyle>
         </PetManage>
-        <CalAddition>
+        <CalAddition
+          style={{
+            width: isVisible ? "65%" : "100%",
+            transition: "all 0.5s ease",
+          }}
+        >
           <PetSelect onClick={ManageVisible}>
             <PiCaretLeftBold />
             {selectedPetIcon && (
               <img src={iconMap[selectedPetIcon]} alt="아이콘" />
             )}
           </PetSelect>
-          <BoxStyle className="pet-img">
-            {selectedPetImage && (
-              <img src={selectedPetImage} alt="선택된 반려동물" />
-            )}
-          </BoxStyle>
+          <BoxStyle
+            className="pet-img"
+            style={{
+              background: `url(${selectedPetImage}) no-repeat center`,
+            }}
+          ></BoxStyle>
           <BoxStyle className="schedule-add">
             <SubmitButton label="일정 추가" onClick={handleSchedule} />
           </BoxStyle>
