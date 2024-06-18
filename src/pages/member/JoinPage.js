@@ -18,6 +18,11 @@ const JoinPage = () => {
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [isCheckEmail, setIsCheckEmail] = useState(true);
+  const [isCheckPass, setIsCheckPass] = useState(true);
+  const [isCheckPass2, setIsCheckPass2] = useState(true);
+  const [isCheckName, setIsCheckName] = useState(true);
+  const [isCheckEmailCodeSuccess, setIsCheckEmailCodeSuccess] = useState(true);
 
   //  state: 에러 상태 추가  //
   const [errors, setErrors] = useState({
@@ -41,30 +46,51 @@ const JoinPage = () => {
 
   const joinMember = async event => {
     event.preventDefault();
+    const isCheckEmail = regex.test(userEmail);
+    const isCheckPass = passRegex.test(userPass);
+    const isCheckPass2 = userPass === userPass2;
+    const isCheckName = nameRegex.test(userName) && userName !== "";
+    const isCheckEmailCodeSuccess = userEmailCheckCodeSuccess;
 
-    // const isFormValid =
-    //   regex.test(userEmail) &&
-    //   passRegex.test(userPass) &&
-    //   userPass2 === userPass &&
-    //   nameRegex.test(userName) &&
-    //   userName !== "" &&
-    //   userEmailCheckCodeSuccess;
-
-    const newErrors = {
-      userEmail: !regex.test(userEmail),
-      userPass: !passRegex.test(userPass),
-      userPass2: userPass !== userPass2,
-      userName: !nameRegex.test(userName) || userName === "",
-    };
-
-    setErrors(newErrors);
-
-    const isFormValid =
-      Object.values(newErrors).every(error => !error) &&
-      userEmailCheckCodeSuccess;
-
-    if (!isFormValid) {
+    if (isCheckEmail === false) {
+      setIsOpen(true);
+      setMessage("이메일 형식을 확인해주세요.");
+      setIsCheckEmail(false);
       return;
+    } else {
+      setIsCheckEmail(true);
+    }
+    if (isCheckPass === false) {
+      setIsOpen(true);
+      setMessage("비밀번호 형식을 확인해주세요.");
+      setIsCheckPass(false);
+      return;
+    } else {
+      setIsCheckPass(true);
+    }
+    if (isCheckPass2 === false) {
+      setIsOpen(true);
+      setMessage("입력하신 비밀번호가 일치하지 않습니다.");
+      setIsCheckPass2(false);
+      return;
+    } else {
+      setIsCheckPass2(true);
+    }
+    if (isCheckName === false) {
+      setIsOpen(true);
+      setMessage("닉네임 형식을 확인해주세요.");
+      setIsCheckName(false);
+      return;
+    } else {
+      setIsCheckName(true);
+    }
+    if (isCheckEmailCodeSuccess === false) {
+      setIsOpen(true);
+      setMessage("이메일 인증을 해주세요");
+      setIsCheckEmailCodeSuccess(false);
+      return;
+    } else {
+      setIsCheckEmailCodeSuccess(true);
     }
 
     const requestData = {
@@ -74,14 +100,14 @@ const JoinPage = () => {
       nickname: userName,
     };
 
-    const result = await postJoin(requestData);
-
-    if (result.code !== "SU") {
-      setIsOpen(true);
-      setMessage(result.message);
-      return;
-    }
-
+    if (
+      isCheckEmail &&
+      isCheckPass &&
+      isCheckPass2 &&
+      isCheckName &&
+      isCheckEmailCodeSuccess
+    )
+      await postJoin(requestData);
     setIsOpen(true);
     setMessage("회원가입 성공");
     navigate("/login");
@@ -102,7 +128,12 @@ const JoinPage = () => {
 
     const requestData = { email: userEmail };
     const result = await postCheckEmail(requestData);
-    setUserEmailCheckCode(result.data.emailCheckCode);
+    console.log(result);
+    if (result.code !== "SU") {
+      setMessage(result.message);
+    } else {
+      setUserEmailCheckCode(result.data.emailCheckCode);
+    }
 
     if (result.code !== "SU") {
       setEmailCheck(false);
@@ -144,7 +175,11 @@ const JoinPage = () => {
         message={message}
       ></AlertModal>
       {loading && (
-        <SyncLoader color="#896555" size={20} style={{ position: "fixed" }} />
+        <SyncLoader
+          color="#896555"
+          size={20}
+          style={{ position: "absolute" }}
+        />
       )}
       <div className="container">
         <div className="mily-img-group">
@@ -187,6 +222,7 @@ const JoinPage = () => {
             placeholder="이메일"
             disabled={userEmailCheckCodeSuccess}
             required
+            autoComplete="off"
           />
           {/* {!userEmail ? (
             <p className="check-email error-pont">이메일을 입력해 주세요.</p>
@@ -197,7 +233,7 @@ const JoinPage = () => {
           )} */}
 
           {/* 에러 메시지 처리 */}
-          {errors.userEmail && (
+          {isCheckEmail ? null : (
             <p className="check-email error-pont">
               이메일 형식에 맞지 않습니다.
             </p>
@@ -213,6 +249,7 @@ const JoinPage = () => {
                 onChange={event => setUserEmailCheck(event.target.value)}
                 placeholder="이메일 인증 코드를 입력하세요"
                 required
+                autoComplete="off"
               />
               <div className="button-form">
                 <button
@@ -243,6 +280,7 @@ const JoinPage = () => {
             onChange={event => setUserPass(event.target.value)}
             placeholder="비밀번호를 입력하세요"
             required
+            autoComplete="off"
           />
           {/* {!userPass ? (
             <p className="check-email error-pont">비밀번호를 입력해 주세요</p>
@@ -253,7 +291,7 @@ const JoinPage = () => {
           )} */}
 
           {/* 에러 메시지 처리 */}
-          {errors.userPass && (
+          {isCheckPass ? null : (
             <p className="check-passwordO error-pont">
               비밀번호는 영문, 숫자 포함하여 8~16자리로 입력하세요.
             </p>
@@ -267,6 +305,7 @@ const JoinPage = () => {
             onChange={event => setUserPass2(event.target.value)}
             placeholder="비밀번호 확인"
             required
+            autoComplete="off"
           />
           {/* {!userPass2 ? (
             <p className="check-email error-pont">비밀번호를 입력해 주세요</p>
@@ -277,7 +316,7 @@ const JoinPage = () => {
           )} */}
 
           {/* 에러 메시지 처리 */}
-          {errors.userPass2 && (
+          {isCheckPass2 ? null : (
             <p className="check-passwordO error-pont">
               비밀번호가 같지 않습니다.
             </p>
@@ -291,13 +330,18 @@ const JoinPage = () => {
             onChange={event => setUserName(event.target.value)}
             placeholder="닉네임을 입력하세요"
             required
+            autoComplete="off"
           />
-          {errors.userName && (
+          {isCheckName ? null : (
             <p className="check-passwordO error-pont">
               한글, 영문만 입력 가능합니다.
             </p>
           )}
-          <button type="button" className="bt-submit" onClick={joinMember}>
+          <button
+            type="button"
+            className="bt-submit"
+            onClick={event => joinMember(event)}
+          >
             회원가입
           </button>
         </form>
