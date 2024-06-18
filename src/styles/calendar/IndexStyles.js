@@ -117,16 +117,9 @@ export const CalAddition = styled.div`
   margin: 0 30px;
 
   .pet-img {
-    width: 100%;
     margin-bottom: 25px;
     background: url(${defaultImage}) no-repeat center;
-    background-size: cover;
-  }
-
-  .pet-img > img {
-    width: 100%;
-    height: 100%;
-    border-radius: 32px;
+    background-size: cover !important;
   }
 
   .schedule-add {

@@ -1,24 +1,26 @@
+import styled from "@emotion/styled";
+import { colorSystem } from "../../styles/color";
+import useModal from "../../hooks/UseModal";
+import { ActionButton, DelectButton, SubmitButton } from "../common/Button";
+import RegistModal from "./RegistModal";
+import { TfiPlus } from "react-icons/tfi";
+import {
+  AdminWrapStyle,
+  AdminStyle,
+  AdminLeft,
+  AdminTitle,
+  TitleLine,
+  AdminItem,
+  RadioText,
+  AddPetBtn,
+  AdminText,
+  AdminItemStyle,
+  AdminBtn,
+} from "../../styles/calendar/PetAdminStyles";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { TfiPlus } from "react-icons/tfi";
-import useModal from "../../hooks/UseModal";
-import {
-  AddPetBtn,
-  AdminBtn,
-  AdminItem,
-  AdminItemStyle,
-  AdminLeft,
-  AdminStyle,
-  AdminText,
-  AdminTitle,
-  AdminWrapStyle,
-  RadioText,
-  TitleLine,
-} from "../../styles/calendar/PetAdminStyles";
-import AlertModal from "../common/AlertModal";
-import { ActionButton, DelectButton, SubmitButton } from "../common/Button";
 import ConfirmModal from "../common/ConfirmModal";
-import RegistModal from "./RegistModal";
+import AlertModal from "../common/AlertModal";
 
 const PetAdmin = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();

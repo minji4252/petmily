@@ -66,14 +66,16 @@ export const PetImgRegist = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 30px;
 
   > label {
     display: inline-block;
     text-align: center;
     color: ${colorSystem.white};
+    /* font-weight: 600; */
     vertical-align: middle;
     font-size: 0.7rem;
-    background-color: ${colorSystem.signature1};
+    background-color: ${colorSystem.p400};
     cursor: pointer;
     height: 30px;
     margin-left: 10px;
@@ -82,33 +84,27 @@ export const PetImgRegist = styled.div`
     line-height: 30px;
   }
 
-  .one {
-    /* position: absolute;
+  > Input {
+    width: 100px;
+  }
+
+  .img-input {
+    position: absolute;
     width: 0;
     height: 0;
     padding: 0;
     overflow: hidden;
-    border: 0; */
-  }
-
-  .upload-name {
-    /* display: inline-block;
-    height: 30px;
-    padding: 0 10px;
-    vertical-align: middle;
-    border: 1px solid ${colorSystem.signature1};
-    width: 50%;
-    color: ${colorSystem.g500}; */
+    border: 0;
   }
 `;
 
 export const ImgPreview = styled.div`
-  /* width: 150px; */
+  width: 140px;
   height: 130px;
   padding: 10px;
 
   > img {
-    width: 200px;
+    width: 100%;
     height: 100%;
     border-radius: 10px;
   }
@@ -124,6 +120,7 @@ export const SelectedStyle = styled.div`
 
   & img {
     width: 35px;
+    position: relative;
   }
 
   & input {
@@ -131,7 +128,7 @@ export const SelectedStyle = styled.div`
   }
 
   & input:checked + img {
-    border: 4px solid ${colorSystem.signature2};
+    box-shadow: 0 0 0 4px ${colorSystem.signature1};
     border-radius: 50%;
   }
 `;
