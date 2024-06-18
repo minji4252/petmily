@@ -16,6 +16,7 @@ import {
 } from "../../styles/calendar/DetailModalStyles.js";
 import AlertModal from "../common/AlertModal";
 import { CancelButton, SubmitButton } from "../common/Button";
+import { SyncLoader } from "react-spinners";
 
 const DetailModal = ({
   isOpen,
@@ -32,6 +33,7 @@ const DetailModal = ({
 }) => {
   if (!isOpen) return null;
 
+  const [loading, setLoading] = useState(false);
   const [dateValue, setDateValue] = useState(
     initialDateValue || getCurrentDate(),
   );
@@ -45,6 +47,7 @@ const DetailModal = ({
   useEffect(() => {
     if (isOpen && findEventDay?.calendarId) {
       if (detailModalMode === "edit" || detailModalMode === "view") {
+        setLoading(true);
         fetchCalendarData(selectedEvent.calendarId);
       } else {
         setDateValue(initialDateValue || getCurrentDate());
@@ -73,6 +76,8 @@ const DetailModal = ({
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -143,9 +148,6 @@ const DetailModal = ({
         startTime: formattedTime,
       };
 
-      // 수정할 데이터를 콘솔에 출력
-      console.log("Sending data for edit:", dataToSend);
-
       const res = await axios.patch("/api/calendar", dataToSend);
       if (res.data.code === "SU") {
         setAlertMessage("일정 수정이 완료되었습니다");
@@ -158,31 +160,6 @@ const DetailModal = ({
       alert("일정 수정 실패");
     }
   };
-  // const handleEdit = async () => {
-  //   const userPk = sessionStorage.getItem("userPk");
-  //   try {
-  //     const formattedTime = `${timeValue}:00`;
-  //     const res = await axios.patch("/api/calendar", {
-  //       calendarId: findEventDay.calendarId,
-  //       userId: userPk,
-  //       petId: selected,
-  //       title: scheduleTitle,
-  //       content: scheduleMemo,
-  //       startDate: dateValue,
-  //       startTime: formattedTime,
-  //     });
-
-  //     if (res.data.code === "SU") {
-  //       setAlertMessage("일정 수정이 완료되었습니다");
-  //       setIsAlertOpen(true);
-  //     } else {
-  //       console.log("API 오류");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     alert("일정 수정 실패");
-  //   }
-  // };
 
   function getCurrentDate() {
     const date = new Date();
@@ -213,6 +190,11 @@ const DetailModal = ({
 
   return ReactDOM.createPortal(
     <DetailWrapStyle className="box-style">
+      {loading && (
+        <div className="loading-container">
+          <SyncLoader color="#896555" size={20} />
+        </div>
+      )}
       <button className="close-btn" type="button" onClick={onClose}>
         <IoClose />
       </button>
@@ -314,11 +296,13 @@ const DetailModal = ({
           </FormBtn>
         )}
       </form>
-      <AlertModal
-        isOpen={isAlertOpen}
-        onClose={handleCloseAlertModal}
-        message={alertMessage}
-      />
+      {isAlertOpen && (
+        <AlertModal
+          isOpen={isAlertOpen}
+          onClose={handleCloseAlertModal}
+          message={alertMessage}
+        />
+      )}
     </DetailWrapStyle>,
     document.body,
   );

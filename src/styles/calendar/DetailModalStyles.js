@@ -17,6 +17,18 @@ export const DetailWrapStyle = styled.div`
   top: 50%;
   z-index: 9999;
 
+  .loading-container {
+    position: absolute;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${colorSystem.white};
+    width: 85%;
+    height: 60%;
+    top: 150px;
+  }
+
   form {
     height: 85%;
   }
