@@ -34,7 +34,7 @@ export const CalLeft = styled.div`
 export const PetManage = styled.div`
   width: 35%;
   height: 100%;
-  /* margin-left: 30px; */
+  margin-left: 30px;
 
   .pet-manage {
     height: 100%;
@@ -45,6 +45,7 @@ export const PetManage = styled.div`
   @media all and (max-width: 768px) {
     height: 655px;
     margin-left: 30px;
+    min-width: 90px;
   }
 `;
 
@@ -100,7 +101,7 @@ export const ManageItem = styled.div`
 `;
 
 export const RadioText = styled.div`
-  font-size: 15px;
+  font-size: 0.9rem;
   margin-left: 7px;
   margin-right: 20px;
   font-weight: 600;
@@ -109,6 +110,7 @@ export const RadioText = styled.div`
 
   @media all and (max-width: 768px) {
     white-space: normal;
+    font-size: 0.8rem;
   }
 `;
 
@@ -134,6 +136,15 @@ export const CalAddition = styled.div`
     width: 100%;
     height: 40px;
     font-size: 0.9rem;
+  }
+
+  @media all and (min-width: 769px) {
+    width: 65% !important;
+    transition: none !important;
+  }
+
+  @media all and (max-width: 768px) {
+    margin-left: 30px !important;
   }
 `;
 

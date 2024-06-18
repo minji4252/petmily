@@ -1,8 +1,10 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import "react-calendar/dist/Calendar.css";
 import { IoClose } from "react-icons/io5";
 import { PiCaretLeftBold } from "react-icons/pi";
 import useModal from "../../hooks/UseModal";
+import defaultImage from "../../images/backDefault.png";
 import "../../styles/calendar.css";
 import {
   BoxStyle,
@@ -15,13 +17,11 @@ import {
   PetSelect,
   RadioText,
 } from "../../styles/calendar/IndexStyles";
-import "../../styles/reset.css";
 import "../../styles/common.css";
+import "../../styles/reset.css";
 import { SubmitButton } from "../common/Button";
 import Calendar from "./Calendar";
 import DetailModal from "./DetailModal";
-import axios from "axios";
-import defaultImage from "../../images/backDefault.png";
 
 import icon1 from "../../images/icon-1.png";
 import icon2 from "../../images/icon-2.png";
@@ -41,7 +41,7 @@ const iconMap = {
 
 const Index = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [petData, setPetData] = useState([]);
   const [selectedPetId, setSelectedPetId] = useState(null);
   const [selectedPetImage, setSelectedPetImage] = useState(defaultImage);
@@ -94,7 +94,6 @@ const Index = () => {
           style={{
             display: isVisible ? "block" : "none",
             width: isVisible ? "35%" : "0%",
-            // transition: "all 0.5s ease",
           }}
         >
           <BoxStyle className="pet-manage">
@@ -132,6 +131,7 @@ const Index = () => {
         <CalAddition
           style={{
             width: isVisible ? "65%" : "100%",
+            marginLeft: isVisible ? "30px" : "196px",
             transition: "all 0.5s ease",
           }}
         >
