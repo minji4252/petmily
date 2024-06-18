@@ -20,7 +20,7 @@ const Footer = () => {
             <li>
               <a href="javascript:void(0);" className="footer-map">
                 고객센터 · 문의하기 · 이용약관 · 사이트 ·
-                <span className="footer-p-info">개인정보처리방침</span>
+                <span className="footer-p-info"> 개인정보처리방침</span>
               </a>
             </li>
             <li>

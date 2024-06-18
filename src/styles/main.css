@@ -32,8 +32,8 @@
   text-align: right;
   color: white;
   font-size: 53px;
-  font-family: "Pretendard-Regular", sans-serif;
-  font-weight: 600;
+  font-family: "Pretendard-Bold", sans-serif;
+  font-weight: 700;
   letter-spacing: 10.6px;
   word-wrap: break-word;
 
@@ -45,7 +45,7 @@
 .m-tr-text-2 {
   color: white;
   font-size: 25px;
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard-Medium", sans-serif !important;
   font-weight: 500;
   line-height: 35px;
   word-wrap: break-word;
@@ -245,13 +245,15 @@
 
   font-size: 20px;
 
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard-SemiBold", sans-serif !important;
   font-weight: 600;
 }
 
 .mrc-side {
   color: #694e42;
   font-size: 17px;
+  font-family: "Pretendard-Medium", sans-serif !important;
+  font-weight: 500 !important;
 }
 
 /* main-sec-2 부분 - 투두 */
@@ -307,7 +309,7 @@
 
 .animal-txt {
   font-size: 20px;
-  font-family: "Pretendard-Regular", sans-serif;
+  font-family: "Pretendard-SemiBold", sans-serif !important;
   font-weight: 600;
   color: #694e42;
 }
