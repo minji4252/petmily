@@ -99,7 +99,7 @@ const MainUpload = () => {
         <div className="animal-pics-box">
           <div className="m-r-animal">
             <a href="javascript:void(0);" className="animal-txt">
-              동물 친구들
+              반려동물 앨범
             </a>
           </div>
           <div className="main-animal-pics-sync">

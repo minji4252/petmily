@@ -1,13 +1,28 @@
 /* 박민경 */
-.logout-button:hover {
+
+.logout-button,
+.main-button {
+  padding: 6px 11p;
+
+  cursor: pointer;
+  color: #896555 !important;
+  padding: 6px 15px;
+  border-radius: 24px;
+}
+
+.logout-button:hover,
+.main-button:hover {
   border: none;
   color: white !important;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  transition-duration: 0.4s;
+  transition: all 0.3s ease;
   cursor: pointer;
   background-color: #c1a89c;
+
+  border-radius: 24px;
+  padding: 6px 15px;
 }
 
 .header {
@@ -37,26 +52,20 @@
   margin: 0px auto;
 }
 
-.navi-list a:hover,
-.navi-list-2 a:hover {
-  /* border: none;
-  color: white; */
+.navi-list a:hover {
+  border: none;
 
   text-align: center;
   text-decoration: none;
   display: inline-block;
 
-  transition-duration: 0.4s;
-  cursor: pointer;
+  transition: all 0.3s ease;
 
   background-color: #c1a89c;
   color: white;
 
-  height: 30px;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border-radius: 30px;
+  padding: 6px 15px;
 }
 
 .header .inner {
@@ -85,28 +94,28 @@
   font-weight: 700;
   letter-spacing: 2px;
   word-wrap: break-word;
-  white-space: nowrap;
-  transition: all 0.5s ease;
-  padding: 0 10px;
-  border-radius: 500px;
+
+  padding: 6px 15px;
+  border-radius: 30px;
 }
 
 .navi-list-2 {
   display: flex;
-  gap: 50px;
-
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  gap: 51px;
+  align-items: center;
+  justify-content: center;
 }
 
-.navi-list-2 li {
-  color: #a47e6d;
+.navi-list-2 a {
+  color: #a47e6d !important;
   font-size: 17px;
   font-family: "Pretendard-Medium", sans-serif;
   font-weight: 500;
+  letter-spacing: 1.7px;
   word-wrap: break-word;
-  transition: all 0.5s ease;
+}
+.navi-list-2 a:hover {
+  color: white !important;
 }
 
 .header-navi {
@@ -119,11 +128,16 @@
     width: 101px;
   }
   .navi-list {
-    gap: 90px;
+    gap: 52px;
   }
 
   .navi-list-2 {
     gap: 18px;
+  }
+}
+@media all and (max-width: 835px) {
+  .navi-list {
+    gap: 33px;
   }
 }
 
