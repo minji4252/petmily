@@ -1,26 +1,24 @@
-import styled from "@emotion/styled";
-import { colorSystem } from "../../styles/color";
-import useModal from "../../hooks/UseModal";
-import { ActionButton, DelectButton, SubmitButton } from "../common/Button";
-import RegistModal from "./RegistModal";
-import { TfiPlus } from "react-icons/tfi";
-import {
-  AdminWrapStyle,
-  AdminStyle,
-  AdminLeft,
-  AdminTitle,
-  TitleLine,
-  AdminItem,
-  RadioText,
-  AddPetBtn,
-  AdminText,
-  AdminItemStyle,
-  AdminBtn,
-} from "../../styles/calendar/PetAdminStyles";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import ConfirmModal from "../common/ConfirmModal";
+import { useEffect, useState } from "react";
+import { TfiPlus } from "react-icons/tfi";
+import useModal from "../../hooks/UseModal";
+import {
+  AddPetBtn,
+  AdminBtn,
+  AdminItem,
+  AdminItemStyle,
+  AdminLeft,
+  AdminStyle,
+  AdminText,
+  AdminTitle,
+  AdminWrapStyle,
+  RadioText,
+  TitleLine,
+} from "../../styles/calendar/PetAdminStyles";
 import AlertModal from "../common/AlertModal";
+import { ActionButton, DelectButton, SubmitButton } from "../common/Button";
+import ConfirmModal from "../common/ConfirmModal";
+import RegistModal from "./RegistModal";
 
 const PetAdmin = () => {
   const { isModalOpen, confirmAction, openModal, closeModal } = useModal();
@@ -31,12 +29,10 @@ const PetAdmin = () => {
   const [isAlertModalOpen, setIsAlertOpen] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [modifyPetData, setModifyPetData] = useState(null);
-  const registModalRef = useRef(null);
 
   const handleRegister = () => {
-    if (registModalRef.current) {
-      registModalRef.current.resetForm();
-    }
+    setIsEditMode(false);
+    setModifyPetData(null);
     openModal({
       onConfirm: () => closeModal(),
     });
@@ -74,6 +70,7 @@ const PetAdmin = () => {
 
     const selectedPet = petData.find(pet => pet.petId == selectedPetId);
     setModifyPetData(selectedPet);
+    console.log("selectedPet", selectedPet);
     setIsEditMode(true);
 
     openModal({
@@ -164,8 +161,6 @@ const PetAdmin = () => {
           isOpen={isModalOpen}
           onClose={closeModal}
           onConfirm={confirmAction}
-          ref={registModalRef}
-          petData={petData}
         />
         <ConfirmModal
           isOpen={isDeleteModalOpen}

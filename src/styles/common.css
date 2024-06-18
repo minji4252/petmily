@@ -40,9 +40,14 @@
   box-sizing: border-box;
   font-family: "Pretendard-Regular", sans-serif !important;
   caret-color: transparent;
+  outline: none;
 }
 /* input 태그에만 커서 깜빡임 주기 */
 input {
+  caret-color: auto;
+}
+
+textarea {
   caret-color: auto;
 }
 

@@ -72,7 +72,6 @@ export const PetImgRegist = styled.div`
     display: inline-block;
     text-align: center;
     color: ${colorSystem.white};
-    /* font-weight: 600; */
     vertical-align: middle;
     font-size: 0.7rem;
     background-color: ${colorSystem.p400};
@@ -82,6 +81,7 @@ export const PetImgRegist = styled.div`
     width: 20%;
     border-radius: 50px;
     line-height: 30px;
+    letter-spacing: 1px;
   }
 
   > Input {
@@ -102,6 +102,10 @@ export const ImgPreview = styled.div`
   width: 140px;
   height: 130px;
   padding: 10px;
+  background-color: ${colorSystem.p100};
+  border-radius: 10px;
+  font-size: 0.8rem;
+  color: ${colorSystem.white};
 
   > img {
     width: 100%;
@@ -128,8 +132,8 @@ export const SelectedStyle = styled.div`
   }
 
   & input:checked + img {
-    box-shadow: 0 0 0 4px ${colorSystem.signature1};
-    border-radius: 50%;
+    box-shadow: 0 0 0 3px ${colorSystem.signature1};
+    border-radius: 100%;
   }
 `;
 

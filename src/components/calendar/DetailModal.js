@@ -14,8 +14,8 @@ import {
   PetImgRegist,
   ScheduleTitle,
 } from "../../styles/calendar/DetailModalStyles.js";
-import { CancelButton, SubmitButton } from "../common/Button";
 import AlertModal from "../common/AlertModal";
+import { CancelButton, SubmitButton } from "../common/Button";
 
 const DetailModal = ({
   isOpen,
@@ -133,15 +133,20 @@ const DetailModal = ({
     const userPk = sessionStorage.getItem("userPk");
     try {
       const formattedTime = `${timeValue}:00`;
-      const res = await axios.patch("/api/calendar", {
-        calendarId: findEventDay.calendarId,
+      const dataToSend = {
+        calendarId: selectedEvent.calendarId,
         userId: userPk,
         petId: selected,
         title: scheduleTitle,
         content: scheduleMemo,
         startDate: dateValue,
         startTime: formattedTime,
-      });
+      };
+
+      // 수정할 데이터를 콘솔에 출력
+      console.log("Sending data for edit:", dataToSend);
+
+      const res = await axios.patch("/api/calendar", dataToSend);
       if (res.data.code === "SU") {
         setAlertMessage("일정 수정이 완료되었습니다");
         setIsAlertOpen(true);
@@ -153,6 +158,31 @@ const DetailModal = ({
       alert("일정 수정 실패");
     }
   };
+  // const handleEdit = async () => {
+  //   const userPk = sessionStorage.getItem("userPk");
+  //   try {
+  //     const formattedTime = `${timeValue}:00`;
+  //     const res = await axios.patch("/api/calendar", {
+  //       calendarId: findEventDay.calendarId,
+  //       userId: userPk,
+  //       petId: selected,
+  //       title: scheduleTitle,
+  //       content: scheduleMemo,
+  //       startDate: dateValue,
+  //       startTime: formattedTime,
+  //     });
+
+  //     if (res.data.code === "SU") {
+  //       setAlertMessage("일정 수정이 완료되었습니다");
+  //       setIsAlertOpen(true);
+  //     } else {
+  //       console.log("API 오류");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     alert("일정 수정 실패");
+  //   }
+  // };
 
   function getCurrentDate() {
     const date = new Date();

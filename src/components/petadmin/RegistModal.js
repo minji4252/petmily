@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import color1 from "../../images/c-1.png";
 import color2 from "../../images/c-2.png";
@@ -22,8 +22,8 @@ import {
   SelectedStyle,
   WrapStyle,
 } from "../../styles/calendar/RegistModalStyles";
-import { CancelButton, SubmitButton } from "../common/Button";
 import AlertModal from "../common/AlertModal";
+import { CancelButton, SubmitButton } from "../common/Button";
 
 const icons = [
   { id: 1, src: icon1 },
@@ -63,16 +63,16 @@ const updatePetData = async data => {
   }
 };
 
-const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
+const RegistModal = ({ isOpen, onClose, isEdit, modifyPetData }) => {
   if (!isOpen) return null;
 
-  const [petName, setPetName] = useState(petData?.petName || "");
-  const [petCategory, setPetCategory] = useState(petData?.petCategory || "");
-  const [petIcon, setPetIcon] = useState(petData?.petIcon || "");
-  const [petBackColor, setPetBackColor] = useState(petData?.petBackColor || "");
-  const [previewImg, setPreviewPreImg] = useState(petData?.petImageUrl || "");
+  const [petName, setPetName] = useState("");
+  const [petCategory, setPetCategory] = useState("");
+  const [petIcon, setPetIcon] = useState("");
+  const [petBackColor, setPetBackColor] = useState("");
+  const [previewImg, setPreviewPreImg] = useState("");
   const [petImg, setPetImg] = useState(null);
-  const [isAlertModalOpen, setIsAlertOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
@@ -82,21 +82,23 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
       setPetIcon(modifyPetData.petIcon);
       setPetBackColor(modifyPetData.petBackColor);
       setPreviewPreImg(
-        `http://34.22.70.89:8080/pic/pet/${modifyPetData.petId}/${modifyPetData.petImage}`,
-        // `http://112.222.157.156:5112/pic/pet/${modifyPetData.petId}/${modifyPetData.petImage}`,
+        `http://112.222.157.156:5112/pic/pet/${modifyPetData.petId}/${modifyPetData.petImage}`,
       );
-      //임시
+      setPetImg(
+        `http://112.222.157.156:5112/pic/pet/${modifyPetData.petId}/${modifyPetData.petImage}`,
+      );
     }
   }, [modifyPetData]);
 
   const handleFile = e => {
     const tempFile = e.target.files[0];
     const tempUrl = URL.createObjectURL(tempFile);
+
     setPreviewPreImg(tempUrl);
     setPetImg(tempFile);
   };
 
-  const handleSubmit = async e => {
+  const handleRegisterSubmit = async e => {
     e.preventDefault();
 
     if (!petName) {
@@ -136,6 +138,47 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
       petBackColor: petBackColor,
     });
 
+    const dto = new Blob([infoData], {
+      type: "application/json",
+    });
+    formData.append("p", dto);
+    formData.append("petImage", petImg);
+
+    try {
+      const message = await registerPetData(formData);
+      setAlertMessage(message);
+      setIsAlertOpen(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleUpdateSubmit = async e => {
+    e.preventDefault();
+
+    if (!petName) {
+      setAlertMessage("반려동물 이름을 입력하세요");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!petCategory) {
+      setAlertMessage("반려동물 종류를 입력하세요 ");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!petIcon) {
+      setAlertMessage("아이콘을 선택해주세요");
+      setIsAlertOpen(true);
+      return;
+    }
+    if (!petBackColor) {
+      setAlertMessage("배경색을 선택해주세요");
+      setIsAlertOpen(true);
+      return;
+    }
+
+    const formData = new FormData();
+
     const editInfoData = JSON.stringify({
       petId: modifyPetData.petId,
       petName: petName,
@@ -144,17 +187,27 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
       petBackColor: petBackColor,
     });
 
-    const dto = new Blob([isEdit ? editInfoData : infoData], {
+    const dto = new Blob([editInfoData], {
       type: "application/json",
     });
     formData.append("p", dto);
-    formData.append("petImage", petImg);
+    if (petImg) {
+      formData.append("petImage", petImg);
+    }
+
+    //임시
+    console.log("업데이트 전송 데이터:", {
+      petId: modifyPetData.petId,
+      petName: petName,
+      petCategory: petCategory,
+      petIcon: petIcon,
+      petBackColor: petBackColor,
+      petImage: petImg,
+    });
 
     try {
-      const message = isEdit
-        ? await updatePetData(formData)
-        : await registerPetData(formData);
-      setAlertMessage(message);
+      await updatePetData(formData);
+      setAlertMessage("반려동물 수정이 완료되었습니다");
       setIsAlertOpen(true);
     } catch (error) {
       console.log(error);
@@ -179,7 +232,7 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
           <button className="close-btn" type="button" onClick={onClose}>
             <IoClose />
           </button>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={isEdit ? handleUpdateSubmit : handleRegisterSubmit}>
             <label htmlFor="petname">
               <p>반려동물 이름</p>
               <InputStyle
@@ -188,6 +241,7 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
                 placeholder="이름을 입력하세요"
                 value={petName}
                 onChange={e => setPetName(e.target.value)}
+                autoComplete="off"
               />
             </label>
             <label htmlFor="petkind">
@@ -198,6 +252,7 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
                 placeholder="종류를 입력하세요"
                 value={petCategory}
                 onChange={e => setPetCategory(e.target.value)}
+                autoComplete="off"
               />
             </label>
 
@@ -259,7 +314,7 @@ const RegistModal = ({ isOpen, onClose, isEdit, petData, modifyPetData }) => {
         </WrapStyle>
       )}
       <AlertModal
-        isOpen={isAlertModalOpen}
+        isOpen={isAlertOpen}
         onClose={handleAlertClose}
         message={alertMessage}
       />
