@@ -6,6 +6,7 @@ import milyicon from "../../images/mily-icon.png";
 import { Link } from "react-router-dom";
 import { SyncLoader } from "react-spinners";
 import AlertModal from "../../components/common/AlertModal";
+import { colorSystem } from "../../styles/color";
 
 const WrapStyle = styled.div`
   margin: 0;
@@ -61,6 +62,7 @@ const LoginForm = styled.div`
     border: 1px solid #cbb1a2;
     box-sizing: border-box;
     background-color: transparent;
+    color: ${colorSystem.p800};
   }
 
   & input::placeholder {
