@@ -30,6 +30,7 @@ const TodolistPage = () => {
   const [realDate, setRealDate] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
 
   const navigate = useNavigate();
   const logedid = sessionStorage.getItem("userPk");
@@ -140,28 +141,33 @@ const TodolistPage = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
+        setIsMobile(false);
         if (mobileMenu.current) {
           mobileMenu.current.style.display = "none";
           todoListRight.current.style.display = "flex";
           todoListLeft.current.style.display = "flex";
         }
       } else {
-        if (mobileMenu.current) {
+        setIsMobile(true);
+        if (
+          todoListRight.current &&
           todoListRight.current.style.display === "flex"
-            ? (todoListLeft.current.style.display = "none")
-            : "";
+        ) {
           todoListLeft.current.style.display = "none";
+        } else if (todoListLeft.current) {
+          todoListLeft.current.style.display = "flex";
         }
       }
     };
 
-    handleResize();
     window.addEventListener("resize", handleResize);
+    // 초기 실행 시 handleResize 호출
+    handleResize();
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isMobile]);
 
   const closeMobileMenu = () => {
     mobileMenu.current.style.display = "none";

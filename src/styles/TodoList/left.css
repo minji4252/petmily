@@ -52,6 +52,7 @@
   position: relative;
   width: 100%;
   max-width: 440px;
+  min-width: 400px;
   min-height: 800px;
   display: flex;
   gap: 20px;
@@ -149,6 +150,7 @@
   position: relative;
   width: 100%;
   max-width: 440px;
+  min-width: 400px;
   min-height: 800px;
   display: flex;
   gap: 20px;
@@ -426,7 +428,7 @@
   }
   .todo-left {
     min-width: 440px;
-    display: flex;
+    display: none;
     padding: 40px 50px;
   }
   .todo-right {
