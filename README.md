@@ -1,5 +1,29 @@
 # PETMILY 프로젝트
 
+### 시연영상
+
+https://github.com/minji4252/petmily/assets/165616445/1864a986-9f0d-4818-b012-afbd3da26234
+
+### 기획의도
+
+펫밀리는 반려동물 주인들이 반려동물의 건강과 일상을 체계적으로 관리할 수 있도록 도와주는 웹 플랫폼입니다.
+반려동물의 예방접종, 검진, 미용 등을 관리할 수 있는 캘린더 페이지,
+반려동물 프로필을 생성하고 관리하는 반려동물관리 페이지,
+그리고 일상적인 작업을 관리하는 투두리스트 페이지로 구성되어 있습니다.
+
+### 사용모듈
+
+- HTML5
+- CSS3
+- Javascript
+- React 18
+- React Router 6
+- React Calendar
+- Emotion
+- axios
+- Moment
+- Prettier
+
 ## \* 회원가입 페이지 & 로그인 페이지 (김민기)
 
 ![회원가입](https://github.com/minji4252/petmily/assets/165616445/fdfd81f7-f091-4bc2-ba1a-00be68d7373d)
