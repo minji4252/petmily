@@ -114,7 +114,24 @@ const SimpleModal = ({
     setSelectedEvent(item);
   };
 
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose(); // 모달 닫기 함수 호출
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
+
   const titleDate = moment(clickDay).format("DD dddd");
 
   return (
@@ -185,6 +202,7 @@ const SimpleModal = ({
       {isModalOpen && (
         <DetailModal
           isOpen={isModalOpen}
+          backdrop="static"
           onClose={closeModal}
           onConfirm={confirmAction}
           title={

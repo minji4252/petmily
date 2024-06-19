@@ -2,6 +2,17 @@ import styled from "@emotion/styled";
 import { colorSystem } from "../color.js";
 import defaultImage from "../../images/backDefault.png";
 
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99999999;
+  pointer-events: none !important;
+`;
+
 export const CalendarMain = styled.main`
   width: 100%;
   max-width: 1200px;
