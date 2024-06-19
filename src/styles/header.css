@@ -13,7 +13,7 @@
 .logout-button:hover,
 .main-button:hover {
   border: none;
-  color: white !important;
+  color: #fff !important;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -62,7 +62,7 @@
   transition: all 0.3s ease;
 
   background-color: #c1a89c;
-  color: white;
+  color: #fff;
 
   border-radius: 30px;
   padding: 6px 15px;
@@ -121,9 +121,22 @@
 
   font-family: "Pretendard-Medium", sans-serif !important;
   font-weight: 500 !important;
+  padding: 6px 15px;
+  border-radius: 30px;
 }
+
 .navi-list-2 a:hover {
-  color: white !important;
+  color: #fff !important;
+
+  background-color: #c1a89c;
+  padding: 6px 15px;
+  border-radius: 30px;
+
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
 .header-navi {
