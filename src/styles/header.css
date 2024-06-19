@@ -1,19 +1,15 @@
 /* 박민경 */
 
-.logout-button,
-.main-button {
-  padding: 6px 11p;
-
+.logout-button {
   cursor: pointer;
   color: #896555 !important;
   padding: 6px 15px;
   border-radius: 24px;
 }
 
-.logout-button:hover,
-.main-button:hover {
+.logout-button:hover {
   border: none;
-  color: #fff !important;
+  color: white !important;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -62,7 +58,7 @@
   transition: all 0.3s ease;
 
   background-color: #c1a89c;
-  color: #fff;
+  color: white;
 
   border-radius: 30px;
   padding: 6px 15px;
@@ -121,22 +117,23 @@
 
   font-family: "Pretendard-Medium", sans-serif !important;
   font-weight: 500 !important;
+
   padding: 6px 15px;
-  border-radius: 30px;
+  border-radius: 24px;
 }
-
 .navi-list-2 a:hover {
-  color: #fff !important;
-
-  background-color: #c1a89c;
-  padding: 6px 15px;
-  border-radius: 30px;
-
+  color: white !important;
   border: none;
+  color: white !important;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   transition: all 0.3s ease;
+  cursor: pointer;
+  background-color: #c1a89c;
+
+  border-radius: 24px;
+  padding: 6px 15px;
 }
 
 .header-navi {
