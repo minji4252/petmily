@@ -59,19 +59,34 @@ const Calendar = ({ petData, selectedPetId }) => {
 
   const userPk = sessionStorage.getItem("userPk");
 
+  const getAllPetData = async () => {
+    try {
+      const response = await axios.get(
+        `/api/calendar/user_id?user_id=${userPk}`,
+      );
+      setAllData(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getPetDataById = async petId => {
+    try {
+      const response = await axios.get(`/api/calendar/pet_id?pet_id=${petId}`);
+
+      setAllData(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const getAllPetData = async () => {
-      try {
-        const response = await axios.get(
-          `/api/calendar/user_id?user_id=${userPk}`,
-        );
-        setAllData(response.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getAllPetData();
-  }, []);
+    if (selectedPetId) {
+      getPetDataById(selectedPetId);
+    } else {
+      getAllPetData();
+    }
+  }, [selectedPetId]);
 
   const onClickDay = (value, event) => {
     const checkDay = moment(value).format("YYYY-MM-DD");
