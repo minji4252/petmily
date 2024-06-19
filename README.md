@@ -1,28 +1,45 @@
 # PETMILY 프로젝트
 
-### 시연영상
+### 1. 시연영상
 
 https://github.com/minji4252/petmily/assets/165616445/1864a986-9f0d-4818-b012-afbd3da26234
 
-### 기획의도
+### 2. 기획의도
 
 펫밀리는 반려동물 주인들이 반려동물의 건강과 일상을 체계적으로 관리할 수 있도록 도와주는 웹 플랫폼입니다.
 반려동물의 예방접종, 검진, 미용 등을 관리할 수 있는 캘린더 페이지,
 반려동물 프로필을 생성하고 관리하는 반려동물관리 페이지,
 그리고 일상적인 작업을 관리하는 투두리스트 페이지로 구성되어 있습니다.
 
-### 사용모듈
+### 3. 사용모듈
 
-- HTML5
-- CSS3
-- Javascript
-- React 18
-- React Router 6
-- React Calendar
-- Emotion
+- html
+  <img alt="Html" src ="https://img.shields.io/badge/HTML-E34F26.svg?&style=for-the-badge&logo=HTML&logoColor=white"/>
+- css
+  <img alt="Css" src ="https://img.shields.io/badge/CSS-1572B6.svg?&style=for-the-badge&logo=CSS&logoColor=white"/>
+- js
+  <img alt="JavaScript" src ="https://img.shields.io/badge/JavaScriipt-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black"/>
+- react
+  <img src="https://img.shields.io/badge/react.js-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
+
+- emotion
+  <img src="https://img.shields.io/badge/emotion-black?style=for-the-badge&logo=emotion&logoColor=white">
+- resetCss
+  <img src="https://img.shields.io/badge/resetCss-black?style=for-the-badge&logo=resetCss&logoColor=white">
 - axios
-- Moment
-- Prettier
+  <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+- react router
+  <img src="https://img.shields.io/badge/react router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
+
+### 4. 형상관리 도구
+
+- git
+  <a href = "https://github.com/Hun-Se"><img alt="GitHub" src ="https://img.shields.io/badge/GitHub-181717.svg?&style=for-the-badge&logo=GitHub&logoColor=white"/>
+  </a>
+
+### 5. 페이지 소개
+
+---
 
 ## \* 회원가입 페이지 & 로그인 페이지 (김민기)
 
@@ -69,6 +86,8 @@ https://github.com/minji4252/petmily/assets/165616445/1864a986-9f0d-4818-b012-af
 
 ## \* 캘린더 페이지 (김민지)
 
+### 동물 선택 및 캘린더
+
 ![캘린더](https://github.com/minji4252/petmily/assets/165616445/85199c50-f676-49e2-b619-b84109560083)
 
 일정 추가: 새로운 일정을 캘린더에 추가할 수 있는 기능입니다. 제목, 날짜, 시간, 동물선택, 설명 등을 입력할 수 있습니다.
@@ -80,6 +99,8 @@ https://github.com/minji4252/petmily/assets/165616445/1864a986-9f0d-4818-b012-af
 반려동물 별 일정보기: 왼쪽 창의 반려동물 목록에서 동물을 선택하면 그 동물의 일정만 확인이 가능합니다.
 
 ## \* 반려동물 관리페이지 (김민지)
+
+### 반려동물 관리
 
 ![반려동물관리](https://github.com/minji4252/petmily/assets/165616445/52b6ec25-01a1-48d5-a2ac-2e0a71b24be0)
 
