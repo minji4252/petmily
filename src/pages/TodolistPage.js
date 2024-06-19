@@ -130,9 +130,13 @@ const TodolistPage = () => {
         const options = { month: "long", day: "numeric" };
         return date.toLocaleDateString("ko-KR", options);
       };
+
       setRealDate(formatDate(result.headers.date));
     }
   };
+  useEffect(() => {
+    onToggle();
+  }, []);
 
   const openMobileMenu = () => {
     mobileMenu.current.style.display = "flex";
