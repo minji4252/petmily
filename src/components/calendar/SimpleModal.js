@@ -239,7 +239,7 @@ const SimpleModal = ({
         <AlertModal
           isOpen={isAlertOpen}
           onClose={handleAlertClose}
-          message="삭제 완료 되었습니다."
+          message="삭제 완료 되었습니다"
         />
       )}
     </>
