@@ -51,8 +51,8 @@
 .todo-left {
   position: relative;
   width: 100%;
-  max-width: 440px;
   min-width: 400px;
+  max-width: 440px;
   min-height: 800px;
   display: flex;
   gap: 20px;
@@ -135,9 +135,9 @@
 
 .todo-left-detail-box h4 {
   font-size: 20px;
+  font-weight: 600;
   color: rgba(135, 110, 99, 0.5);
   text-decoration: line-through;
-  font-weight: 600;
 }
 
 .todo-left-detail-delete {
@@ -149,8 +149,8 @@
 .todo-right {
   position: relative;
   width: 100%;
-  max-width: 440px;
   min-width: 400px;
+  max-width: 440px;
   min-height: 800px;
   display: flex;
   gap: 20px;
@@ -167,10 +167,10 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 25px;
   font-size: 40px;
   font-weight: 700;
   color: #a47e6d;
-  margin-bottom: 25px;
   letter-spacing: 3px;
 }
 
@@ -203,8 +203,8 @@
   box-sizing: border-box;
 }
 .todo-right-create-input::placeholder {
-  color: #cfbbb2;
   font-size: 0.9rem;
+  color: #cfbbb2;
 }
 
 .todo-right-box {
@@ -229,10 +229,10 @@
 
 .todo-right-detail-text {
   font-size: 20px;
+  font-weight: 600;
   color: rgba(135, 110, 99, 0.5);
   text-decoration: none;
   word-break: break-all;
-  font-weight: 600;
 }
 
 .todo-right-detail-right {
@@ -254,27 +254,26 @@
 }
 
 .realdelete {
-  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   width: 600px;
   height: 720px;
-  border-radius: 13px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
-  background-color: rgb(255, 255, 255);
+  display: none;
 
   padding: 30px 30px;
-
-  position: fixed;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: 50%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
   z-index: 9999;
+  background-color: rgb(255, 255, 255);
+  border-radius: 13px;
+  transform: translate(-50%, -50%);
 }
 
 .realdelete.open {
   display: flex;
+  align-items: center;
   /* gap: 30px; */
   flex-direction: column;
-  align-items: center;
   /* justify-content: center; */
   padding: 0;
   padding-top: 15px;
@@ -336,8 +335,8 @@
 }
 .create-button {
   outline: none;
-  all: unset;
   cursor: pointer;
+  all: unset;
 }
 
 .create-button svg {
@@ -376,12 +375,12 @@
 }
 
 .open-todolist {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 30px;
   width: 100%;
   height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
   font-size: 20px;
   font-weight: 600;
   color: #694e42;
@@ -389,11 +388,11 @@
 }
 
 .open-successlist {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 20px;
   font-weight: 600;
   color: #694e42;
@@ -401,8 +400,8 @@
 }
 
 .close-menu {
-  cursor: pointer;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 .svg-box {
   width: 100%;
@@ -411,11 +410,11 @@
 }
 .delete-box {
   position: absolute;
-  display: none;
-  left: 0;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  display: none;
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -440,8 +439,6 @@
     display: flex;
   }
   .mb-menumodal {
-    z-index: 99;
-    padding: 20px 20px;
     position: fixed;
     top: 100px;
     left: 0;
@@ -450,41 +447,44 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding: 20px 20px;
+    z-index: 99;
     background: #fff;
   }
 
   .realdelete {
-    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
     width: 300px;
     height: 360px;
-    border-radius: 13px;
+    display: none;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 12px 0px;
-    background-color: rgb(255, 255, 255);
-
-    position: fixed;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    top: 50%;
     z-index: 9999;
+    background-color: rgb(255, 255, 255);
+    border-radius: 13px;
+    transform: translate(-50%, -50%);
   }
 
   .realdelete.open {
     display: flex;
-    gap: 30px;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* gap: 30px; */
+    flex-direction: column;
+    /* justify-content: center; */
+    padding: 0;
+    padding-top: 15px;
   }
 
   .menubox {
-    display: none;
     position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    left: 0;
-    top: 0;
+    display: none;
     z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
   }
   .modifybox {
     padding: 210px 50px;

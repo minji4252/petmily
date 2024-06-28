@@ -142,35 +142,36 @@ const TodolistPage = () => {
     mobileMenu.current.style.display = "flex";
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMobile(false);
-        if (mobileMenu.current) {
-          mobileMenu.current.style.display = "none";
-          todoListRight.current.style.display = "flex";
-          todoListLeft.current.style.display = "flex";
-        }
-      } else {
-        setIsMobile(true);
-        if (
-          todoListRight.current &&
-          todoListRight.current.style.display === "flex"
-        ) {
-          todoListLeft.current.style.display = "none";
-        } else if (todoListLeft.current) {
-          todoListLeft.current.style.display = "flex";
-        }
+  const handleResize = () => {
+    if (window.innerWidth >= 768) {
+      setIsMobile(false);
+      if (mobileMenu.current) {
+        mobileMenu.current.style.display = "none";
+        todoListRight.current.style.display = "flex";
+        todoListLeft.current.style.display = "flex";
       }
-    };
-
-    window.addEventListener("resize", handleResize);
-    // 초기 실행 시 handleResize 호출
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    } else {
+      setIsMobile(true);
+      if (
+        todoListRight.current &&
+        todoListRight.current.style.display === "flex"
+      ) {
+        todoListLeft.current.style.display = "none";
+      } else if (todoListLeft.current) {
+        todoListLeft.current.style.display = "flex";
+      }
+    }
+    console.log(todoListRight.current.style.display);
+  };
+  useEffect(() => {
+    if (isMobile) {
+      window.addEventListener("resize", handleResize);
+      // 초기 실행 시 handleResize 호출
+      handleResize();
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
   }, [isMobile]);
 
   const closeMobileMenu = () => {
