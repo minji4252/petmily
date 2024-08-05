@@ -105,8 +105,8 @@ https://github.com/minji4252/petmily/assets/165616445/1864a986-9f0d-4818-b012-af
 ![반려동물관리](https://github.com/minji4252/petmily/assets/165616445/52b6ec25-01a1-48d5-a2ac-2e0a71b24be0)
 
 반려동물 추가하기: 반려동물을 새로 등록할 수 있는 기능입니다. 반려동물 이름, 종류, 캘린더 뒷배경, 아이콘 및 사진첨부가 가능합니다.
-![반려동물수정](https://github.com/user-attachments/assets/6bf35913-c70-4287-b3c3-2297a81f21cc)
 
+![반려동물수정](https://github.com/user-attachments/assets/a5cbe4e3-3d5a-49d8-9e43-ff81f596070e)
 반려 동물 수정: 반려동물의 정보를 수정할 수 있는 기능입니다.
 
 반려 동물 삭제: 원하는 반려동물을 삭제할 수 있습니다.
