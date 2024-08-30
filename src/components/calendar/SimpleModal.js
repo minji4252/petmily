@@ -114,21 +114,21 @@ const SimpleModal = ({
     setSelectedEvent(item);
   };
 
-  useEffect(() => {
-    const handleClickOutside = event => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        onClose(); // 모달 닫기 함수 호출
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = event => {
+  //     if (modalRef.current && !modalRef.current.contains(event.target)) {
+  //       onClose(); // 모달 닫기 함수 호출
+  //     }
+  //   };
 
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
+  //   if (isOpen) {
+  //     document.addEventListener("mousedown", handleClickOutside);
+  //   }
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -202,7 +202,7 @@ const SimpleModal = ({
       {isModalOpen && (
         <DetailModal
           isOpen={isModalOpen}
-          backdrop="static"
+          // backdrop="static"
           onClose={closeModal}
           onConfirm={confirmAction}
           title={

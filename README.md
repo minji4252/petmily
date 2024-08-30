@@ -13,28 +13,19 @@ https://github.com/minji4252/petmily/assets/165616445/1864a986-9f0d-4818-b012-af
 
 ### 3. 사용모듈
 
-- html
-  <img alt="Html" src ="https://img.shields.io/badge/HTML-E34F26.svg?&style=for-the-badge&logo=HTML&logoColor=white"/>
-- css
-  <img alt="Css" src ="https://img.shields.io/badge/CSS-1572B6.svg?&style=for-the-badge&logo=CSS&logoColor=white"/>
-- js
-  <img alt="JavaScript" src ="https://img.shields.io/badge/JavaScriipt-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black"/>
-- react
-  <img src="https://img.shields.io/badge/react.js-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
+- <img alt="Html" src ="https://img.shields.io/badge/HTML-E34F26.svg?&style=for-the-badge&logo=HTML&logoColor=white"/>
+- <img alt="Css" src ="https://img.shields.io/badge/CSS-1572B6.svg?&style=for-the-badge&logo=CSS&logoColor=white"/>
+- <img alt="JavaScript" src ="https://img.shields.io/badge/JavaScriipt-F7DF1E.svg?&style=for-the-badge&logo=JavaScript&logoColor=black"/>
+- <img src="https://img.shields.io/badge/react.js-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
 
-- emotion
-  <img src="https://img.shields.io/badge/emotion-black?style=for-the-badge&logo=emotion&logoColor=white">
-- resetCss
-  <img src="https://img.shields.io/badge/resetCss-black?style=for-the-badge&logo=resetCss&logoColor=white">
-- axios
-  <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
-- react router
-  <img src="https://img.shields.io/badge/react router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
+- <img src="https://img.shields.io/badge/emotion-black?style=for-the-badge&logo=emotion&logoColor=white">
+- <img src="https://img.shields.io/badge/resetCss-black?style=for-the-badge&logo=resetCss&logoColor=white">
+- <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+- <img src="https://img.shields.io/badge/react router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
 
 ### 4. 형상관리 도구
 
-- git
-  <a href = "https://github.com/Hun-Se"><img alt="GitHub" src ="https://img.shields.io/badge/GitHub-181717.svg?&style=for-the-badge&logo=GitHub&logoColor=white"/>
+- <a href = "https://github.com/Hun-Se"><img alt="GitHub" src ="https://img.shields.io/badge/GitHub-181717.svg?&style=for-the-badge&logo=GitHub&logoColor=white"/>
   </a>
 
 ### 5. 페이지 소개
@@ -80,7 +71,7 @@ https://github.com/minji4252/petmily/assets/165616445/1864a986-9f0d-4818-b012-af
 
 ### 완료된 할일 및 오늘의 할일
 
-![일정](https://github.com/minji4252/petmily/assets/165616445/e3f68343-8025-43e4-a3de-8c7db9ae0b4f)
+![일정](https://github.com/user-attachments/assets/1b30574d-34e7-4f74-857f-527265bbceb7)
 오늘의 할일 : 할일을 입력하고 + 를 클릭하면 자동 추가되며, 수정 및 삭제가 가능합니다.
 완료된 할일 : 오늘의 할일에서 체크 표시를 하면 자동으로 완료된 할일에 옮겨지며, 비우기 클릭시 전체 삭제가 가능합니다.
 
@@ -88,11 +79,13 @@ https://github.com/minji4252/petmily/assets/165616445/1864a986-9f0d-4818-b012-af
 
 ### 동물 선택 및 캘린더
 
-![캘린더](https://github.com/minji4252/petmily/assets/165616445/85199c50-f676-49e2-b619-b84109560083)
-
-일정 추가: 새로운 일정을 캘린더에 추가할 수 있는 기능입니다. 제목, 날짜, 시간, 동물선택, 설명 등을 입력할 수 있습니다.
+![캘린더](https://github.com/user-attachments/assets/63657fa5-eff6-4f2c-b846-03e34392aad9)
 
 일정 보기: 해당 일정을 작은 팝업창으로 간략하게 볼 수도 있고 더보기 버튼을 클릭하면 상세보기로 확인이 가능합니다.
+
+![일정추가](https://github.com/user-attachments/assets/5155c6b8-456d-44f1-8321-3ed07953edca)
+
+일정 추가: 새로운 일정을 캘린더에 추가할 수 있는 기능입니다. 제목, 날짜, 시간, 동물선택, 설명 등을 입력할 수 있습니다.
 
 일정 수정 및 삭제: 기존 일정을 수정하거나 삭제할 수 있는 기능입니다. 잘못 입력된 정보를 수정하거나, 필요 없는 일정을 삭제할 수 있습니다.
 
